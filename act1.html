@@ -21,36 +21,36 @@
         }
         .section {
             position: relative;
-            height: 100vh; /* Full height for each section */
+            height: 100vh; 
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             color: white;
-            overflow: hidden; /* Hide overflow for animations */
-            background-size: cover; /* Ensure background covers the section */
-            background-position: center; /* Center the background image */
+            overflow: hidden; 
+            background-size: cover; 
+            background-position: center; 
         }
         .section:nth-child(1) {
-            background-image: url('images/image1.jpg'); /* ROG Phone 6 */
+            background-image: url('images/image1.jpg'); 
         }
         .section:nth-child(2) {
-            background-image: url('images/image2.png'); /* Stunning Design */
-            background-color: #1e1e1e; /* Fallback color */
+            background-image: url('images/image2.png'); 
+            background-color: #1e1e1e; 
         }
         .section:nth-child(3) {
-            background-image: url('images/image3.jpg'); /* Advanced Camera */
-            background-color: #333; /* Fallback color */
+            background-image: url('images/image3.jpg'); 
+            background-color: #333; 
         }
         .section:nth-child(4) {
-            background-image: url('images/image4.jpg'); /* Unmatched Performance */
+            background-image: url('images/image4.jpg'); 
         }
         .content {
             position: relative;
             z-index: 1;
             padding: 20px;
-            opacity: 0; /* Start invisible for fade-in effect */
-            animation: fadeIn 1s forwards; /* Fade-in animation */
+            opacity: 0; 
+            animation: fadeIn 1s forwards; 
         }
         @keyframes fadeIn {
             from { opacity: 0; }
