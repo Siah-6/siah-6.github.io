@@ -1,0 +1,20 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url('images/paris_background.jpg'); /* Background image */
+    background-size: cover; /* Cover the entire background */
+    background-position: center; /* Center the background image */
+    color: #fff; /* Default text color */
+}
+
+.card {
+    border: none; /* Remove card borders */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.card-title {
+    color: #ffe600; /* Bright color for headings */
+}
+
+.card-text {
+    color: #f1f1f1; /* Lighter gray for text */
+}
