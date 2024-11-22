@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="parallax.css" />
+	<!-- Favicon ICO -->
+  <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+	<title>Arcane Legends</title>
+	<style>
+		html {
+			scroll-behavior: smooth;
+		}
+
+		.main-content {
+			background: url('img/arcane_background.jpg') no-repeat center center/cover;
+			color: #fff;
+			padding: 50px;
+			font-family: 'Lora', serif;
+		}
+
+		.main-content h1,
+		.main-content h2 {
+			text-align: center;
+			color: #ffd700;
+			text-shadow: 2px 2px 4px #000;
+		}
+
+		.main-content h1 {
+			font-size: 3rem;
+			margin-bottom: 20px;
+		}
+
+		.main-content h2 {
+			font-size: 2rem;
+			margin-bottom: 15px;
+		}
+
+		.main-content p {
+			font-size: 1.2rem;
+			line-height: 1.8;
+			text-shadow: 1px 1px 3px #000;
+		}
+
+		.main-content ul {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		.main-content ul li {
+			background: rgba(0, 0, 0, 0.7);
+			margin: 10px 0;
+			padding: 10px 15px;
+			border-left: 5px solid #ffd700;
+			font-size: 1.1rem;
+			border-radius: 5px;
+		}
+
+		.main-content .call-to-action {
+			text-align: center;
+			margin-top: 40px;
+		}
+
+		.main-content .call-to-action a {
+			display: inline-block;
+			background-color: #ffd700;
+			color: #000;
+			padding: 15px 30px;
+			font-size: 1.2rem;
+			font-weight: bold;
+			text-decoration: none;
+			border-radius: 30px;
+			box-shadow: 2px 2px 6px #333;
+			transition: background 0.3s, transform 0.3s;
+		}
+
+		.main-content .call-to-action a:hover {
+			background-color: #ffae00;
+			transform: translateY(-3px);
+		}
+
+		.scroll-cue {
+			text-align: center;
+			position: absolute;
+			bottom: 20px;
+			width: 100%;
+			z-index: 10;
+		}
+
+		.scroll-cue a {
+			text-decoration: none;
+			color: #ffd700;
+			font-size: 2rem;
+			text-shadow: 2px 2px 4px #000;
+		}
+	</style>
+</head>
+
+<body>
+	<section>
+		<div class="keyart" id="parallax">
+			<div class="keyart_layer parallax" id="keyart-0" data-speed="2"></div>
+			<div class="keyart_layer parallax" id="keyart-1" data-speed="5"></div>
+			<div class="keyart_layer parallax" id="keyart-2" data-speed="11"></div>
+			<div class="keyart_layer parallax" id="keyart-3" data-speed="36"></div>
+			<div class="keyart_layer parallax" id="keyart-4" data-speed="26"></div>
+			<div class="keyart_layer parallax" id="keyart-5" data-speed="70"></div>
+			<div class="keyart_layer parallax" id="keyart-6" data-speed="49"></div>
+			<div class="keyart_layer parallax" id="keyart-7" data-speed="49"></div>
+			<div class="keyart_layer" id="keyart-8" data-speed="100"></div>
+		</div>
+		<div class="scroll-cue">
+			<a href="#main-content">&#x2193;</a>
+		</div>
+	</section>
+
+	<section id="main-content" class="main-content">
+		<!-- Arcane Legends Content -->
+		<h1>Arcane Legends</h1>
+		<p>
+			Step into a mystical realm filled with thrilling adventures, formidable foes, and endless treasures.
+			Arcane Legends is a free-to-play MMORPG that has captured the hearts of millions around the globe. Embark on a
+			journey to become a legendary hero in this vibrant, fantasy-filled world!
+		</p>
+
+		<h2>An Immersive World</h2>
+		<p>
+			Explore breathtaking landscapes, from enchanted forests to ancient dungeons teeming with danger. Each area in
+			Arcane Legends offers unique quests, epic battles, and hidden treasures waiting to be discovered.
+		</p>
+
+		<h2>Choose Your Path</h2>
+		<ul>
+			<li><strong>Warrior:</strong> Lead the charge with unmatched strength and fortitude.</li>
+			<li><strong>Sorcerer:</strong> Command the elements with devastating magic and cunning strategy.</li>
+			<li><strong>Rogue:</strong> Strike from the shadows with deadly precision and agility.</li>
+		</ul>
+
+		<h2>Key Features</h2>
+		<ul>
+			<li>Team-based quests and dungeon crawls.</li>
+			<li>Dynamic player-versus-player (PvP) battles.</li>
+			<li>Over 50 collectible and trainable pets to aid in combat.</li>
+			<li>Guild systems for alliances and social gameplay.</li>
+		</ul>
+
+		<div class="call-to-action">
+			<h2>Start Your Adventure!</h2>
+			<a href="https://www.arcanelegendsgame.com/" target="_blank">Play Now</a>
+		</div>
+	</section>
+
+	<!--Uses JQuery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript" src="js/parallax.js"></script>
+
+</body>
+
+</html>

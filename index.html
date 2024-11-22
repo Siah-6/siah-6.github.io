@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jon Josiah's Projects</title>
+
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -18,24 +21,27 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #0d1117;
             color: #c9d1d9;
             overflow-x: hidden;
             position: relative;
-            background-image: url('images/eclipse.jpg'); 
+            background-image: url('images/eclipse.jpg');
             background-size: cover;
             background-position: center;
         }
+
         #particles-js {
             position: absolute;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
-            z-index: -1; 
+            z-index: -1;
         }
+
         .navbar {
             position: fixed;
             top: 0;
@@ -48,6 +54,7 @@
             background-color: rgba(13, 17, 23, 0.7);
             backdrop-filter: blur(10px);
         }
+
         .navbar a {
             color: #58a6ff;
             text-decoration: none;
@@ -56,6 +63,7 @@
             transition: all 0.3s ease;
             position: relative;
         }
+
         .navbar a::after {
             content: '';
             position: absolute;
@@ -66,12 +74,15 @@
             background-color: #58a6ff;
             transition: width 0.3s ease;
         }
+
         .navbar a:hover {
             color: #ffffff;
         }
+
         .navbar a:hover::after {
             width: 100%;
         }
+
         header {
             min-height: 100vh;
             display: flex;
@@ -82,40 +93,47 @@
             position: relative;
             padding-top: 300px;
         }
+
         .profile-content {
             z-index: 1;
             position: relative;
             max-width: 800px;
             margin: 0 auto;
         }
+
         .introduction {
             color: #8b949e;
             margin-bottom: 2rem;
-            margin-top: 15rem; 
+            margin-top: 15rem;
             line-height: 1.6;
             font-size: 1rem;
         }
+
         h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
             font-weight: 600;
             opacity: 0;
-            animation: fadeInUp 2s forwards; 
+            animation: fadeInUp 2s forwards;
         }
+
         p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
-            opacity: 0; 
-            animation: fadeInUp 2s forwards 1s; 
+            opacity: 0;
+            animation: fadeInUp 2s forwards 1s;
         }
+
         .projects-section {
             margin-top: 4rem;
         }
+
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
         }
+
         .project-card {
             background-color: rgba(13, 17, 23, 0.7);
             border: 2px solid #30363d;
@@ -126,17 +144,20 @@
             position: relative;
             overflow: hidden;
         }
+
         .project-card h3 {
             color: #58a6ff;
             margin-bottom: 1rem;
             font-size: 1.5rem;
         }
+
         .project-card p {
             color: #8b949e;
             margin-bottom: 1.5rem;
             opacity: 1;
             animation: none;
         }
+
         .project-links a {
             display: inline-block;
             font-size: 1rem;
@@ -148,23 +169,27 @@
             border-radius: 50px;
             transition: all 0.3s ease;
             opacity: 0;
-            animation: fadeInUp 2s forwards 2s; 
-            z-index: 1; 
+            animation: fadeInUp 2s forwards 2s;
+            z-index: 1;
         }
+
         .project-links a:hover {
             background-color: #58a6ff;
             color: #0d1117;
         }
+
         footer {
             text-align: center;
             padding: 2rem;
             font-size: 0.9rem;
             color: #8b949e;
         }
+
         footer a {
             color: #58a6ff;
             text-decoration: none;
         }
+
         footer a:hover {
             text-decoration: underline;
         }
@@ -174,6 +199,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -185,60 +211,80 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
-        <a href="#" onclick="alert('Contact form coming soon!')">Contact</a>
+        <a href="404-page/404.html" class="btn btn-primary">Contact</a>
     </nav>
 
     <!-- Particle Background -->
     <div id="particles-js"></div>
 
     <!-- Header Section -->
-    <header id="home">
-        <div class="profile-content">
-            <h1>Hey, I'm Jon Josiah</h1>
-            <div class="introduction" id="about">
-                <p>Welcome to my digital space! I'm a 21-year-old passionate student diving deep into the world of technology and web development. When I'm not coding, you'll find me in the competitive arena of Mobile Legends, strumming my favorite tunes on a musical instrument, or exploring the captivating worlds of anime.</p>
-                <p>This website is a personal project, crafted purely for educational purposes – a digital playground where I showcase my learning journey and technical skills.</p>
-            </div>
-            <div id="projects" class="projects-section">
-                <div class="projects-grid">
-                    <div class="project-card" data-aos="zoom-in" data-aos-delay="100">
-                        <h3>Phone Project</h3>
-                        <p>A responsive web application exploring mobile interface design and user experience.</p>
-                        <div class="project-links">
-                            <a href="phone/index.html">View Project</a>
-                        </div>
+<header id="home">
+    <div class="profile-content">
+        <h1>Hey, I'm Jon Josiah</h1>
+        <div class="introduction" id="about">
+            <p>Welcome to my digital space! I'm a 21-year-old passionate student diving deep into the world of
+                technology and web development. When I'm not coding, you'll find me in the competitive arena of
+                Mobile Legends, strumming my favorite tunes on a musical instrument, or exploring the captivating
+                worlds of anime.</p>
+            <p>This website is a personal project, crafted purely for educational purposes – a digital playground
+                where I showcase my learning journey and technical skills.</p>
+        </div>
+        <div id="projects" class="projects-section">
+            <div class="projects-grid">
+                <div class="project-card" data-aos="zoom-in" data-aos-delay="100">
+                    <h3>Phone Project</h3>
+                    <p>A responsive web application exploring mobile interface design and user experience.</p>
+                    <div class="project-links">
+                        <a href="phone/index.html">View Project</a>
                     </div>
-                    <div class="project-card" data-aos="zoom-in" data-aos-delay="200">
-                        <h3>Place Project</h3>
-                        <p>An interactive web project demonstrating dynamic content rendering and layout techniques.</p>
-                        <div class="project-links">
-                            <a href="place/index.html">View Project</a>
-                        </div>
+                </div>
+                <div class="project-card" data-aos="zoom-in" data-aos-delay="200">
+                    <h3>Place Project</h3>
+                    <p>An interactive web project demonstrating dynamic content rendering and layout techniques.</p>
+                    <div class="project-links">
+                        <a href="place/index.html">View Project</a>
                     </div>
-                    <div class="project-card" data-aos="zoom-in" data-aos-delay="300">
-                        <h3>Gallery Project</h3>
-                        <p>A creative gallery application showcasing image handling and responsive design principles.</p>
-                        <div class="project-links">
-                            <a href="gallery/index.html">View Project</a>
-                        </div>
+                </div>
+                <div class="project-card" data-aos="zoom-in" data-aos-delay="300">
+                    <h3>Gallery Project</h3>
+                    <p>A creative gallery application showcasing image handling and responsive design principles.</p>
+                    <div class="project-links">
+                        <a href="gallery/index.html">View Project</a>
                     </div>
-                    <div class="project-card" data-aos="zoom-in" data-aos-delay="400">
-                        <h3>API Project</h3>
-                        <p>A web application demonstrating API integration, data fetching, and real-world data manipulation.</p>
-                        <div class="project-links">
-                            <a href="dog-site/index.html">View Project</a>
-                        </div>
+                </div>
+                <div class="project-card" data-aos="zoom-in" data-aos-delay="400">
+                    <h3>API Project</h3>
+                    <p>A web application demonstrating API integration, data fetching, and real-world data manipulation.</p>
+                    <div class="project-links">
+                        <a href="dog-site/index.html">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card" data-aos="zoom-in" data-aos-delay="500">
+                    <h3>Parallax Project</h3>
+                    <p>A visually stunning website using parallax scrolling effects to create dynamic and immersive web experiences.</p>
+                    <div class="project-links">
+                        <a href="parallax/index.html">View Project</a>
+                    </div>
+                </div>
+                <div class="project-card" data-aos="zoom-in" data-aos-delay="600">
+                    <h3>Video Project</h3>
+                    <p>A captivating video presentation showcasing a variety of anime clips.</p>
+                    <div class="project-links">
+                        <a href="video/index.html">Watch Video</a> 
                     </div>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
+
 
     <!-- Footer Section -->
     <footer>
@@ -318,4 +364,5 @@
         });
     </script>
 </body>
+
 </html>

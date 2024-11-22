@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon ICO -->
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     <title>ROG Phone 6 Showcase</title>
 
     <!-- Google Fonts -->
@@ -19,52 +22,67 @@
             padding: 0;
             background-color: #f4f4f4;
         }
+
         .section {
             position: relative;
-            height: 100vh; 
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             color: white;
-            overflow: hidden; 
-            background-size: cover; 
-            background-position: center; 
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
         }
+
         .section:nth-child(1) {
-            background-image: url('images/image1.jpg'); 
+            background-image: url('images/image1.jpg');
         }
+
         .section:nth-child(2) {
-            background-image: url('images/image2.png'); 
-            background-color: #1e1e1e; 
+            background-image: url('images/image2.png');
+            background-color: #1e1e1e;
         }
+
         .section:nth-child(3) {
-            background-image: url('images/image3.jpg'); 
-            background-color: #333; 
+            background-image: url('images/image3.jpg');
+            background-color: #333;
         }
+
         .section:nth-child(4) {
-            background-image: url('images/image4.jpg'); 
+            background-image: url('images/image4.jpg');
         }
+
         .content {
             position: relative;
             z-index: 1;
             padding: 20px;
-            opacity: 0; 
-            animation: fadeIn 1s forwards; 
+            opacity: 0;
+            animation: fadeIn 1s forwards;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
+
         h1 {
             font-size: 3rem;
             margin-bottom: 20px;
         }
+
         p {
             font-size: 1.25rem;
         }
     </style>
 </head>
+
 <body>
 
     <div class="section">

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Showcase</title>
+
+  <!-- Favicon ICO -->
+  <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+
+    .anime-container {
+      margin: 2rem auto;
+    }
+
+    .anime-item {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border: 1px solid #30363d;
+      border-radius: 15px;
+      background-color: #161b22;
+    }
+
+    .anime-item h3 {
+      color: #58a6ff;
+    }
+
+    iframe {
+      width: 100%;
+      height: 350px;
+      border: 2px solid #30363d;
+      border-radius: 15px;
+    }
+
+    .details {
+      margin-top: 0.5rem;
+      color: #8b949e;
+      font-size: 0.95rem;
+    }
+
+    .anime-item iframe,
+    .anime-item video {
+      width: 100%;
+      height: 350px;
+    }
+
+    @media (max-width: 768px) {
+      iframe {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="text-center my-4">Anime Showcase</h1>
+    <p class="text-center">Explore popular anime trailers and clips with details below each video.</p>
+
+    <div class="row anime-container">
+      <!-- Jujutsu Kaisen -->
+      <div class="col-md-6">
+        <div class="anime-item">
+          <h3>Jujutsu Kaisen</h3>
+          <iframe src="https://www.youtube.com/embed/Pm-wNmS9RGI?si=Eu7_lC3lAcG0HAh4" title="Jujutsu Kaisen Trailer"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+          <p class="details">Jujutsu Kaisen follows Yuji Itadori as he battles curses and struggles to protect humanity.
+          </p>
+        </div>
+      </div>
+
+      <!-- Ragna Crimson -->
+      <div class="col-md-6">
+        <div class="anime-item">
+          <h3>Ragna Crimson</h3>
+          <iframe src="https://www.youtube.com/embed/eDWwn72N2zA?si=lSMwqOK_S5z3s9Xc" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+          </iframe>
+          <p class="details">Ragna Crimson dives into the intense battle between humanity and dragons, showcasing epic
+            storytelling.</p>
+        </div>
+      </div>
+
+      <!-- Black Clover -->
+      <div class="col-md-6">
+        <div class="anime-item">
+          <h3>Black Clover</h3>
+          <iframe src="https://www.youtube.com/embed/PrgxJ1_sUcs?si=Cj0XXt_qFjeubR6K" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+          </iframe>
+          <p class="details">Black Clover follows Asta and Yuno as they aim to become the Wizard King.</p>
+        </div>
+      </div>
+
+      <!-- DanMachi -->
+      <div class="col-md-6">
+        <div class="anime-item">
+          <h3>DanMachi (Is It Wrong to Try to Pick Up Girls in a Dungeon?)</h3>
+          <iframe src="https://www.youtube.com/embed/Nk23ix2xgTg?si=EaVKk68dGaRrY4W-" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+          </iframe>
+          <p class="details">This anime explores the adventures of Bell Cranel as he journeys through the mysterious
+            dungeons.</p>
+        </div>
+      </div>
+
+      <!-- Chainsaw Man -->
+      <div class="col-md-6">
+        <div class="anime-item">
+          <h3>Chainsaw Man</h3>
+          <iframe src="https://www.youtube.com/embed/q15CRdE5Bv0?si=FWDbSgO3GfflLyJv" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+          </iframe>
+          <p class="details">Chainsaw Man features Denji, who battles devils with his Chainsaw Devil powers.</p>
+        </div>
+      </div>
+
+      <!-- Dandadan -->
+      <div class="col-md-6">
+        <div class="anime-item">
+          <h3>Dandadan</h3>
+          <iframe src="https://www.youtube.com/embed/0XJxfbN36Uw?si=Xvl5TJZAN9Yky2zu" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+          </iframe>
+          <p class="details">Dandadan features a wild mix of supernatural battles and epic adventures.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
