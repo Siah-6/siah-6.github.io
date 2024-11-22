@@ -31,6 +31,7 @@
             background-image: url('images/eclipse.jpg');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed; /* Ensure clarity and fixed background */
         }
 
         #particles-js {
@@ -277,7 +278,7 @@
                     <h3>Video Project</h3>
                     <p>A captivating video presentation showcasing a variety of anime clips.</p>
                     <div class="project-links">
-                        <a href="video/index.html">Watch Video</a> 
+                        <a href="video/index.html">View Project</a>
                     </div>
                 </div>
             </div>
@@ -285,84 +286,35 @@
     </div>
 </header>
 
-
     <!-- Footer Section -->
     <footer>
-        <p>&copy; 2024 <a href="#">Jon Josiah</a>. All Rights Reserved.</p>
+        <p>Created by <a href="https://github.com/Siah-6" target="_blank">Jon Josiah</a> &copy; 2024</p>
     </footer>
 
-    <!-- AOS JS -->
+    <!-- AOS Script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-    <!-- Particles.js -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         AOS.init({
             duration: 1000,
             easing: 'ease-in-out',
             once: true
         });
+    </script>
 
-        particlesJS('particles-js', {
+    <!-- Particles JS -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
             particles: {
-                number: {
-                    value: 80,
-                    density: {
-                        enable: true,
-                        value_area: 800
-                    }
-                },
-                color: {
-                    value: '#58a6ff'
-                },
-                shape: {
-                    type: 'circle',
-                    stroke: {
-                        width: 0,
-                        color: '#000000'
-                    }
-                },
-                opacity: {
-                    value: 0.5,
-                    random: true,
-                    anim: {
-                        enable: true,
-                        speed: 1,
-                        opacity_min: 0.1,
-                        sync: false
-                    }
-                },
-                size: {
-                    value: 3,
-                    random: true,
-                    anim: {
-                        enable: true,
-                        speed: 2,
-                        size_min: 0.1,
-                        sync: false
-                    }
-                },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: '#58a6ff',
-                    opacity: 0.4,
-                    width: 1
-                }
-            },
-            interactivity: {
-                events: {
-                    onhover: {
-                        enable: true,
-                        mode: 'repulse'
-                    }
-                }
+                number: { value: 100 },
+                color: { value: "#58a6ff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5 },
+                size: { value: 2 },
+                move: { speed: 1 }
             }
         });
     </script>
-</body>
 
+</body>
 </html>
