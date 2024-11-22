@@ -30,8 +30,16 @@
             position: relative;
             background-image: url('images/eclipse.jpg');
             background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Ensure clarity and fixed background */
+            background-position: center center;
+            background-attachment: fixed;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                background-image: url('images/eclipse-highres.jpg');
+                background-size: cover;
+                background-position: center center;
+            }
         }
 
         #particles-js {
@@ -226,65 +234,68 @@
     <div id="particles-js"></div>
 
     <!-- Header Section -->
-<header id="home">
-    <div class="profile-content">
-        <h1>Hey, I'm Jon Josiah</h1>
-        <div class="introduction" id="about">
-            <p>Welcome to my digital space! I'm a 21-year-old passionate student diving deep into the world of
-                technology and web development. When I'm not coding, you'll find me in the competitive arena of
-                Mobile Legends, strumming my favorite tunes on a musical instrument, or exploring the captivating
-                worlds of anime.</p>
-            <p>This website is a personal project, crafted purely for educational purposes – a digital playground
-                where I showcase my learning journey and technical skills.</p>
-        </div>
-        <div id="projects" class="projects-section">
-            <div class="projects-grid">
-                <div class="project-card" data-aos="zoom-in" data-aos-delay="100">
-                    <h3>Phone Project</h3>
-                    <p>A responsive web application exploring mobile interface design and user experience.</p>
-                    <div class="project-links">
-                        <a href="phone/index.html">View Project</a>
+    <header id="home">
+        <div class="profile-content">
+            <h1>Hey, I'm Jon Josiah</h1>
+            <div class="introduction" id="about">
+                <p>Welcome to my digital space! I'm a 21-year-old passionate student diving deep into the world of
+                    technology and web development. When I'm not coding, you'll find me in the competitive arena of
+                    Mobile Legends, strumming my favorite tunes on a musical instrument, or exploring the captivating
+                    worlds of anime.</p>
+                <p>This website is a personal project, crafted purely for educational purposes – a digital playground
+                    where I showcase my learning journey and technical skills.</p>
+            </div>
+            <div id="projects" class="projects-section">
+                <div class="projects-grid">
+                    <div class="project-card" data-aos="zoom-in" data-aos-delay="100">
+                        <h3>Phone Project</h3>
+                        <p>A responsive web application exploring mobile interface design and user experience.</p>
+                        <div class="project-links">
+                            <a href="phone/index.html">View Project</a>
+                        </div>
                     </div>
-                </div>
-                <div class="project-card" data-aos="zoom-in" data-aos-delay="200">
-                    <h3>Place Project</h3>
-                    <p>An interactive web project demonstrating dynamic content rendering and layout techniques.</p>
-                    <div class="project-links">
-                        <a href="place/index.html">View Project</a>
+                    <div class="project-card" data-aos="zoom-in" data-aos-delay="200">
+                        <h3>Place Project</h3>
+                        <p>An interactive web project demonstrating dynamic content rendering and layout techniques.</p>
+                        <div class="project-links">
+                            <a href="place/index.html">View Project</a>
+                        </div>
                     </div>
-                </div>
-                <div class="project-card" data-aos="zoom-in" data-aos-delay="300">
-                    <h3>Gallery Project</h3>
-                    <p>A creative gallery application showcasing image handling and responsive design principles.</p>
-                    <div class="project-links">
-                        <a href="gallery/index.html">View Project</a>
+                    <div class="project-card" data-aos="zoom-in" data-aos-delay="300">
+                        <h3>Gallery Project</h3>
+                        <p>A creative gallery application showcasing image handling and responsive design principles.
+                        </p>
+                        <div class="project-links">
+                            <a href="gallery/index.html">View Project</a>
+                        </div>
                     </div>
-                </div>
-                <div class="project-card" data-aos="zoom-in" data-aos-delay="400">
-                    <h3>API Project</h3>
-                    <p>A web application demonstrating API integration, data fetching, and real-world data manipulation.</p>
-                    <div class="project-links">
-                        <a href="dog-site/index.html">View Project</a>
+                    <div class="project-card" data-aos="zoom-in" data-aos-delay="400">
+                        <h3>API Project</h3>
+                        <p>A web application demonstrating API integration, data fetching, and real-world data
+                            manipulation.</p>
+                        <div class="project-links">
+                            <a href="dog-site/index.html">View Project</a>
+                        </div>
                     </div>
-                </div>
-                <div class="project-card" data-aos="zoom-in" data-aos-delay="500">
-                    <h3>Parallax Project</h3>
-                    <p>A visually stunning website using parallax scrolling effects to create dynamic and immersive web experiences.</p>
-                    <div class="project-links">
-                        <a href="parallax/index.html">View Project</a>
+                    <div class="project-card" data-aos="zoom-in" data-aos-delay="500">
+                        <h3>Parallax Project</h3>
+                        <p>A visually stunning website using parallax scrolling effects to create dynamic and immersive
+                            web experiences.</p>
+                        <div class="project-links">
+                            <a href="parallax/index.html">View Project</a>
+                        </div>
                     </div>
-                </div>
-                <div class="project-card" data-aos="zoom-in" data-aos-delay="600">
-                    <h3>Video Project</h3>
-                    <p>A captivating video presentation showcasing a variety of anime clips.</p>
-                    <div class="project-links">
-                        <a href="video/index.html">View Project</a>
+                    <div class="project-card" data-aos="zoom-in" data-aos-delay="600">
+                        <h3>Video Project</h3>
+                        <p>A captivating video presentation showcasing a variety of anime clips.</p>
+                        <div class="project-links">
+                            <a href="video/index.html">View Project</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
     <!-- Footer Section -->
     <footer>
@@ -317,4 +328,5 @@
     </script>
 
 </body>
+
 </html>
