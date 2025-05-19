@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Legend Brews</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Legend Brews</h1>
+    <nav class="tabs">
+      <button class="tab active" data-category="hot">Hot Drinks</button>
+      <button class="tab" data-category="cold">Cold Drinks</button>
+      <button class="tab" data-category="pastries">Pastries</button>
+      <button class="tab" data-category="merch">Merchandise</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="content">
+      <section class="products">
+
+        <!-- HOT DRINKS -->
+        <div class="product-card" data-category="hot" data-name="Espresso" data-price="100">
+          <img src="images/hot1.jpg" alt="Espresso" />
+          <h3>Espresso</h3>
+          <p>Strong and bold hot coffee.</p>
+          <p class="price">₱100</p>
+        </div>
+        <div class="product-card" data-category="hot" data-name="Cappuccino" data-price="120">
+          <img src="images/hot2.jpg" alt="Cappuccino" />
+          <h3>Cappuccino</h3>
+          <p>Rich foam and espresso blend.</p>
+          <p class="price">₱120</p>
+        </div>
+        <div class="product-card" data-category="hot" data-name="Mocha" data-price="130">
+          <img src="images/hot3.jpg" alt="Mocha" />
+          <h3>Mocha</h3>
+          <p>Chocolate-flavored espresso.</p>
+          <p class="price">₱130</p>
+        </div>
+        <div class="product-card" data-category="hot" data-name="Americano" data-price="110">
+          <img src="images/hot4.jpg" alt="Americano" />
+          <h3>Americano</h3>
+          <p>Espresso diluted with hot water.</p>
+          <p class="price">₱110</p>
+        </div>
+
+        <!-- COLD DRINKS -->
+        <div class="product-card" data-category="cold" data-name="Iced Latte" data-price="130">
+          <img src="images/cold1.jpg" alt="Iced Latte" />
+          <h3>Iced Latte</h3>
+          <p>Chilled espresso with milk.</p>
+          <p class="price">₱130</p>
+        </div>
+        <div class="product-card" data-category="cold" data-name="Cold Brew" data-price="140">
+          <img src="images/cold2.jpg" alt="Cold Brew" />
+          <h3>Cold Brew</h3>
+          <p>Slow-steeped refreshing coffee.</p>
+          <p class="price">₱140</p>
+        </div>
+        <div class="product-card" data-category="cold" data-name="Iced Americano" data-price="120">
+          <img src="images/cold3.jpg" alt="Iced Americano" />
+          <h3>Iced Americano</h3>
+          <p>Chilled espresso with water.</p>
+          <p class="price">₱120</p>
+        </div>
+        <div class="product-card" data-category="cold" data-name="Frappuccino" data-price="150">
+          <img src="images/cold4.jpg" alt="Frappuccino" />
+          <h3>Frappuccino</h3>
+          <p>Blended creamy iced coffee.</p>
+          <p class="price">₱150</p>
+        </div>
+
+        <!-- PASTRIES -->
+        <div class="product-card" data-category="pastries" data-name="Croissant" data-price="70">
+          <img src="images/pastry1.jpg" alt="Croissant" />
+          <h3>Butter Croissant</h3>
+          <p>Flaky, buttery, and baked fresh.</p>
+          <p class="price">₱70</p>
+        </div>
+        <div class="product-card" data-category="pastries" data-name="Muffin" data-price="65">
+          <img src="images/pastry2.jpg" alt="Muffin" />
+          <h3>Blueberry Muffin</h3>
+          <p>Moist muffin loaded with berries.</p>
+          <p class="price">₱65</p>
+        </div>
+        <div class="product-card" data-category="pastries" data-name="Danish" data-price="80">
+          <img src="images/pastry3.jpg" alt="Danish" />
+          <h3>Cheese Danish</h3>
+          <p>Sweet pastry with cream cheese.</p>
+          <p class="price">₱80</p>
+        </div>
+        <div class="product-card" data-category="pastries" data-name="Donut" data-price="50">
+          <img src="images/pastry4.jpg" alt="Donut" />
+          <h3>Chocolate Donut</h3>
+          <p>Classic donut dipped in chocolate.</p>
+          <p class="price">₱50</p>
+        </div>
+
+        <!-- MERCH -->
+        <div class="product-card" data-category="merch" data-name="Tumbler" data-price="300">
+          <img src="images/merch1.jpg" alt="Tumbler" />
+          <h3>Legend Tumbler</h3>
+          <p>Stainless steel coffee tumbler.</p>
+          <p class="price">₱300</p>
+        </div>
+        <div class="product-card" data-category="merch" data-name="Tote Bag" data-price="200">
+          <img src="images/merch2.jpg" alt="Tote Bag" />
+          <h3>Coffee Tote Bag</h3>
+          <p>Reusable and stylish canvas bag.</p>
+          <p class="price">₱200</p>
+        </div>
+        <div class="product-card" data-category="merch" data-name="Mug" data-price="150">
+          <img src="images/merch3.jpg" alt="Mug" />
+          <h3>Legend Mug</h3>
+          <p>Ceramic mug with our logo.</p>
+          <p class="price">₱150</p>
+        </div>
+        <div class="product-card" data-category="merch" data-name="Cap" data-price="180">
+          <img src="images/merch4.jpg" alt="Cap" />
+          <h3>Coffee Cap</h3>
+          <p>Casual branded coffee cap.</p>
+          <p class="price">₱180</p>
+        </div>
+
+      </section>
+
+      <aside class="receipt">
+        <h2>Receipt</h2>
+        <ul id="receipt-items"></ul>
+        <p><strong>Total: ₱<span id="total">0</span></strong></p>
+      </aside>
+    </section>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -4,329 +4,348 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jon Josiah's Projects</title>
-
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-
+    <title>Jon Josiah's Portfolio</title>
+    <meta name="description" content="Jon Josiah's portfolio website showcasing web development projects and skills. Explore my work in Web Dev and ADET categories.">
+    
+    <!-- Open Graph meta tags for better social sharing -->
+    <meta property="og:title" content="Jon Josiah | Portfolio">
+    <meta property="og:description" content="Explore my web development journey and projects. A showcase of my skills and learning path in technology.">
+    <meta property="og:type" content="website">
+    
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-    <!-- AOS CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Library for scroll animations -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-
+    
     <!-- Custom CSS -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #0d1117;
-            color: #c9d1d9;
-            overflow-x: hidden;
-            position: relative;
-            background-image: url('images/eclipse.jpg');
-            background-size: cover;
-            background-position: center center;
-            background-attachment: fixed;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                background-image: url('images/eclipse-highres.jpg');
-                background-size: cover;
-                background-position: center center;
-            }
-        }
-
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: flex-end;
-            padding: 1rem 2rem;
-            z-index: 100;
-            background-color: rgba(13, 17, 23, 0.7);
-            backdrop-filter: blur(10px);
-        }
-
-        .navbar a {
-            color: #58a6ff;
-            text-decoration: none;
-            margin-left: 1.5rem;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .navbar a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: #58a6ff;
-            transition: width 0.3s ease;
-        }
-
-        .navbar a:hover {
-            color: #ffffff;
-        }
-
-        .navbar a:hover::after {
-            width: 100%;
-        }
-
-        header {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-            padding-top: 300px;
-        }
-
-        .profile-content {
-            z-index: 1;
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .introduction {
-            color: #8b949e;
-            margin-bottom: 2rem;
-            margin-top: 15rem;
-            line-height: 1.6;
-            font-size: 1rem;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-            opacity: 0;
-            animation: fadeInUp 2s forwards;
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeInUp 2s forwards 1s;
-        }
-
-        .projects-section {
-            margin-top: 4rem;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background-color: rgba(13, 17, 23, 0.7);
-            border: 2px solid #30363d;
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card h3 {
-            color: #58a6ff;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .project-card p {
-            color: #8b949e;
-            margin-bottom: 1.5rem;
-            opacity: 1;
-            animation: none;
-        }
-
-        .project-links a {
-            display: inline-block;
-            font-size: 1rem;
-            margin: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-            border: 2px solid #58a6ff;
-            color: #58a6ff;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            opacity: 0;
-            animation: fadeInUp 2s forwards 2s;
-            z-index: 1;
-        }
-
-        .project-links a:hover {
-            background-color: #58a6ff;
-            color: #0d1117;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.9rem;
-            color: #8b949e;
-        }
-
-        footer a {
-            color: #58a6ff;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <!-- Navbar -->
     <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <span class="logo-text"><span class="highlight">J</span>Josiah</span>
+            </a>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact" class="contact-btn">Contact</a>
+            </div>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
-        <a href="404-page/404.html" class="btn btn-primary">Contact</a>
-    </nav>
+        <a href="#contact" class="contact-btn-mobile">Contact</a>
+    </div>
 
     <!-- Particle Background -->
     <div id="particles-js"></div>
 
     <!-- Header Section -->
     <header id="home">
-        <div class="profile-content">
-            <h1>Hey, I'm Jon Josiah</h1>
-            <div class="introduction" id="about">
-                <p>Welcome to my digital space! I'm a 21-year-old passionate student diving deep into the world of
-                    technology and web development. When I'm not coding, you'll find me in the competitive arena of
-                    Mobile Legends, strumming my favorite tunes on a musical instrument, or exploring the captivating
-                    worlds of anime.</p>
-                <p>This website is a personal project, crafted purely for educational purposes – a digital playground
-                    where I showcase my learning journey and technical skills.</p>
-            </div>
-            <div id="projects" class="projects-section">
-                <div class="projects-grid">
-                    <div class="project-card" data-aos="zoom-in" data-aos-delay="100">
-                        <h3>Phone Project</h3>
-                        <p>A responsive web application exploring mobile interface design and user experience.</p>
-                        <div class="project-links">
-                            <a href="phone/index.html">View Project</a>
-                        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text" data-aos="fade-up">
+                    <h1>Hey, I'm <span class="highlight">Jon Josiah</span></h1>
+                    <p>A passionate student exploring web development and creating digital experiences. Welcome to my portfolio!</p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="primary-btn">View Projects</a>
+                        <a href="#about" class="secondary-btn">About Me</a>
                     </div>
-                    <div class="project-card" data-aos="zoom-in" data-aos-delay="200">
-                        <h3>Place Project</h3>
-                        <p>An interactive web project demonstrating dynamic content rendering and layout techniques.</p>
-                        <div class="project-links">
-                            <a href="place/index.html">View Project</a>
-                        </div>
-                    </div>
-                    <div class="project-card" data-aos="zoom-in" data-aos-delay="300">
-                        <h3>Gallery Project</h3>
-                        <p>A creative gallery application showcasing image handling and responsive design principles.
-                        </p>
-                        <div class="project-links">
-                            <a href="gallery/index.html">View Project</a>
-                        </div>
-                    </div>
-                    <div class="project-card" data-aos="zoom-in" data-aos-delay="400">
-                        <h3>API Project</h3>
-                        <p>A web application demonstrating API integration, data fetching, and real-world data
-                            manipulation.</p>
-                        <div class="project-links">
-                            <a href="dog-site/index.html">View Project</a>
-                        </div>
-                    </div>
-                    <div class="project-card" data-aos="zoom-in" data-aos-delay="500">
-                        <h3>Parallax Project</h3>
-                        <p>A visually stunning website using parallax scrolling effects to create dynamic and immersive
-                            web experiences.</p>
-                        <div class="project-links">
-                            <a href="parallax/index.html">View Project</a>
-                        </div>
-                    </div>
-                    <div class="project-card" data-aos="zoom-in" data-aos-delay="600">
-                        <h3>Video Project</h3>
-                        <p>A captivating video presentation showcasing a variety of anime clips.</p>
-                        <div class="project-links">
-                            <a href="video/index.html">View Project</a>
-                        </div>
+                </div>
+                <div class="hero-image" data-aos="fade-left" data-aos-delay="300">
+                    <div class="profile-icon">
+                        <span>JJ</span>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>About Me</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-image" data-aos="fade-right">
+                    <div class="image-container">
+                        <img src="images/mypic.jpg" alt="Jon Josiah">
+                    </div>
+                </div>
+                <div class="about-text" data-aos="fade-left">
+                    <h3>I'm a <span class="highlight">student developer</span> exploring the digital world</h3>
+                    <p>Welcome to my digital space! I'm a 21-year-old passionate student diving deep into the world of technology and web development. This portfolio showcases my journey and the projects I've built along the way.</p>
+                    <p>When I'm not coding, you'll find me in the competitive arena of Mobile Legends, strumming my favorite tunes on a musical instrument, or exploring the captivating worlds of anime.</p>
+                    <p>This website is a personal project, crafted purely for educational purposes – a digital playground where I showcase my learning journey and technical skills.</p>
+                    <h4 style="margin-top: 1.5em;">Hobbies</h4>
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <h4>Web Development</h4>
+                            <p>Building interactive and responsive web applications</p>
+                        </div>
+                        <div class="skill-card">
+                            <h4>Mobile Legends</h4>
+                            <p>Competitive gaming and strategic thinking</p>
+                        </div>
+                        <div class="skill-card">
+                            <h4>Music</h4>
+                            <p>Playing instruments and appreciating melodies</p>
+                        </div>
+                        <div class="skill-card">
+                            <h4>Anime</h4>
+                            <p>Exploring storytelling through animation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>My Projects</h2>
+                <div class="section-divider"></div>
+                <p>Explore my portfolio of projects showcasing my skills and development journey.</p>
+            </div>
+            
+            <!-- Project Categories -->
+            <div class="project-tabs" data-aos="fade-up">
+                <button class="tab-btn active" data-category="webdev">Web Dev</button>
+                <button class="tab-btn" data-category="adet">ADET</button>
+            </div>
+            
+            <!-- Web Dev Projects -->
+            <div class="projects-grid active" id="webdev-projects">
+                <!-- Phone Project -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-image">
+                        <img src="https://pixabay.com/get/g8ab43527d5b8bf6d3d1f9d26234b67916d7dc43ddad62bfc0c2dd8c738e1f149c02a32bc554cfb7a3bbb2687200fc7fe7fbfc00b10fd265b1b0b5a81a5bb73b9_1280.jpg" alt="Phone Project">
+                    </div>
+                    <div class="project-info">
+                        <h3>Phone Project</h3>
+                        <p>A responsive web application exploring mobile interface design and user experience.</p>
+                        <div class="project-meta">
+                            <span class="project-tag primary"><i class="fas fa-mobile-alt"></i> Mobile UI</span>
+                            <a href="phone/index.html" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Place Project -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=450" alt="Place Project">
+                    </div>
+                    <div class="project-info">
+                        <h3>Place Project</h3>
+                        <p>An interactive web project demonstrating dynamic content rendering and layout techniques.</p>
+                        <div class="project-meta">
+                            <span class="project-tag secondary"><i class="fas fa-map-marker-alt"></i> Dynamic Layout</span>
+                            <a href="place/index.html" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Project -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1482442120256-9c4a5ab72d4c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=450" alt="Gallery Project">
+                    </div>
+                    <div class="project-info">
+                        <h3>Gallery Project</h3>
+                        <p>A creative gallery application showcasing image handling and responsive design principles.</p>
+                        <div class="project-meta">
+                            <span class="project-tag success"><i class="fas fa-images"></i> Visual Design</span>
+                            <a href="gallery/index.html" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- API Project (Dog API) -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1581472723648-909f4851d4ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=450" alt="API Project">
+                    </div>
+                    <div class="project-info">
+                        <h3>Dog API Project</h3>
+                        <p>A web application demonstrating API integration, data fetching, and real-world data manipulation.</p>
+                        <div class="project-meta">
+                            <span class="project-tag primary"><i class="fas fa-code"></i> API Integration</span>
+                            <a href="dog-site/index.html" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Parallax Project -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=450" alt="Parallax Project">
+                    </div>
+                    <div class="project-info">
+                        <h3>Parallax Project</h3>
+                        <p>A visually stunning website using parallax scrolling effects to create dynamic and immersive web experiences.</p>
+                        <div class="project-meta">
+                            <span class="project-tag secondary"><i class="fas fa-layer-group"></i> Visual Effects</span>
+                            <a href="parallax/index.html" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Video Project -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=450" alt="Video Project">
+                    </div>
+                    <div class="project-info">
+                        <h3>Video Project</h3>
+                        <p>A captivating video presentation showcasing a variety of anime clips.</p>
+                        <div class="project-meta">
+                            <span class="project-tag success"><i class="fas fa-video"></i> Media Player</span>
+                            <a href="video/index.html" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ADET Projects -->
+            <div class="projects-grid" id="adet-projects">
+                <!-- Legend Brews Coffee Shop -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-image">
+                        <img src="ADET/A06/images/legend-brews-screenshot.png" alt="Legend Brews Coffee Shop">
+                    </div>
+                    <div class="project-info">
+                        <h3>Legend Brews Coffee Shop</h3>
+                        <p>A full-featured coffee shop ordering system with product categories, shopping cart, and checkout functionality. Built with PHP, MySQL, and JavaScript.</p>
+                        <div class="project-meta">
+                            <span class="project-tag primary"><i class="fas fa-coffee"></i> PHP/MySQL</span>
+                            <a href="ADET/A04/index.html" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Get In Touch</h2>
+                <div class="section-divider"></div>
+                <p>Have a question or want to work together? Feel free to reach out!</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-form" data-aos="fade-right">
+                    <div class="form-container">
+                        <h3>Send Me a Message</h3>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" placeholder="your@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" rows="4" placeholder="Your message here..." required></textarea>
+                            </div>
+                            <button type="submit" class="primary-btn">Send Message</button>
+                        </form>
+                        <div class="form-message" id="formMessage"></div>
+                    </div>
+                </div>
+                
+                <div class="contact-info" data-aos="fade-left">
+                    <div class="info-container">
+                        <h3>Connect With Me</h3>
+                        <p>I'm always interested in new opportunities, collaborations, or just a friendly chat about technology and development.</p>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-text">
+                                <h4>Location</h4>
+                                <p>Philippines</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-text">
+                                <h4>Email</h4>
+                                <p>contact@jonjosiah.dev</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div class="info-text">
+                                <h4>GitHub</h4>
+                                <a href="https://github.com/Siah-6" target="_blank">github.com/Siah-6</a>
+                            </div>
+                        </div>
+                        
+                        <div class="social-links">
+                            <h4>Follow Me</h4>
+                            <div class="social-icons">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-dribbble"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <!-- Footer Section -->
     <footer>
-        <p>Created by <a href="https://github.com/Siah-6" target="_blank">Jon Josiah</a> &copy; 2024</p>
+        <div class="container">
+            <p>Created by <a href="https://github.com/Siah-6" target="_blank">Jon Josiah</a> &copy; 2024</p>
+            <button id="backToTop">
+                <i class="fas fa-arrow-up"></i> Back to Top
+            </button>
+        </div>
     </footer>
 
     <!-- AOS Script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 1000,
-            easing: 'ease-in-out',
-            once: true
-        });
-    </script>
-
+    
     <!-- Particles JS -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        particlesJS("particles-js", {
-            particles: {
-                number: { value: 100 },
-                color: { value: "#58a6ff" },
-                shape: { type: "circle" },
-                opacity: { value: 0.5 },
-                size: { value: 2 },
-                move: { speed: 1 }
-            }
-        });
-    </script>
-
+    
+    <!-- Custom Script -->
+    <script src="script.js"></script>
 </body>
 
 </html>
