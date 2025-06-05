@@ -238,6 +238,10 @@ section {
     border-bottom: 1px solid var(--border-color);
 }
 
+.mobile-menu.active {
+    display: flex;
+}
+
 .mobile-menu a {
     color: var(--text-gray);
     padding: 12px 0;
