@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget Embedding Demo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1><i class="fas fa-puzzle-piece"></i> Widget Embedding Demo</h1>
+            <p>Learn how to create and embed web widgets using iframes</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Introduction Section -->
+            <section class="intro-section">
+                <div class="intro-content">
+                    <h2>What are Embeddable Widgets?</h2>
+                    <p>Embeddable widgets are self-contained web components that can be integrated into any website using iframes. They're perfect for sharing functionality across multiple sites while maintaining consistent branding and behavior.</p>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-code"></i>
+                            <h3>Easy Integration</h3>
+                            <p>Simple iframe embedding with just a few lines of code</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h3>Responsive Design</h3>
+                            <p>Works seamlessly across all devices and screen sizes</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Secure & Isolated</h3>
+                            <p>Iframe sandboxing provides security and prevents conflicts</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Live Demo Section -->
+            <section class="demo-section">
+                <h2>Live Widget Demo</h2>
+                <p>Here's our weather widget embedded using an iframe:</p>
+                
+                <div class="widget-showcase">
+                    <div class="widget-frame">
+                        <iframe 
+                            id="weatherWidget"
+                            src="../widget/index.html" 
+                            width="100%" 
+                            height="500"
+                            frameborder="0"
+                            scrolling="no"
+                            title="Weather Widget">
+                        </iframe>
+                    </div>
+                    
+                    <div class="widget-controls">
+                        <h3>Widget Controls</h3>
+                        <div class="control-group">
+                            <label for="widgetWidth">Width:</label>
+                            <input type="range" id="widgetWidth" min="300" max="600" value="400">
+                            <span id="widthValue">400px</span>
+                        </div>
+                        <div class="control-group">
+                            <label for="widgetHeight">Height:</label>
+                            <input type="range" id="widgetHeight" min="400" max="700" value="500">
+                            <span id="heightValue">500px</span>
+                        </div>
+                        <button id="resetBtn" class="reset-btn">Reset Size</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Code Examples Section -->
+            <section class="code-section">
+                <h2>How to Embed This Widget</h2>
+                
+                <div class="code-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="basic">Basic Embedding</button>
+                        <button class="tab-btn" data-tab="responsive">Responsive</button>
+                        <button class="tab-btn" data-tab="advanced">Advanced</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="basic">
+                        <h3>Basic iframe Embedding</h3>
+                        <p>The simplest way to embed the widget:</p>
+                        <pre><code class="language-html">&lt;iframe 
+    src="https://yoursite.com/widget/index.html" 
+    width="400" 
+    height="500"
+    frameborder="0"
+    scrolling="no"
+    title="Weather Widget"&gt;
+&lt;/iframe&gt;</code></pre>
+                    </div>
+                    
+                    <div class="tab-content" id="responsive">
+                        <h3>Responsive Embedding</h3>
+                        <p>Make your widget responsive with CSS:</p>
+                        <pre><code class="language-html">&lt;div class="widget-container"&gt;
+    &lt;iframe 
+        src="https://yoursite.com/widget/index.html" 
+        width="100%" 
+        height="500"
+        frameborder="0"
+        scrolling="no"
+        title="Weather Widget"&gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.widget-container {
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.widget-container iframe {
+    display: block;
+    border: none;
+}
+&lt;/style&gt;</code></pre>
+                    </div>
+                    
+                    <div class="tab-content" id="advanced">
+                        <h3>Advanced Integration</h3>
+                        <p>Dynamic loading with JavaScript:</p>
+                        <pre><code class="language-javascript">function loadWeatherWidget(containerId, options = {}) {
+    const container = document.getElementById(containerId);
+    const iframe = document.createElement('iframe');
+    
+    iframe.src = 'https://yoursite.com/widget/index.html';
+    iframe.width = options.width || '400';
+    iframe.height = options.height || '500';
+    iframe.frameBorder = '0';
+    iframe.scrolling = 'no';
+    iframe.title = 'Weather Widget';
+    
+    // Add loading spinner
+    container.innerHTML = '&lt;div class="loading"&gt;Loading widget...&lt;/div&gt;';
+    
+    iframe.onload = () =&gt; {
+        container.innerHTML = '';
+        container.appendChild(iframe);
+    };
+    
+    iframe.onerror = () =&gt; {
+        container.innerHTML = '&lt;div class="error"&gt;Failed to load widget&lt;/div&gt;';
+    };
+}
+
+// Usage
+loadWeatherWidget('widget-container', {
+    width: '100%',
+    height: '500'
+});</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Benefits Section -->
+            <section class="benefits-section">
+                <h2>Why Use Widget Embedding?</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3>Easy Updates</h3>
+                        <p>Update the widget once and see changes everywhere it's embedded</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <h3>Reusability</h3>
+                        <p>Use the same widget across multiple websites and platforms</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Maintenance</h3>
+                        <p>Centralized codebase makes maintenance and bug fixes easier</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3>Consistent Branding</h3>
+                        <p>Maintain consistent look and feel across all implementations</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Try It Section -->
+            <section class="try-section">
+                <div class="try-content">
+                    <h2>Ready to Try?</h2>
+                    <p>Copy the code above and paste it into your HTML file. The widget will work immediately!</p>
+                    <div class="action-buttons">
+                        <button id="copyCodeBtn" class="copy-btn">
+                            <i class="fas fa-copy"></i> Copy Embed Code
+                        </button>
+                        <button id="downloadBtn" class="download-btn">
+                            <i class="fas fa-download"></i> Download Widget Files
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Jon Josiah | Widget Embedding Demo. Created for educational purposes.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
