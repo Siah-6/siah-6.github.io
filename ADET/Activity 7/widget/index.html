@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Widget</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="widget-container">
+        <div class="weather-widget">
+            <div class="widget-header">
+                <h2><i class="fas fa-cloud-sun"></i> Weather Widget</h2>
+            </div>
+
+            <div class="location-input">
+                <div class="input-group">
+                    <select id="citySelect" class="city-dropdown">
+                        <option value="">Select Philippine City</option>
+                        <option value="Alaminos">Alaminos</option>
+                        <option value="Angeles City">Angeles City</option>
+                        <option value="Antipolo">Antipolo</option>
+                        <option value="Bacolod">Bacolod</option>
+                        <option value="Bacoor">Bacoor</option>
+                        <option value="Bago">Bago</option>
+                        <option value="Baguio">Baguio</option>
+                        <option value="Bais">Bais</option>
+                        <option value="Balanga">Balanga</option>
+                        <option value="Batac">Batac</option>
+                        <option value="Batangas City">Batangas City</option>
+                        <option value="Bayawan">Bayawan</option>
+                        <option value="Baybay">Baybay</option>
+                        <option value="Bayugan">Bayugan</option>
+                        <option value="Biñan">Biñan</option>
+                        <option value="Bislig">Bislig</option>
+                        <option value="Bogo">Bogo</option>
+                        <option value="Borongan">Borongan</option>
+                        <option value="Butuan">Butuan</option>
+                        <option value="Cabadbaran">Cabadbaran</option>
+                        <option value="Cabanatuan">Cabanatuan</option>
+                        <option value="Cabuyao">Cabuyao</option>
+                        <option value="Cadiz">Cadiz</option>
+                        <option value="Cagayan de Oro">Cagayan de Oro</option>
+                        <option value="Calamba">Calamba</option>
+                        <option value="Calapan">Calapan</option>
+                        <option value="Calbayog">Calbayog</option>
+                        <option value="Caloocan">Caloocan</option>
+                        <option value="Candon">Candon</option>
+                        <option value="Canlaon">Canlaon</option>
+                        <option value="Carcar">Carcar</option>
+                        <option value="Catbalogan">Catbalogan</option>
+                        <option value="Catarman">Catarman</option>
+                        <option value="Cavite City">Cavite City</option>
+                        <option value="Cebu City">Cebu City</option>
+                        <option value="Cotabato City">Cotabato City</option>
+                        <option value="Dagupan">Dagupan</option>
+                        <option value="Danao">Danao</option>
+                        <option value="Dapitan">Dapitan</option>
+                        <option value="Dasmariñas">Dasmariñas</option>
+                        <option value="Davao City">Davao City</option>
+                        <option value="Digos">Digos</option>
+                        <option value="Dipolog">Dipolog</option>
+                        <option value="Dumaguete">Dumaguete</option>
+                        <option value="El Salvador">El Salvador</option>
+                        <option value="Escalante">Escalante</option>
+                        <option value="Gapan">Gapan</option>
+                        <option value="General Santos">General Santos</option>
+                        <option value="General Trias">General Trias</option>
+                        <option value="Gingoog">Gingoog</option>
+                        <option value="Guihulngan">Guihulngan</option>
+                        <option value="Himamaylan">Himamaylan</option>
+                        <option value="Ilagan">Ilagan</option>
+                        <option value="Iligan">Iligan</option>
+                        <option value="Iloilo City">Iloilo City</option>
+                        <option value="Imus">Imus</option>
+                        <option value="Iriga">Iriga</option>
+                        <option value="Isabela City">Isabela City</option>
+                        <option value="Kabankalan">Kabankalan</option>
+                        <option value="Kidapawan">Kidapawan</option>
+                        <option value="Koronadal">Koronadal</option>
+                        <option value="La Carlota">La Carlota</option>
+                        <option value="Lamitan">Lamitan</option>
+                        <option value="Laoag">Laoag</option>
+                        <option value="Lapu-Lapu City">Lapu-Lapu City</option>
+                        <option value="Las Piñas">Las Piñas</option>
+                        <option value="Legazpi">Legazpi</option>
+                        <option value="Ligao">Ligao</option>
+                        <option value="Lipa">Lipa</option>
+                        <option value="Lucena">Lucena</option>
+                        <option value="Maasin">Maasin</option>
+                        <option value="Mabalacat">Mabalacat</option>
+                        <option value="Makati">Makati</option>
+                        <option value="Malabon">Malabon</option>
+                        <option value="Malaybalay">Malaybalay</option>
+                        <option value="Malolos">Malolos</option>
+                        <option value="Mandaue">Mandaue</option>
+                        <option value="Manila">Manila</option>
+                        <option value="Marawi">Marawi</option>
+                        <option value="Marikina">Marikina</option>
+                        <option value="Masbate City">Masbate City</option>
+                        <option value="Mati">Mati</option>
+                        <option value="Meycauayan">Meycauayan</option>
+                        <option value="Muñoz">Muñoz</option>
+                        <option value="Muntinlupa">Muntinlupa</option>
+                        <option value="Naga">Naga</option>
+                        <option value="Navotas">Navotas</option>
+                        <option value="Olongapo">Olongapo</option>
+                        <option value="Ormoc">Ormoc</option>
+                        <option value="Oroquieta">Oroquieta</option>
+                        <option value="Ozamiz">Ozamiz</option>
+                        <option value="Pagadian">Pagadian</option>
+                        <option value="Palayan">Palayan</option>
+                        <option value="Panabo">Panabo</option>
+                        <option value="Parañaque">Parañaque</option>
+                        <option value="Pasay">Pasay</option>
+                        <option value="Pasig">Pasig</option>
+                        <option value="Passi">Passi</option>
+                        <option value="Puerto Princesa">Puerto Princesa</option>
+                        <option value="Quezon City">Quezon City</option>
+                        <option value="Roxas">Roxas</option>
+                        <option value="Sagay">Sagay</option>
+                        <option value="Samal">Samal</option>
+                        <option value="San Carlos">San Carlos</option>
+                        <option value="San Fernando">San Fernando</option>
+                        <option value="San Jose">San Jose</option>
+                        <option value="San Jose del Monte">San Jose del Monte</option>
+                        <option value="San Juan">San Juan</option>
+                        <option value="San Pablo">San Pablo</option>
+                        <option value="San Pedro">San Pedro</option>
+                        <option value="Santa Rosa">Santa Rosa</option>
+                        <option value="Santiago">Santiago</option>
+                        <option value="Silay">Silay</option>
+                        <option value="Sipalay">Sipalay</option>
+                        <option value="Sorsogon City">Sorsogon City</option>
+                        <option value="Surigao City">Surigao City</option>
+                        <option value="Tabaco">Tabaco</option>
+                        <option value="Tabuk">Tabuk</option>
+                        <option value="Tacloban">Tacloban</option>
+                        <option value="Tacurong">Tacurong</option>
+                        <option value="Tagaytay">Tagaytay</option>
+                        <option value="Tagbilaran">Tagbilaran</option>
+                        <option value="Taguig">Taguig</option>
+                        <option value="Tagum">Tagum</option>
+                        <option value="Talisay">Talisay</option>
+                        <option value="Tanauan">Tanauan</option>
+                        <option value="Tandag">Tandag</option>
+                        <option value="Tangub">Tangub</option>
+                        <option value="Tanjay">Tanjay</option>
+                        <option value="Tarlac City">Tarlac City</option>
+                        <option value="Tayabas">Tayabas</option>
+                        <option value="Toledo">Toledo</option>
+                        <option value="Trece Martires">Trece Martires</option>
+                        <option value="Tuguegarao">Tuguegarao</option>
+                        <option value="Urdaneta">Urdaneta</option>
+                        <option value="Valencia">Valencia</option>
+                        <option value="Valenzuela">Valenzuela</option>
+                        <option value="Victorias">Victorias</option>
+                        <option value="Vigan">Vigan</option>
+                        <option value="Zamboanga City">Zamboanga City</option>
+                    </select>
+
+                    <input type="text" id="locationInput" placeholder="Or type city name..." />
+                    <button id="searchBtn" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="weather-display" id="weatherDisplay">
+                <div class="loading" id="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading weather data...</p>
+                </div>
+
+                <div class="weather-info" id="weatherInfo" style="display: none;">
+                    <div class="location">
+                        <h3 id="cityName">New York</h3>
+                        <p id="country">United States</p>
+                    </div>
+
+                    <div class="temperature">
+                        <span id="temp">22°C</span>
+                        <div class="weather-icon">
+                            <i id="weatherIcon" class="fas fa-sun"></i>
+                        </div>
+                    </div>
+
+                    <div class="weather-details">
+                        <p id="description">Sunny</p>
+                        <div class="details-grid">
+                            <div class="detail-item">
+                                <i class="fas fa-eye"></i>
+                                <span>Feels like</span>
+                                <span id="feelsLike">25°C</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-tint"></i>
+                                <span>Humidity</span>
+                                <span id="humidity">60%</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-wind"></i>
+                                <span>Wind</span>
+                                <span id="windSpeed">10 km/h</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="error-message" id="errorMessage" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Unable to fetch weather data. Please try again.</p>
+                </div>
+            </div>
+
+            <div class="widget-footer">
+                <p>Powered by Weather API</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
