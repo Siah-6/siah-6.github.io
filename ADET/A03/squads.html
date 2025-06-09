@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squads - Bleach Soul Society</title>
+    
+    <link rel="icon" href="images/bleach.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+        <div class="container">
+            <a class="navbar-brand glow-text" href="index.html">
+                <i class="fas fa-fire-flame-curved me-2"></i>
+                SOUL SOCIETY
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link hover-glow" href="index.html">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-glow" href="characters.html">
+                            <i class="fas fa-users me-1"></i>Characters
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-glow active" href="squads.html">
+                            <i class="fas fa-shield-alt me-1"></i>Squads
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-glow" href="powers.html">
+                            <i class="fas fa-bolt me-1"></i>Powers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-glow error-404-btn" href="404.html">
+                            <i class="fas fa-exclamation-triangle me-1"></i>Enter Hueco Mundo
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="squads-section py-5">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12 text-center">
+                        <h1 class="page-title glow-text fade-in-down">
+                            <i class="fas fa-shield-alt me-3"></i>
+                            GOTEI 13 SQUADS
+                            <i class="fas fa-fire-flame-curved ms-3"></i>
+                        </h1>
+                        <p class="page-subtitle fade-in-up">The thirteen divisions that protect Soul Society</p>
+                    </div>
+                </div>
+                <div class="bento-grid" id="squadBentoGrid">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="custom-footer mt-5">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-12">
+                    <p class="glow-text mb-2">
+                        <i class="fas fa-sword me-2"></i>
+                        Welcome to Soul Society
+                        <i class="fas fa-sword ms-2"></i>
+                    </p>
+                    <p class="text-muted">Where spiritual power meets destiny</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const squads = [
+            {
+                id: 1,
+                name: "Squad 1",
+                captain: "Genryusai Yamamoto",
+                lieutenant: "Chojiro Sasakibe",
+                specialty: "Command & Leadership",
+                description: "The commanding division of all Gotei 13 squads",
+                size: "bento-large",
+                logo: "images/squads/squad1.jpg"
+            },
+            {
+                id: 2,
+                name: "Squad 2",
+                captain: "Yoruichi Shihoin",
+                lieutenant: "Marechiyo Omaeda",
+                specialty: "Stealth & Assassination",
+                description: "Special forces and covert operations",
+                size: "bento-medium",
+                logo: "images/squads/squad2.jpg"
+            },
+            {
+                id: 3,
+                name: "Squad 3",
+                captain: "Gin Ichimaru",
+                lieutenant: "Izuru Kira",
+                specialty: "Unknown",
+                description: "Mysterious squad with unclear purpose",
+                size: "bento-small",
+                logo: "images/squads/squad3.jpg"
+            },
+            {
+                id: 4,
+                name: "Squad 4",
+                captain: "Retsu Unohana",
+                lieutenant: "Isane Kotetsu",
+                specialty: "Medical & Healing",
+                description: "Medical corps and relief services",
+                size: "bento-medium",
+                logo: "images/squads/squad4.jpg"
+            },
+            {
+                id: 5,
+                name: "Squad 5",
+                captain: "Sosuke Aizen",
+                lieutenant: "Momo Hinamori",
+                specialty: "Kido Research",
+                description: "Spiritual arts and kido development",
+                size: "bento-large",
+                logo: "images/squads/squad5.jpg"
+            },
+            {
+                id: 6,
+                name: "Squad 6",
+                captain: "Byakuya Kuchiki",
+                lieutenant: "Renji Abarai",
+                specialty: "Noble Affairs",
+                description: "Handles noble family matters",
+                size: "bento-medium",
+                logo: "images/squads/squad6.jpg"
+            },
+            {
+                id: 7,
+                name: "Squad 7",
+                captain: "Sajin Komamura",
+                lieutenant: "Tetsuzaemon Iba",
+                specialty: "Peace & Justice",
+                description: "Maintains order and justice",
+                size: "bento-small",
+                logo: "images/squads/squad7.jpg"
+            },
+            {
+                id: 8,
+                name: "Squad 8",
+                captain: "Shunsui Kyoraku",
+                lieutenant: "Nanao Ise",
+                specialty: "Intelligence",
+                description: "Information gathering and analysis",
+                size: "bento-medium",
+                logo: "images/squads/squad8.jpg"
+            },
+            {
+                id: 9,
+                name: "Squad 9",
+                captain: "Kaname Tosen",
+                lieutenant: "Shuhei Hisagi",
+                specialty: "Communication",
+                description: "Communications and publishing",
+                size: "bento-small",
+                logo: "images/squads/squad9.jpg"
+            },
+            {
+                id: 10,
+                name: "Squad 10",
+                captain: "Toshiro Hitsugaya",
+                lieutenant: "Rangiku Matsumoto",
+                specialty: "Defense",
+                description: "Defensive operations and patrol",
+                size: "bento-large",
+                logo: "images/squads/squad10.jpg"
+            },
+            {
+                id: 11,
+                name: "Squad 11",
+                captain: "Kenpachi Zaraki",
+                lieutenant: "Yachiru Kusajishi",
+                specialty: "Combat",
+                description: "Pure combat and direct assault",
+                size: "bento-medium",
+                logo: "images/squads/squad11.jpg"
+            },
+            {
+                id: 12,
+                name: "Squad 12",
+                captain: "Mayuri Kurotsuchi",
+                lieutenant: "Nemu Kurotsuchi",
+                specialty: "Research & Development",
+                description: "Scientific research and technology",
+                size: "bento-small",
+                logo: "images/squads/squad11.jpg"
+            },
+            {
+                id: 13,
+                name: "Squad 13",
+                captain: "Jushiro Ukitake",
+                lieutenant: "Rukia Kuchiki",
+                specialty: "Purification",
+                description: "Soul purification and guidance",
+                size: "bento-medium",
+                logo: "images/squads/squad13.jpg"
+            }
+        ];
+
+        function loadSquads() {
+            const grid = document.getElementById('squadBentoGrid');
+            grid.innerHTML = '';
+            
+            squads.forEach((squad, index) => {
+                const item = document.createElement('div');
+                item.className = `bento-item ${squad.size} fade-in-up`;
+                item.style.animationDelay = `${index * 0.1}s`;
+                
+                item.innerHTML = `
+                    <div class="bento-card hover-lift-intense">
+                        <div class="bento-image-container">
+                            <div class="squad-bg" style="
+                                background: linear-gradient(135deg, 
+                                    ${getSquadColors(squad.id).primary}, 
+                                    ${getSquadColors(squad.id).secondary});
+                                height: 100%;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                position: relative;
+                            ">
+                                <div class="squad-logo" style="
+                                    position: absolute;
+                                    top: 20px;
+                                    right: 20px;
+                                    width: 60px;
+                                    height: 60px;
+                                    background: rgba(255, 255, 255, 0.1);
+                                    border-radius: 50%;
+                                    border: 3px solid rgba(255, 255, 255, 0.3);
+                                    overflow: hidden;
+                                    z-index: 2;
+                                ">
+                                    <img src="${squad.logo}" alt="${squad.name} Logo" style="
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: cover;
+                                    " onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;font-size:1.5rem;color:white;font-weight:bold;\\'>${squad.id}</div>'">
+                                </div>
+                                <div class="squad-number" style="
+                                    font-family: 'Orbitron', monospace;
+                                    font-size: 4rem;
+                                    font-weight: 900;
+                                    color: rgba(255, 255, 255, 0.2);
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%, -50%);
+                                ">${squad.id}</div>
+                                <div class="bento-overlay">
+                                    <div class="bento-content">
+                                        <h4 class="bento-title glow-text">${squad.name}</h4>
+                                        <div class="squad-info">
+                                            <p class="squad-captain"><strong>Captain:</strong> ${squad.captain}</p>
+                                            <p class="squad-lieutenant"><strong>Lieutenant:</strong> ${squad.lieutenant}</p>
+                                            <span class="badge badge-squad">
+                                                <i class="fas fa-star me-1"></i>${squad.specialty}
+                                            </span>
+                                            <p class="squad-description mt-2">${squad.description}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(item);
+            });
+        }
+
+        function getSquadColors(squadId) {
+            const colors = [
+                { primary: '#ff4500', secondary: '#ff6600' },
+                { primary: '#8e44ad', secondary: '#9b59b6' },
+                { primary: '#34495e', secondary: '#2c3e50' },
+                { primary: '#27ae60', secondary: '#2ecc71' },
+                { primary: '#e74c3c', secondary: '#c0392b' },
+                { primary: '#3498db', secondary: '#2980b9' },
+                { primary: '#f39c12', secondary: '#e67e22' },
+                { primary: '#1abc9c', secondary: '#16a085' },
+                { primary: '#95a5a6', secondary: '#7f8c8d' },
+                { primary: '#00bfff', secondary: '#87ceeb' },
+                { primary: '#dc143c', secondary: '#b91245' },
+                { primary: '#dda0dd', secondary: '#da70d6' },
+                { primary: '#20b2aa', secondary: '#008b8b' }
+            ];
+            return colors[squadId - 1] || colors[0];
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSquads();
+            setTimeout(() => {
+                const elements = document.querySelectorAll('.fade-in-up');
+                elements.forEach((element, index) => {
+                    setTimeout(() => {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }, 500);
+        });
+    </script>
+    <style>
+        .squad-info {
+            text-align: left;
+        }
+        .squad-captain, .squad-lieutenant {
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            color: #ffffff;
+        }
+        .squad-description {
+            font-size: 0.8rem;
+            color: #e0e0e0;
+            line-height: 1.4;
+        }
+        .badge-squad {
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-auto-rows: 200px;
+            gap: 20px;
+            padding: 2rem 0;
+        }
+    </style>
+</body>
+</html>

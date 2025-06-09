@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Powers - Bleach Soul Society</title>
+    
+    <link rel="icon" href="images/bleach.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+        <div class="container">
+            <a class="navbar-brand glow-text" href="index.html">
+                <i class="fas fa-fire-flame-curved me-2"></i>
+                SOUL SOCIETY
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link hover-glow" href="index.html">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-glow" href="characters.html">
+                            <i class="fas fa-users me-1"></i>Characters
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-glow" href="squads.html">
+                            <i class="fas fa-shield-alt me-1"></i>Squads
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-glow active" href="powers.html">
+                            <i class="fas fa-bolt me-1"></i>Powers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-glow error-404-btn" href="404.html">
+                            <i class="fas fa-exclamation-triangle me-1"></i>Enter Hueco Mundo
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="powers-section py-5">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12 text-center">
+                        <h1 class="page-title glow-text fade-in-down">
+                            <i class="fas fa-bolt me-3"></i>
+                            SPIRITUAL POWERS
+                            <i class="fas fa-fire-flame-curved ms-3"></i>
+                        </h1>
+                        <p class="page-subtitle fade-in-up">Discover the mystical abilities of Soul Society</p>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-12 text-center">
+                        <div class="power-filters">
+                            <button class="btn btn-custom btn-fire me-2 mb-2" onclick="filterPowers('all')">All Powers</button>
+                            <button class="btn btn-outline-light me-2 mb-2" onclick="filterPowers('zanpakuto')">Zanpakuto</button>
+                            <button class="btn btn-outline-light me-2 mb-2" onclick="filterPowers('kido')">Kido</button>
+                            <button class="btn btn-outline-light me-2 mb-2" onclick="filterPowers('hollow')">Hollow</button>
+                            <button class="btn btn-outline-light mb-2" onclick="filterPowers('quincy')">Quincy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4" id="powersGrid">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="custom-footer mt-5">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-12">
+                    <p class="glow-text mb-2">
+                        <i class="fas fa-sword me-2"></i>
+                        Welcome to Soul Society
+                        <i class="fas fa-sword ms-2"></i>
+                    </p>
+                    <p class="text-muted">Where spiritual power meets destiny</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        const powers = [
+            {
+                id: 1,
+                name: "Zanpakuto",
+                category: "zanpakuto",
+                description: "Soul-cutting swords with unique spiritual abilities. Each Zanpakuto has its own personality and powers.",
+                icon: "fas fa-sword",
+                level: "Basic",
+                users: "Soul Reapers"
+            },
+            {
+                id: 2,
+                name: "Shikai",
+                category: "zanpakuto",
+                description: "The first release of a Zanpakuto's power, unlocking its initial abilities and changing its form.",
+                icon: "fas fa-fire",
+                level: "Intermediate",
+                users: "Trained Soul Reapers"
+            },
+            {
+                id: 3,
+                name: "Bankai",
+                category: "zanpakuto",
+                description: "The ultimate release of a Zanpakuto's true power, typically increasing power 5-10 times.",
+                icon: "fas fa-bolt",
+                level: "Master",
+                users: "Captains & Lieutenants"
+            },
+            {
+                id: 4,
+                name: "Kido",
+                category: "kido",
+                description: "Spiritual arts divided into Hado (destruction), Bakudo (binding), and Kaido (healing).",
+                icon: "fas fa-magic",
+                level: "Variable",
+                users: "Kido Corps"
+            },
+            {
+                id: 5,
+                name: "Hado",
+                category: "kido",
+                description: "Destructive spells that cause direct damage to enemies through various elemental attacks.",
+                icon: "fas fa-fire-flame-curved",
+                level: "Offensive",
+                users: "Combat Specialists"
+            },
+            {
+                id: 6,
+                name: "Bakudo",
+                category: "kido",
+                description: "Binding spells used to restrain, immobilize, or create barriers for protection.",
+                icon: "fas fa-shield-alt",
+                level: "Defensive",
+                users: "Support Specialists"
+            },
+            {
+                id: 7,
+                name: "Cero",
+                category: "hollow",
+                description: "High-powered energy blasts fired by Hollows and Arrancars, highly destructive.",
+                icon: "fas fa-circle",
+                level: "Advanced",
+                users: "Hollows & Arrancars"
+            },
+            {
+                id: 8,
+                name: "Resurrección",
+                category: "hollow",
+                description: "The release form of an Arrancar's Zanpakuto, revealing their true Hollow powers.",
+                icon: "fas fa-skull",
+                level: "Ultimate",
+                users: "Arrancars"
+            },
+            {
+                id: 9,
+                name: "Quincy Bow",
+                category: "quincy",
+                description: "Spiritual weapons formed from reishi, allowing Quincies to fire arrows of pure energy.",
+                icon: "fas fa-bow-arrow",
+                level: "Basic",
+                users: "Quincy"
+            },
+            {
+                id: 10,
+                name: "Vollständig",
+                category: "quincy",
+                description: "The ultimate Quincy power, granting wings and massive spiritual enhancement.",
+                icon: "fas fa-angel",
+                level: "Divine",
+                users: "Elite Quincy"
+            },
+            {
+                id: 11,
+                name: "Flash Step (Shunpo)",
+                category: "zanpakuto",
+                description: "High-speed movement technique allowing near-instantaneous travel over short distances.",
+                icon: "fas fa-wind",
+                level: "Advanced",
+                users: "All Soul Reapers"
+            },
+            {
+                id: 12,
+                name: "Spiritual Pressure",
+                category: "zanpakuto",
+                description: "The physical force generated by spiritual power, can paralyze or crush opponents.",
+                icon: "fas fa-weight",
+                level: "Passive",
+                users: "All Spiritual Beings"
+            }
+        ];
+
+        let currentFilter = 'all';
+
+        function loadPowers() {
+            const grid = document.getElementById('powersGrid');
+            grid.innerHTML = '';
+            
+            const filteredPowers = currentFilter === 'all' ? powers : powers.filter(power => power.category === currentFilter);
+            
+            filteredPowers.forEach((power, index) => {
+                const card = document.createElement('div');
+                card.className = 'col-lg-4 col-md-6 fade-in-up power-card-container';
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.setAttribute('data-category', power.category);
+                
+                card.innerHTML = `
+                    <div class="power-card hover-lift-intense">
+                        <div class="power-header">
+                            <div class="power-icon ${getPowerIconClass(power.category)}">
+                                <i class="${power.icon}"></i>
+                            </div>
+                            <div class="power-level">
+                                <span class="badge badge-${power.category}">${power.level}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="power-content">
+                            <h4 class="power-name glow-text">${power.name}</h4>
+                            <p class="power-description">${power.description}</p>
+                            <div class="power-users">
+                                <small class="text-muted">
+                                    <i class="fas fa-user me-1"></i>
+                                    Used by: ${power.users}
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <div class="power-effect" onclick="activatePowerEffect('${power.name}', '${power.category}')">
+                            <button class="btn btn-power-activate w-100">
+                                <i class="fas fa-bolt me-2"></i>
+                                Demonstrate Power
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        function filterPowers(category) {
+            currentFilter = category;
+            
+            document.querySelectorAll('.power-filters .btn').forEach(btn => {
+                btn.className = btn.className.replace('btn-custom btn-fire', 'btn-outline-light');
+            });
+            
+            if (category === 'all') {
+                document.querySelector('.power-filters .btn').className = 'btn btn-custom btn-fire me-2 mb-2';
+            } else {
+                document.querySelector(`[onclick="filterPowers('${category}')"]`).className = 'btn btn-custom btn-fire me-2 mb-2';
+            }
+            
+            const cards = document.querySelectorAll('.power-card-container');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+            });
+            
+            setTimeout(() => {
+                loadPowers();
+                setTimeout(() => {
+                    animatePageLoad();
+                }, 100);
+            }, 300);
+        }
+
+        function getPowerIconClass(category) {
+            switch(category) {
+                case 'zanpakuto': return 'fire-glow';
+                case 'kido': return 'ice-glow';
+                case 'hollow': return 'hollow-glow';
+                case 'quincy': return 'quincy-glow';
+                default: return 'fire-glow';
+            }
+        }
+
+        function activatePowerEffect(powerName, category) {
+            const colors = {
+                zanpakuto: { primary: '#ff4500', secondary: '#ff6600' },
+                kido: { primary: '#00bfff', secondary: '#87ceeb' },
+                hollow: { primary: '#8e44ad', secondary: '#9b59b6' },
+                quincy: { primary: '#e74c3c', secondary: '#c0392b' }
+            };
+            
+            const color = colors[category] || colors.zanpakuto;
+            
+            const effect = document.createElement('div');
+            effect.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(45deg, ${color.primary}, ${color.secondary});
+                color: white;
+                padding: 2rem;
+                border-radius: 20px;
+                text-align: center;
+                z-index: 11000;
+                animation: powerDemonstration 3s ease-out forwards;
+                font-family: 'Orbitron', monospace;
+                border: 3px solid white;
+                box-shadow: 0 0 50px ${color.primary};
+                max-width: 400px;
+            `;
+            
+            effect.innerHTML = `
+                <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">${powerName}</h3>
+                <div class="power-animation" style="
+                    width: 80px;
+                    height: 80px;
+                    border: 4px solid white;
+                    border-radius: 50%;
+                    margin: 1rem auto;
+                    animation: powerSpin 2s linear infinite;
+                "></div>
+                <p style="margin: 0; font-size: 1rem;">Power Activated!</p>
+            `;
+            
+            document.body.appendChild(effect);
+            
+            if (!document.getElementById('powerDemoStyle')) {
+                const style = document.createElement('style');
+                style.id = 'powerDemoStyle';
+                style.textContent = `
+                    @keyframes powerDemonstration {
+                        0% {
+                            opacity: 0;
+                            transform: translate(-50%, -50%) scale(0.3);
+                        }
+                        20% {
+                            opacity: 1;
+                            transform: translate(-50%, -50%) scale(1.1);
+                        }
+                        80% {
+                            opacity: 1;
+                            transform: translate(-50%, -50%) scale(1);
+                        }
+                        100% {
+                            opacity: 0;
+                            transform: translate(-50%, -50%) scale(0.8);
+                        }
+                    }
+                    @keyframes powerSpin {
+                        from { transform: rotate(0deg); }
+                        to { transform: rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            setTimeout(() => {
+                effect.remove();
+            }, 3000);
+        }
+
+        function animatePageLoad() {
+            const elements = document.querySelectorAll('.fade-in-up');
+            elements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPowers();
+            setTimeout(() => {
+                animatePageLoad();
+            }, 500);
+        });
+    </script>
+
+    <style>
+        .power-card {
+            background: rgba(26, 26, 26, 0.9);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .power-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--electric-blue), var(--fire-orange));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        .power-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .power-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .power-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .hollow-glow {
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            box-shadow: 0 0 20px rgba(142, 68, 173, 0.5);
+        }
+
+        .quincy-glow {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+        }
+
+        .power-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .power-description {
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .power-users {
+            margin-bottom: 1rem;
+        }
+
+        .btn-power-activate {
+            background: linear-gradient(45deg, var(--electric-blue), var(--fire-orange));
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-power-activate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.4);
+            color: white;
+        }
+
+        .power-filters {
+            margin-bottom: 2rem;
+        }
+
+        .power-card-container {
+            transition: all 0.3s ease;
+        }
+
+        .badge-hollow {
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+        }
+
+        .badge-quincy {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
+
+        .badge-zanpakuto {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+        }
+
+        .badge-kido {
+            background: linear-gradient(45deg, #00bfff, #87ceeb);
+        }
+    </style>
+</body>
+</html>
