@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Soul Not Found</title>
+    
+    <link rel="icon" href="images/bleach.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+        <div class="container">
+            <a class="navbar-brand glow-text" href="index.html">
+                <i class="fas fa-fire-flame-curved me-2"></i>
+                SOUL SOCIETY
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="row justify-content-center align-items-center min-vh-100">
+                <div class="col-lg-6 text-center">
+                    <div class="error-content">
+                        <div class="error-animation mb-4">
+                            <i class="fas fa-ghost display-1 glow-text" style="animation: float-gentle 3s ease-in-out infinite;"></i>
+                        </div>
+                        <h1 class="display-1 glow-text fire-text mb-4">404</h1>
+                        <h2 class="glow-text mb-4">Soul Not Found</h2>
+                        <p class="lead mb-4">The spiritual energy you're looking for has vanished into the void. Even our most powerful Soul Reapers couldn't locate this page.</p>
+                        <div class="error-suggestions mb-4">
+                            <p class="text-muted mb-3">Perhaps you're looking for:</p>
+                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                <a href="index.html" class="btn btn-outline-light btn-sm">
+                                    <i class="fas fa-home me-1"></i>Home
+                                </a>
+                                <a href="characters.html" class="btn btn-outline-light btn-sm">
+                                    <i class="fas fa-users me-1"></i>Characters
+                                </a>
+                                <a href="squads.html" class="btn btn-outline-light btn-sm">
+                                    <i class="fas fa-shield-alt me-1"></i>Squads
+                                </a>
+                                <a href="powers.html" class="btn btn-outline-light btn-sm">
+                                    <i class="fas fa-bolt me-1"></i>Powers
+                                </a>
+                            </div>
+                        </div>
+                        <button class="btn btn-custom btn-fire pulse-btn" onclick="window.location.href='index.html'">
+                            <i class="fas fa-home me-2"></i>
+                            Return to Soul Society
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="custom-footer mt-5">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-12">
+                    <p class="glow-text mb-2">
+                        <i class="fas fa-sword me-2"></i>
+                        Welcome to Soul Society
+                        <i class="fas fa-sword ms-2"></i>
+                    </p>
+                    <p class="text-muted">Where spiritual power meets destiny</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <style>
+        .error-content {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .error-suggestions a {
+            transition: all 0.3s ease;
+        }
+        
+        .error-suggestions a:hover {
+            background: var(--electric-blue);
+            border-color: var(--electric-blue);
+            transform: translateY(-2px);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</body>
+</html>
