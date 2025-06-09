@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valorant Weapons Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        @media (max-width: 991.98px) {
+            .flex-nowrap {
+                flex-wrap: wrap !important;
+            }
+            .menu {
+                height: auto !important;
+                margin-bottom: 1rem;
+            }
+            .parent-content {
+                height: auto !important;
+                max-height: none !important;
+            }
+        }
+        @media (max-width: 767.98px) {
+            .menu {
+                padding: 1rem !important;
+            }
+            .parent-content {
+                padding: 1rem !important;
+            }
+            .weapon-image-container {
+                height: 160px !important;
+            }
+            .weapon-image {
+                max-height: 120px !important;
+            }
+        }
+        @media (max-width: 575.98px) {
+            .menu {
+                padding: 0.5rem !important;
+            }
+            .parent-content {
+                padding: 0.5rem !important;
+            }
+            .weapon-image-container {
+                height: 110px !important;
+            }
+            .weapon-image {
+                max-height: 80px !important;
+            }
+        }
+    </style>
+    <script>
+        // Simple SPA navigation
+        function showSection(section) {
+            document.querySelectorAll('.main-section').forEach(el => el.style.display = 'none');
+            document.getElementById(section).style.display = '';
+            document.querySelectorAll('.valorant-button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + section).classList.add('active');
+        }
+        window.addEventListener('DOMContentLoaded', function() {
+            showSection('weapons');
+            document.querySelectorAll('.valorant-button').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showSection(this.dataset.section);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container-fluid mt-4">
+    <div class="row flex-nowrap">
+        <div class="col-12 col-md-3 mb-3 mb-md-0">
+            <div class="card menu glass shadow p-4 d-flex flex-column align-items-center" style="height: 90vh;">
+                <img src="assets/images/valorant-logo.png" alt="Valorant Logo" style="height:165px;" class="mb-3">
+                <a href="#" id="btn-weapons" data-section="weapons" class="valorant-button my-2 active"><i class="bi bi-people-fill me-2"></i>Weapons</a>
+                <a href="#" id="btn-primary" data-section="primary" class="valorant-button my-2"><i class="bi bi-bullseye me-2"></i>Primary Weapon</a>
+                <a href="#" id="btn-secondary" data-section="secondary" class="valorant-button my-2"><i class="bi bi-shield me-2"></i>Secondary Weapon</a>
+                <a href="#" id="btn-melee" data-section="melee" class="valorant-button my-2"><i class="bi bi-lightning me-2"></i>Melee</a>
+            </div>
+        </div>
+        <div class="col-12 col-md-9">
+            <div class="card glass parent-content shadow p-4" style="height: 90vh; max-height: 90vh; overflow-y: auto;">
+                <!-- Weapons Section -->
+                <div id="weapons" class="main-section" style="display:none;">
+                    <div class="container text-center">
+                        <h1 class="display-4 fw-bold mb-3" style="letter-spacing:2px;">Valorant Weapons Hub</h1>
+                        <p class="lead mb-4">Explore the arsenal of Valorant! Discover every weapon, from powerful primaries to trusty sidearms and unique melee skins.</p>
+                        <div>
+                            <a href="#" onclick="showSection('primary');return false;" class="btn btn-danger btn-lg me-2">Browse Weapons</a>
+                        </div>
+                        <div class="row justify-content-center mt-5">
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 shadow border-0 weapon-section-card" style="background:linear-gradient(135deg,#23242b 60%,#ff4655 100%);">
+                                    <div class="card-body text-center">
+                                        <h3 class="fw-bold text-danger mb-3"><i class="bi bi-bullseye"></i> Primary Weapons</h3>
+                                        <p class="text-light">The backbone of every agent's loadout. Rifles, snipers, shotguns, and more—each with unique stats and playstyles for every situation.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 shadow border-0 weapon-section-card" style="background:linear-gradient(135deg,#23242b 60%,#ffb300 100%);">
+                                    <div class="card-body text-center">
+                                        <h3 class="fw-bold text-warning mb-3"><i class="bi bi-shield"></i> Secondary Weapons</h3>
+                                        <p class="text-light">Your reliable sidearms. Pistols and sidearms for clutch moments, eco rounds, or finishing off opponents when your primary runs dry.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 shadow border-0 weapon-section-card" style="background:linear-gradient(135deg,#23242b 60%,#00e676 100%);">
+                                    <div class="card-body text-center">
+                                        <h3 class="fw-bold text-success mb-3"><i class="bi bi-lightning"></i> Melee</h3>
+                                        <p class="text-light">For style and stealth. Unique knives, axes, and more—perfect for finishing moves and showing off your collection.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Primary Section -->
+                <div id="primary" class="main-section" style="display:none;">
+                    <div class="container">
+                        <h2 class="fw-bold mb-4 text-center" style="letter-spacing:1px;">All Primary Weapons</h2>
+                        <div class="row row-cols-1 row-cols-md-2 g-4">
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/primary/vandal.jpg" alt="Vandal" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Vandal</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/primary/phantom.jpg" alt="Phantom" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Phantom</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/primary/ares.jpg" alt="Ares" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Ares</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/primary/bucky.jpg" alt="Bucky" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Bucky</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/primary/bulldog.jpg" alt="Bulldog" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Bulldog</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/primary/guardian.jpg" alt="Guardian" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Guardian</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/primary/judge.jpg" alt="Judge" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Judge</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/primary/marshal.jpg" alt="Marshal" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Marshal</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/primary/odin.jpg" alt="Odin" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Odin</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/primary/operator.jpg" alt="Operator" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Operator</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/primary/spectre.jpg" alt="Spectre" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Spectre</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/primary/stinger.jpg" alt="Stinger" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Stinger</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Secondary Section -->
+                <div id="secondary" class="main-section" style="display:none;">
+                    <div class="container">
+                        <h2 class="fw-bold mb-4 text-center" style="letter-spacing:1px;">All Secondary Weapons</h2>
+                        <div class="row row-cols-1 row-cols-md-2 g-4">
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/secondary/ghost.jpg" alt="Ghost" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Ghost</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/secondary/classic.jpg" alt="Classic" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Classic</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/secondary/frenzy.jpg" alt="Frenzy" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Frenzy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/secondary/shorty.jpg" alt="Shorty" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Shorty</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/secondary/sheriff.jpg" alt="Sheriff" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Sheriff</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Melee Section -->
+                <div id="melee" class="main-section" style="display:none;">
+                    <div class="container">
+                        <h2 class="fw-bold mb-4 text-center" style="letter-spacing:1px;">All Melee Skins</h2>
+                        <div class="row row-cols-1 row-cols-md-2 g-4">
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/melee/knife.jpg" alt="Knife" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Knife</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/melee/blade.jpg" alt="Blade" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Blade</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/melee/dagger.jpg" alt="Dagger" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Dagger</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/melee/glitchpop.jpg" alt="Glitchpop" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Glitchpop</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/melee/hammer.jpg" alt="Hammer" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Hammer</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="weapon-card card h-100 text-center border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(180deg, #23242b 60%, #181a20 100%);">
+                                    <div class="card-body d-flex flex-column justify-content-center align-items-center p-0 w-100">
+                                        <div class="weapon-image-container" style="height:260px; position:relative; overflow:hidden;">
+                                            <img src="assets/images/melee/reaver.jpg" alt="Reaver" class="weapon-image" style="max-height:220px;max-width:98%;box-shadow:0 8px 32px #ff465544;border-radius:18px;transition:transform 0.3s,box-shadow 0.3s;position:relative;z-index:1;">
+                                        </div>
+                                        <div class="weapon-info">
+                                            <span class="weapon-name">Reaver</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

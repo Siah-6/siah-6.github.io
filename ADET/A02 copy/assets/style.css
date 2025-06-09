@@ -1,0 +1,213 @@
+body {
+    background: linear-gradient(120deg, #0f1923 0%, #1a2733 100%);
+    color: #f8f9fa;
+    min-height: 100vh;
+    font-family: 'Segoe UI', 'Poppins', Arial, sans-serif;
+}
+.menu {
+    background: rgba(20, 24, 31, 0.85);
+    border-radius: 1.5rem;
+    border: none;
+}
+.parent-content {
+    background: rgba(24, 28, 38, 0.92);
+    border-radius: 1.5rem;
+    border: none;
+}
+.glass {
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+}
+.valorant-button {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #ff4655 0%, #1a2733 100%);
+    color: #fff;
+    border: none;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(255,70,85,0.08);
+}
+.valorant-button:hover, .valorant-button.active {
+    background: linear-gradient(90deg, #ff4655 60%, #ff8a65 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(255,70,85,0.18);
+}
+.card {
+    border: none;
+}
+footer {
+    background: #181a1b;
+    color: #aaa;
+    font-size: 1rem;
+}
+img.rounded-4 {
+    border-radius: 1.5rem !important;
+}
+::-webkit-scrollbar {
+    width: 8px;
+    background: #1a2733;
+}
+::-webkit-scrollbar-thumb {
+    background: #ff4655;
+    border-radius: 4px;
+}
+
+/* Weapon Cards */
+.weapon-card {
+    background: linear-gradient(145deg, #1f2326, #16191c);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.weapon-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ff4655, transparent);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.weapon-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 70, 85, 0.2);
+}
+
+.weapon-card:hover::before {
+    opacity: 0.1;
+}
+
+.weapon-image-container {
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(135deg, #23242b 60%, #ff4655 100%);
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    transition: background 0.3s;
+}
+
+.weapon-card:hover .weapon-image-container {
+    background: linear-gradient(135deg, #ff4655 0%, #23242b 100%);
+}
+
+.weapon-image {
+    max-height: 90px;
+    max-width: 90%;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 2px 8px #ff465588);
+    transform: scale(0.95);
+    transition: transform 0.3s, filter 0.3s;
+}
+
+.weapon-card:hover .weapon-image {
+    transform: scale(1.05);
+    filter: drop-shadow(0 4px 16px #ff4655cc);
+}
+
+.weapon-placeholder {
+    position: relative;
+    width: 100%;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 14px 14px 0 0;
+    background: #23242b;
+}
+
+.weapon-placeholder-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.25;
+    filter: blur(2px) grayscale(1);
+    transition: opacity 0.3s, filter 0.3s;
+}
+
+.weapon-lock-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff4655;
+    font-size: 2.5rem;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.weapon-card:hover .weapon-placeholder-img {
+    opacity: 0.4;
+    filter: blur(1px) grayscale(0.7);
+}
+
+.weapon-info {
+    padding: 1rem;
+}
+
+.weapon-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #fff;
+    letter-spacing: 0.5px;
+    position: relative;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 8px #000000cc, 0 0 2px #ff4655cc;
+}
+
+.weapon-name::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #ff4655;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.weapon-card:hover .weapon-name::after {
+    width: 50%;
+}
+
+.display-4,
+.fw-bold,
+h1, h2, h3 {
+    color: #fff !important;
+    text-shadow: 0 2px 12px #000, 0 0px 2px #ff4655cc;
+    letter-spacing: 1.5px;
+}
+.lead,
+.section-desc,
+p {
+    color: #f8f9fa !important;
+    text-shadow: 0 1px 6px #00000099;
+}
+.weapon-section-card {
+    border-radius: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.weapon-section-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 8px 32px #ff465577;
+}
