@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royale Roulette</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@100..900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="roulette.css">
+</head>
+<body class="min-h-screen flex flex-col overflow-hidden">
+
+    <!-- Header -->
+    <div class="w-full bg-black/80 p-2 flex justify-between items-center border-b border-casino-gold/30 z-10">
+        <h1 class="text-casino-gold font-serif text-xl md:text-2xl tracking-widest font-bold px-4">Roulette</h1>
+        <div class="flex gap-2 px-4 overflow-hidden" id="history-container"></div>
+    </div>
+
+    <!-- Main Game Area -->
+    <div class="flex-1 flex flex-col items-center justify-start gap-2 pt-2 pb-[500px] overflow-y-auto bg-gradient-to-b from-black to-gray-900">
+        
+        <!-- Wheel Section -->
+        <div class="relative z-0 scale-75 md:scale-90 transition-transform wheel-container flex-shrink-0">
+            <div class="relative w-80 h-80 md:w-96 md:h-96 flex items-center justify-center">
+                <!-- Outer Rim -->
+                <div class="absolute inset-0 rounded-full border-[12px] border-amber-900 shadow-2xl bg-amber-950"></div>
+                <div class="absolute inset-2 rounded-full border-[4px] border-yellow-600/50"></div>
+
+                <!-- Rotating Wheel -->
+                <div id="wheel" class="w-full h-full rounded-full overflow-hidden relative shadow-inner transition-transform duration-[4000ms] cubic-bezier(0.2, 0.8, 0.2, 1)" style="background: conic-gradient(from 0deg, #0a3a1a, #0a3a1a);"></div>
+
+                <!-- Pointer -->
+                <div class="absolute -top-2 left-1/2 -ml-3 w-6 h-8 bg-yellow-400 z-20 shadow-lg" style="clip-path: polygon(0 0, 100% 0, 50% 100%);"></div>
+                
+                <!-- Result Overlay -->
+                <div id="result-overlay" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none hidden">
+                    <div id="result-number" class="text-6xl font-serif text-white drop-shadow-[0_0_10px_rgba(255,215,0,0.8)]"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Betting Table -->
+        <div class="w-full max-w-5xl mx-auto p-4 overflow-x-auto z-10 flex-shrink-0 -mt-10">
+            <!-- Table Felt Container (Black) -->
+            <div class="min-w-[700px] flex flex-col border-4 border-casino-gold/50 table-felt rounded-xl shadow-2xl relative select-none p-1">
+                <div class="flex">
+                    <!-- Zero -->
+                    <div onclick="game.placeBet('straight', 0)" class="w-12 md:w-16 flex items-center justify-center border-r border-white-alpha cursor-pointer hover:brightness-125 transition-all text-casino-green font-serif text-2xl relative group h-[192px] md:h-[256px] rounded-l-md">
+                        <span class="-rotate-90 num-green">0</span>
+                        <div id="chip-straight-0" class="chip-marker absolute inset-0 m-auto flex items-center justify-center"></div>
+                    </div>
+
+                    <!-- Numbers Grid -->
+                    <div class="flex-1 betting-grid" id="numbers-grid">
+                        <!-- JS will populate this -->
+                    </div>
+
+                    <!-- 2 to 1 Columns -->
+                    <div class="w-10 md:w-12 grid grid-rows-3 border-l border-white-alpha">
+                        <div onclick="game.placeBet('column', 3)" class="relative flex items-center justify-center border-b border-white-alpha cursor-pointer hover:bg-white/10 transition-all text-white font-mono text-xs group">
+                            <span class="rotate-90 whitespace-nowrap">2 to 1</span>
+                            <div id="chip-column-3" class="chip-marker absolute inset-0 m-auto flex items-center justify-center"></div>
+                        </div>
+                        <div onclick="game.placeBet('column', 2)" class="relative flex items-center justify-center border-b border-white-alpha cursor-pointer hover:bg-white/10 transition-all text-white font-mono text-xs group">
+                            <span class="rotate-90 whitespace-nowrap">2 to 1</span>
+                            <div id="chip-column-2" class="chip-marker absolute inset-0 m-auto flex items-center justify-center"></div>
+                        </div>
+                        <div onclick="game.placeBet('column', 1)" class="relative flex items-center justify-center border-b border-white-alpha cursor-pointer hover:bg-white/10 transition-all text-white font-mono text-xs group">
+                            <span class="rotate-90 whitespace-nowrap">2 to 1</span>
+                            <div id="chip-column-1" class="chip-marker absolute inset-0 m-auto flex items-center justify-center"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dozens -->
+                <div class="flex border-t border-white-alpha ml-12 md:ml-16 mr-10 md:mr-12 h-12 md:h-14">
+                    <div onclick="game.placeBet('dozen', 1)" class="relative flex-1 flex items-center justify-center border-r border-white-alpha cursor-pointer hover:bg-white/10 text-white font-serif text-sm md:text-base group">
+                        1st 12 <div id="chip-dozen-1" class="chip-marker absolute inset-0 m-auto flex items-center justify-center"></div>
+                    </div>
+                    <div onclick="game.placeBet('dozen', 2)" class="relative flex-1 flex items-center justify-center border-r border-white-alpha cursor-pointer hover:bg-white/10 text-white font-serif text-sm md:text-base group">
+                        2nd 12 <div id="chip-dozen-2" class="chip-marker absolute inset-0 m-auto flex items-center justify-center"></div>
+                    </div>
+                    <div onclick="game.placeBet('dozen', 3)" class="relative flex-1 flex items-center justify-center cursor-pointer hover:bg-white/10 text-white font-serif text-sm md:text-base group">
+                        3rd 12 <div id="chip-dozen-3" class="chip-marker absolute inset-0 m-auto flex items-center justify-center"></div>
+                    </div>
+                </div>
+
+                <!-- Simple Chances -->
+                <div class="flex border-t border-white-alpha ml-12 md:ml-16 mr-10 md:mr-12 h-12 md:h-14">
+                    <div onclick="game.placeBet('low', '1-18')" class="relative flex-1 flex items-center justify-center border-r border-white-alpha cursor-pointer hover:bg-white/10 text-white text-sm group">1-18 <div id="chip-low-1-18" class="chip-marker absolute inset-0 m-auto flex items-center justify-center"></div></div>
+                    <div onclick="game.placeBet('even', 'even')" class="relative flex-1 flex items-center justify-center border-r border-white-alpha cursor-pointer hover:bg-white/10 text-white text-sm group">EVEN <div id="chip-even-even" class="chip-marker absolute inset-0 m-auto flex items-center justify-center"></div></div>
+                    <div onclick="game.placeBet('red', 'red')" class="relative flex-1 flex items-center justify-center border-r border-white-alpha cursor-pointer hover:bg-red-500/10 group bg-gradient-to-b from-red-700 to-red-900">
+                        <div class="w-6 h-6 bg-red-500 rotate-45 shadow-lg"></div>
+                        <div id="chip-red-red" class="chip-marker absolute inset-0 m-auto flex items-center justify-center"></div>
+                    </div>
+                    <div onclick="game.placeBet('black', 'black')" class="relative flex-1 flex items-center justify-center border-r border-white-alpha cursor-pointer hover:bg-white/10 group">
+                        <div class="w-6 h-4 bg-black border border-white/50 rotate-45 transform skew-x-12"></div>
+                        <div id="chip-black-black" class="chip-marker absolute inset-0 m-auto flex items-center justify-center"></div>
+                    </div>
+                    <div onclick="game.placeBet('odd', 'odd')" class="relative flex-1 flex items-center justify-center border-r border-white-alpha cursor-pointer hover:bg-white/10 text-white text-sm group">ODD <div id="chip-odd-odd" class="chip-marker absolute inset-0 m-auto flex items-center justify-center"></div></div>
+                    <div onclick="game.placeBet('high', '19-36')" class="relative flex-1 flex items-center justify-center cursor-pointer hover:bg-white/10 text-white text-sm group">19-36 <div id="chip-high-19-36" class="chip-marker absolute inset-0 m-auto flex items-center justify-center"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="w-full bg-black/40 backdrop-blur-md border-t border-casino-gold/20 p-4 fixed bottom-0 left-0 z-50">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <!-- Stats -->
+            <div class="flex items-center gap-4 text-casino-gold font-mono text-sm">
+                <div class="flex flex-col">
+                    <span class="text-xs text-white/50">BALANCE</span>
+                    <span id="balance-display" class="text-xl font-bold">$10,000</span>
+                </div>
+                <div class="w-px h-8 bg-white/10"></div>
+                <div class="flex flex-col">
+                    <span class="text-xs text-white/50">TOTAL BET</span>
+                    <span id="bet-display" class="text-lg">$0</span>
+                </div>
+            </div>
+
+            <!-- Chips -->
+            <div class="flex items-center gap-2 overflow-x-auto py-2 px-1 max-w-[300px] md:max-w-none scrollbar-hide">
+                <button onclick="game.undo()" class="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/80 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+                </button>
+                
+                <div id="chip-container" class="flex gap-2"></div>
+
+                <button onclick="game.clearBets()" class="p-2 rounded-full bg-white/5 hover:bg-red-900/50 text-red-400 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+                </button>
+            </div>
+
+            <!-- Spin Button -->
+            <button id="spin-btn" onclick="game.spin()" disabled class="bg-gradient-to-b from-casino-gold to-yellow-700 text-black font-bold py-3 px-8 rounded-full shadow-[0_0_20px_rgba(234,179,8,0.3)] hover:shadow-[0_0_30px_rgba(234,179,8,0.5)] hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:grayscale text-lg uppercase tracking-wider cursor-pointer disabled:cursor-not-allowed">
+                Spin
+            </button>
+        </div>
+    </div>
+
+    <script src="roulette.js"></script>
+</body>
+</html>
