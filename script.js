@@ -6,9 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Setup sidebar navigation
     setupSidebarNav();
     
-    // Setup skill animations
-    setupSkillAnimations();
-    
     // Setup smooth scrolling
     setupSmoothScrolling();
 });
@@ -19,39 +16,39 @@ function initParticles() {
         particlesJS("particles-js", {
             particles: {
                 number: { 
-                    value: 30, 
+                    value: 60, 
                     density: { 
                         enable: true, 
-                        value_area: 1500 
+                        value_area: 1000 
                     } 
                 },
                 color: { value: "#3182CE" },
                 shape: { type: "circle" },
                 opacity: { 
-                    value: 0.3, 
-                    random: false,
+                    value: 0.6, 
+                    random: true,
                     anim: {
                         enable: true,
                         speed: 1,
-                        opacity_min: 0.1,
+                        opacity_min: 0.2,
                         sync: false
                     }
                 },
                 size: { 
-                    value: 2, 
+                    value: 3, 
                     random: true,
                     anim: {
                         enable: true,
-                        speed: 1.5,
-                        size_min: 0.5,
+                        speed: 2,
+                        size_min: 1,
                         sync: false
                     }
                 },
                 line_linked: {
                     enable: true,
-                    distance: 80,
+                    distance: 120,
                     color: "#3182CE",
-                    opacity: 0.08,
+                    opacity: 0.2,
                     width: 1
                 },
                 move: {
@@ -68,10 +65,12 @@ function initParticles() {
                 detect_on: "canvas",
                 events: {
                     onhover: { 
-                        enable: false
+                        enable: true, 
+                        mode: "grab" 
                     },
                     onclick: { 
-                        enable: false
+                        enable: true, 
+                        mode: "push" 
                     },
                     resize: true
                 }
