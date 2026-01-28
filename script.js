@@ -13,23 +13,23 @@ document.addEventListener('DOMContentLoaded', function() {
     setupSmoothScrolling();
 });
 
-// Particles.js initialization with updated colors for new design
+// Particles.js initialization with minimal, clean design
 function initParticles() {
     if (typeof particlesJS !== 'undefined') {
         particlesJS("particles-js", {
             particles: {
                 number: { 
-                    value: 50, 
+                    value: 30, 
                     density: { 
                         enable: true, 
-                        value_area: 1200 
+                        value_area: 1500 
                     } 
                 },
-                color: { value: "#3B82F6" },
+                color: { value: "#3182CE" },
                 shape: { type: "circle" },
                 opacity: { 
-                    value: 0.4, 
-                    random: true,
+                    value: 0.3, 
+                    random: false,
                     anim: {
                         enable: true,
                         speed: 1,
@@ -38,25 +38,25 @@ function initParticles() {
                     }
                 },
                 size: { 
-                    value: 2.5, 
+                    value: 2, 
                     random: true,
                     anim: {
                         enable: true,
-                        speed: 2,
+                        speed: 1.5,
                         size_min: 0.5,
                         sync: false
                     }
                 },
                 line_linked: {
                     enable: true,
-                    distance: 100,
-                    color: "#3B82F6",
-                    opacity: 0.15,
+                    distance: 80,
+                    color: "#3182CE",
+                    opacity: 0.08,
                     width: 1
                 },
                 move: {
                     enable: true,
-                    speed: 0.6,
+                    speed: 0.4,
                     direction: "none",
                     random: true,
                     straight: false,
@@ -68,12 +68,10 @@ function initParticles() {
                 detect_on: "canvas",
                 events: {
                     onhover: { 
-                        enable: true, 
-                        mode: "grab" 
+                        enable: false
                     },
                     onclick: { 
-                        enable: true, 
-                        mode: "push" 
+                        enable: false
                     },
                     resize: true
                 }
