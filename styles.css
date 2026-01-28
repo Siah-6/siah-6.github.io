@@ -77,17 +77,17 @@ body {
 /* Profile Card Sidebar */
 .profile-card {
     width: 280px;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: var(--radius-lg);
     padding: var(--spacing-xl);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.25);
     height: fit-content;
     position: sticky;
     top: var(--spacing-2xl);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .profile-card:hover {
@@ -212,14 +212,14 @@ body {
 
 /* Content Cards */
 .content-card {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: var(--radius-lg);
     padding: var(--spacing-2xl);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.25);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .content-card:hover {
@@ -442,14 +442,14 @@ body {
 }
 
 .project-card {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.25);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .project-card:hover {
