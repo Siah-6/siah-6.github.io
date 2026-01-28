@@ -1,59 +1,62 @@
-// Initialize AOS (Animate On Scroll)
+// Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true
-    });
-
     // Initialize Particles.js
     initParticles();
     
-    // Mobile menu toggle
-    setupMobileMenu();
+    // Setup sidebar navigation
+    setupSidebarNav();
     
-    // Project tabs
-    setupProjectTabs();
+    // Setup skill animations
+    setupSkillAnimations();
     
-    // Contact form
-    setupContactForm();
-    
-    // Back to top button
-    setupBackToTop();
+    // Setup smooth scrolling
+    setupSmoothScrolling();
 });
 
-// Particles.js initialization
+// Particles.js initialization with updated colors for new design
 function initParticles() {
     if (typeof particlesJS !== 'undefined') {
         particlesJS("particles-js", {
             particles: {
                 number: { 
-                    value: 80, 
+                    value: 50, 
                     density: { 
                         enable: true, 
-                        value_area: 800 
+                        value_area: 1200 
                     } 
                 },
-                color: { value: "#2563eb" },
+                color: { value: "#3B82F6" },
                 shape: { type: "circle" },
                 opacity: { 
-                    value: 0.5, 
-                    random: true 
+                    value: 0.4, 
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
                 },
                 size: { 
-                    value: 3, 
-                    random: true 
+                    value: 2.5, 
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 0.5,
+                        sync: false
+                    }
                 },
                 line_linked: {
                     enable: true,
-                    distance: 150,
-                    color: "#8b5cf6",
-                    opacity: 0.4,
+                    distance: 100,
+                    color: "#3B82F6",
+                    opacity: 0.15,
                     width: 1
                 },
                 move: {
                     enable: true,
-                    speed: 1,
+                    speed: 0.6,
                     direction: "none",
                     random: true,
                     straight: false,
@@ -66,7 +69,7 @@ function initParticles() {
                 events: {
                     onhover: { 
                         enable: true, 
-                        mode: "repulse" 
+                        mode: "grab" 
                     },
                     onclick: { 
                         enable: true, 
@@ -219,4 +222,104 @@ function setupBackToTop() {
             }
         });
     }
+}
+
+// Sidebar navigation functionality
+function setupSidebarNav() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all links
+            navLinks.forEach(l => l.classList.remove('active'));
+            
+            // Add active class to clicked link
+            this.classList.add('active');
+            
+            // Smooth scroll to section
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // Update active nav link on scroll
+    window.addEventListener('scroll', function() {
+        let current = '';
+        const sections = document.querySelectorAll('section[id]');
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if (window.scrollY >= (sectionTop - 100)) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+}
+
+// Skill progress bar animations
+function setupSkillAnimations() {
+    const skillBars = document.querySelectorAll('.skill-progress');
+    
+    // Function to animate skill bars
+    const animateSkillBars = () => {
+        skillBars.forEach(bar => {
+            const rect = bar.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+            
+            if (isVisible && !bar.style.width) {
+                const level = bar.getAttribute('data-level');
+                bar.style.width = level + '%';
+            }
+        });
+    };
+    
+    // Initial check
+    animateSkillBars();
+    
+    // Check on scroll
+    window.addEventListener('scroll', animateSkillBars);
+}
+
+// Smooth scrolling for all anchor links
+function setupSmoothScrolling() {
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    
+    anchorLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                const offsetTop = targetElement.offsetTop - 80;
+                
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 }

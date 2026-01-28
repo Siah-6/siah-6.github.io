@@ -4,408 +4,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jon Josiah's Portfolio</title>
+    <title>Jon Josiah</title>
     <meta name="description"
-        content="Jon Josiah's portfolio website showcasing web development projects and skills. Explore my work in Web Dev and ADET categories.">
+        content="Jon Josiah - Graduating BS Information Technology student portfolio showcasing web development projects, skills, and academic journey.">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 
-    <!-- Open Graph meta tags for better social sharing -->
-    <meta property="og:title" content="Jon Josiah | Portfolio">
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Jon Josiah | IT Student Portfolio">
     <meta property="og:description"
-        content="Explore my web development journey and projects. A showcase of my skills and learning path in technology.">
+        content="Graduating BS Information Technology student showcasing web development projects and technical skills.">
     <meta property="og:type" content="website">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- AOS Library for scroll animations -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="#" class="logo">
-                <span class="logo-text"><span class="highlight">J</span>Josiah</span>
-            </a>
-            <div class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact" class="contact-btn">Contact</a>
-            </div>
-            <div class="menu-btn">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact" class="contact-btn-mobile">Contact</a>
-    </div>
-
     <!-- Particle Background -->
     <div id="particles-js"></div>
 
-    <!-- Header Section -->
-    <header id="home">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text" data-aos="fade-up">
-                    <h1>Hey, I'm <span class="highlight">Jon Josiah</span></h1>
-                    <p>A passionate student exploring web development and creating digital experiences. Welcome to my
-                        portfolio!</p>
-                    <div class="hero-buttons">
-                        <a href="#projects" class="primary-btn">View Projects</a>
-                        <a href="#about" class="secondary-btn">About Me</a>
-                    </div>
+    <div class="container">
+        <!-- Left Sidebar Profile Card -->
+        <aside class="profile-card">
+            <div class="profile-header">
+                <div class="profile-image">
+                    <img src="images/mypic.jpg" alt="Jon Josiah">
                 </div>
-                <div class="hero-image" data-aos="fade-left" data-aos-delay="300">
-                    <div class="profile-icon">
-                        <span>JJ</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>About Me</h2>
-                <div class="section-divider"></div>
-            </div>
-            <div class="about-content">
-                <div class="about-image" data-aos="fade-right">
-                    <div class="image-container">
-                        <img src="images/mypic.jpg" alt="Jon Josiah">
-                    </div>
-                </div>
-                <div class="about-text" data-aos="fade-left">
-                    <h3>I'm a <span class="highlight">student developer</span> exploring the digital world</h3>
-                    <p>Welcome to my digital space! I'm a 21-year-old passionate student diving deep into the world of
-                        technology and web development. This portfolio showcases my journey and the projects I've built
-                        along the way.</p>
-                    <p>When I'm not coding, you'll find me in the competitive arena of Mobile Legends, strumming my
-                        favorite tunes on a musical instrument, or exploring the captivating worlds of anime.</p>
-                    <p>This website is a personal project, crafted purely for educational purposes – a digital
-                        playground where I showcase my learning journey and technical skills.</p>
-                    <h4 style="margin-top: 1.5em;">Hobbies</h4>
-                    <div class="skills-grid">
-                        <div class="skill-card">
-                            <h4>Web Development</h4>
-                            <p>Building interactive and responsive web applications</p>
-                        </div>
-                        <div class="skill-card">
-                            <h4>Mobile Legends</h4>
-                            <p>Competitive gaming and strategic thinking</p>
-                        </div>
-                        <div class="skill-card">
-                            <h4>Music</h4>
-                            <p>Playing instruments and appreciating melodies</p>
-                        </div>
-                        <div class="skill-card">
-                            <h4>Anime</h4>
-                            <p>Exploring storytelling through animation</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>My Projects</h2>
-                <div class="section-divider"></div>
-                <p>Explore my portfolio of projects showcasing my skills and development journey.</p>
+                <h1>Jon Josiah</h1>
+                <p class="role">4th-Year BS Information Technology Student</p>
             </div>
 
-            <!-- Project Categories -->
-            <div class="project-tabs" data-aos="fade-up">
-                <button class="tab-btn active" data-category="webdev">Web Dev</button>
-                <button class="tab-btn" data-category="adet">ADET</button>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact@jonjosiah.dev</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Philippines</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>Available upon request</span>
+                </div>
             </div>
 
-            <!-- Web Dev Projects -->
-            <div class="projects-grid active" id="webdev-projects">
-                <!-- Phone Project -->
-                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=450"
-                            alt="Phone Project">
-                    </div>
-                    <div class="project-info">
-                        <h3>Phone Project</h3>
-                        <p>A responsive web application exploring mobile interface design and user experience.</p>
-                        <div class="project-meta">
-                            <span class="project-tag primary"><i class="fas fa-mobile-alt"></i> Mobile UI</span>
-                            <a href="phone/index.html" class="project-link">View Project <i
-                                    class="fas fa-arrow-right"></i></a>
+            <div class="social-links">
+                <a href="https://github.com/Siah-6" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" target="_blank" class="social-link">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#achievements" class="nav-link">Achievements</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- About Me Section -->
+            <section id="about" class="content-card">
+                <h2 class="section-title">About Me</h2>
+                <div class="section-content">
+                    <p>
+                        I'm a graduating BS Information Technology student with a focus on web development. 
+                        My journey into technology started with curiosity and grew through hands-on school 
+                        projects and capstone work. I learn best by building things and solving real problems 
+                        through code.
+                    </p>
+                    <p>
+                        My technical foundation includes HTML, CSS, JavaScript, PHP, and MySQL - skills I've 
+                        developed through academic projects and self-directed learning. I'm comfortable with 
+                        tools like Git, GitHub, VS Code, and Bootstrap, and I've successfully deployed projects 
+                        using platforms like Hostinger and Median.co.
+                    </p>
+                    <p>
+                        While I'm still growing in areas like advanced JavaScript frameworks and theoretical 
+                        concepts, I'm persistent, adaptable, and always eager to learn. I believe in consistent 
+                        progress and am excited to apply my skills in a professional setting during my OJT 
+                        and future career.
+                    </p>
+                    <div class="interests-grid">
+                        <div class="interest-item">
+                            <i class="fas fa-code"></i>
+                            <span>Web Development</span>
+                        </div>
+                        <div class="interest-item">
+                            <i class="fas fa-gamepad"></i>
+                            <span>Competitive Gaming</span>
+                        </div>
+                        <div class="interest-item">
+                            <i class="fas fa-music"></i>
+                            <span>Music</span>
+                        </div>
+                        <div class="interest-item">
+                            <i class="fas fa-laptop-code"></i>
+                            <span>Building Projects</span>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Place Project -->
-                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=450"
-                            alt="Place Project">
-                    </div>
-                    <div class="project-info">
-                        <h3>Place Project</h3>
-                        <p>An interactive web project demonstrating dynamic content rendering and layout techniques.</p>
-                        <div class="project-meta">
-                            <span class="project-tag secondary"><i class="fas fa-map-marker-alt"></i> Dynamic
-                                Layout</span>
-                            <a href="place/index.html" class="project-link">View Project <i
-                                    class="fas fa-arrow-right"></i></a>
+            <!-- Education Section -->
+            <section id="education" class="content-card">
+                <h2 class="section-title">Education</h2>
+                <div class="section-content">
+                    <div class="education-item">
+                        <div class="education-header">
+                            <h3>Bachelor of Science in Information Technology</h3>
+                            <span class="education-year">2021 - Present</span>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Gallery Project -->
-                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=450"
-                            alt="Gallery Project">
-                    </div>
-                    <div class="project-info">
-                        <h3>Gallery Project</h3>
-                        <p>A creative gallery application showcasing image handling and responsive design principles.
+                        <p class="education-institution">University Name</p>
+                        <p class="education-description">
+                            Focused on web development, database systems, and software engineering. 
+                            Completed capstone projects involving full-stack development and mobile app deployment 
+                            using Hostinger and Median.co platforms.
                         </p>
-                        <div class="project-meta">
-                            <span class="project-tag success"><i class="fas fa-images"></i> Visual Design</span>
-                            <a href="gallery/index.html" class="project-link">View Project <i
-                                    class="fas fa-arrow-right"></i></a>
+                        <div class="coursework-tags">
+                            <span class="tag">Web Development</span>
+                            <span class="tag">Database Management</span>
+                            <span class="tag">Software Engineering</span>
+                            <span class="tag">Information Systems</span>
+                            <span class="tag">Mobile Development</span>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- API Project (Dog API) -->
-                <div class="project-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1581472723648-909f4851d4ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=450"
-                            alt="API Project">
-                    </div>
-                    <div class="project-info">
-                        <h3>Dog API Project</h3>
-                        <p>A web application demonstrating API integration, data fetching, and real-world data
-                            manipulation.</p>
-                        <div class="project-meta">
-                            <span class="project-tag primary"><i class="fas fa-code"></i> API Integration</span>
-                            <a href="dog-site/index.html" class="project-link">View Project <i
-                                    class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Parallax Project -->
-                <div class="project-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=450"
-                            alt="Parallax Project">
-                    </div>
-                    <div class="project-info">
-                        <h3>Parallax Project</h3>
-                        <p>A visually stunning website using parallax scrolling effects to create dynamic and immersive
-                            web experiences.</p>
-                        <div class="project-meta">
-                            <span class="project-tag secondary"><i class="fas fa-layer-group"></i> Visual Effects</span>
-                            <a href="parallax/index.html" class="project-link">View Project <i
-                                    class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Video Project -->
-                <div class="project-card" data-aos="fade-up" data-aos-delay="600">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=450"
-                            alt="Video Project">
-                    </div>
-                    <div class="project-info">
-                        <h3>Video Project</h3>
-                        <p>A captivating video presentation showcasing a variety of anime clips.</p>
-                        <div class="project-meta">
-                            <span class="project-tag success"><i class="fas fa-video"></i> Media Player</span>
-                            <a href="video/index.html" class="project-link">View Project <i
-                                    class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ADET Projects -->
-            <div class="projects-grid" id="adet-projects">
-                <div class="project-card" data-aos="fade-up" data-aos-delay="0">
-                    <div class="project-image">
-                        <img src="ADET/A02%20copy/assets/images/valorant-logo.png" alt="Valorant Weapons Hub">
-                    </div>
-                    <div class="project-info">
-                        <h3>MVC Architecture</h3>
-                        <p>
-                            A Valorant-themed weapons showcase built with PHP, then converted to static HTML for web deployment.
-                        </p>
-                        <div class="project-meta">
-                            <span class="project-tag primary"><i class="fas fa-code"></i> MVC Architecture</span>
-                            <a href="ADET/A02%20copy/index.html" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-aos="fade-up" data-aos-delay="50">
-                    <div class="project-image">
-                        <img src="images/bento.jpg" alt="Bento Layout Project">
-                    </div>
-                    <div class="project-info">
-                        <h3>Bento Layout Project</h3>
-                        <p>A modern bento grid layout web app built with HTML, CSS, and JavaScript.</p>
-                        <div class="project-meta">
-                            <span class="project-tag success"><i class="fas fa-th-large"></i> HTML/CSS/JS</span>
-                            <a href="ADET/A03/index.html" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="project-image">
-                        <img src="images/legend-brews-screenshot.png" alt="Legend Brews Coffee Shop">
-                    </div>
-                    <div class="project-info">
-                        <h3>Legend Brews Coffee Shop</h3>
-                        <p>A full-featured coffee shop ordering system.</p>
-                        <div class="project-meta">
-                            <span class="project-tag primary"><i class="fas fa-coffee"></i> PHP/MySQL</span>
-                            <a href="ADET/A04/index.html" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="project-image">
-                        <img src="images/widget.jpg" alt="Weather Widget">
-                    </div>
-                    <div class="project-info">
-                        <h3>Weather Widget</h3>
-                        <p>An embedded weather tracking application with real-time API integration for accurate weather data and forecasting.</p>
-                        <div class="project-meta">
-                            <span class="project-tag secondary"><i class="fas fa-cloud-sun"></i> Weather API</span>
-                            <a href="ADET/A07/demo/index.html" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>Get In Touch</h2>
-                <div class="section-divider"></div>
-                <p>Have a question or want to work together? Feel free to reach out!</p>
-            </div>
-
-            <div class="contact-content">
-                <div class="contact-form" data-aos="fade-right">
-                    <div class="form-container">
-                        <h3>Send Me a Message</h3>
-                        <form id="contactForm">
-                            <div class="form-group">
-                                <label for="name">Your Name</label>
-                                <input type="text" id="name" placeholder="John Doe" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" placeholder="your@email.com" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea id="message" rows="4" placeholder="Your message here..." required></textarea>
-                            </div>
-                            <button type="submit" class="primary-btn">Send Message</button>
-                        </form>
-                        <div class="form-message" id="formMessage"></div>
-                    </div>
-                </div>
-
-                <div class="contact-info" data-aos="fade-left">
-                    <div class="info-container">
-                        <h3>Connect With Me</h3>
-                        <p>I'm always interested in new opportunities, collaborations, or just a friendly chat about
-                            technology and development.</p>
-
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="info-text">
-                                <h4>Location</h4>
-                                <p>Philippines</p>
+            <!-- Skills Section -->
+            <section id="skills" class="content-card">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="section-content">
+                    <div class="skills-categories">
+                        <div class="skill-category">
+                            <h3>Core Skills</h3>
+                            <div class="skills-list">
+                                <div class="skill-item">
+                                    <span class="skill-name">HTML5/CSS3</span>
+                                    <div class="skill-level">
+                                        <div class="skill-progress" data-level="85"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">JavaScript</span>
+                                    <div class="skill-level">
+                                        <div class="skill-progress" data-level="75"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">PHP</span>
+                                    <div class="skill-level">
+                                        <div class="skill-progress" data-level="70"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">MySQL</span>
+                                    <div class="skill-level">
+                                        <div class="skill-progress" data-level="75"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="info-text">
-                                <h4>Email</h4>
-                                <p>contact@jonjosiah.dev</p>
-                            </div>
-                        </div>
-
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fab fa-github"></i>
-                            </div>
-                            <div class="info-text">
-                                <h4>GitHub</h4>
-                                <a href="https://github.com/Siah-6" target="_blank">github.com/Siah-6</a>
+                        <div class="skill-category">
+                            <h3>Tools & Technologies</h3>
+                            <div class="tech-grid">
+                                <span class="tech-item">Git & GitHub</span>
+                                <span class="tech-item">VS Code</span>
+                                <span class="tech-item">Bootstrap</span>
+                                <span class="tech-item">phpMyAdmin</span>
+                                <span class="tech-item">Hostinger</span>
+                                <span class="tech-item">Median.co</span>
                             </div>
                         </div>
 
-                        <div class="social-links">
-                            <h4>Follow Me</h4>
-                            <div class="social-icons">
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"><i class="fab fa-dribbble"></i></a>
+                        <div class="skill-category">
+                            <h3>Currently Learning</h3>
+                            <div class="tech-grid">
+                                <span class="tech-item">React.js</span>
+                                <span class="tech-item">Python</span>
+                                <span class="tech-item">Java</span>
+                                <span class="tech-item">Figma</span>
+                                <span class="tech-item">REST APIs</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Footer Section -->
-    <footer>
-        <div class="container">
-            <p>Created by <a href="https://github.com/Siah-6" target="_blank">Jon Josiah</a> &copy; 2024</p>
-            <button id="backToTop">
-                <i class="fas fa-arrow-up"></i> Back to Top
-            </button>
-        </div>
-    </footer>
+            <!-- Projects Section -->
+            <section id="projects" class="content-card">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="section-content">
+                    <div class="projects-grid">
+                        <!-- Phone Project -->
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=250"
+                                    alt="Phone Project">
+                            </div>
+                            <div class="project-content">
+                                <h3>Mobile UI Project</h3>
+                                <p>Built responsive web interface exploring mobile-first design principles and user experience.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">HTML5/CSS3</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">Responsive Design</span>
+                                </div>
+                                <div class="project-links">
+                                    <a href="phone/index.html" class="project-link">
+                                        <i class="fas fa-external-link-alt"></i> Live Demo
+                                    </a>
+                                    <a href="#" class="project-link">
+                                        <i class="fab fa-github"></i> Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
 
-    <!-- AOS Script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+                        <!-- Legend Brews Coffee Shop -->
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="images/legend-brews-screenshot.png" alt="Legend Brews Coffee Shop">
+                            </div>
+                            <div class="project-content">
+                                <h3>Legend Brews Coffee Shop</h3>
+                                <p>Full-stack web application for coffee shop management with ordering system and database integration.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">PHP</span>
+                                    <span class="tech-tag">MySQL</span>
+                                    <span class="tech-tag">Bootstrap</span>
+                                </div>
+                                <div class="project-links">
+                                    <a href="ADET/A04/index.html" class="project-link">
+                                        <i class="fas fa-external-link-alt"></i> Live Demo
+                                    </a>
+                                    <a href="#" class="project-link">
+                                        <i class="fab fa-github"></i> Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Weather Widget -->
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="images/widget.jpg" alt="Weather Widget">
+                            </div>
+                            <div class="project-content">
+                                <h3>Weather Widget</h3>
+                                <p>Real-time weather tracking application using third-party API with dynamic data fetching.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">API Integration</span>
+                                    <span class="tech-tag">AJAX</span>
+                                </div>
+                                <div class="project-links">
+                                    <a href="ADET/A07/demo/index.html" class="project-link">
+                                        <i class="fas fa-external-link-alt"></i> Live Demo
+                                    </a>
+                                    <a href="#" class="project-link">
+                                        <i class="fab fa-github"></i> Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bento Layout Project -->
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="images/bento.jpg" alt="Bento Layout Project">
+                            </div>
+                            <div class="project-content">
+                                <h3>Bento Grid Layout</h3>
+                                <p>Modern CSS Grid-based layout demonstration with responsive design and JavaScript interactions.</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">CSS Grid</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">Responsive Design</span>
+                                </div>
+                                <div class="project-links">
+                                    <a href="ADET/A03/index.html" class="project-link">
+                                        <i class="fas fa-external-link-alt"></i> Live Demo
+                                    </a>
+                                    <a href="#" class="project-link">
+                                        <i class="fab fa-github"></i> Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Achievements Section -->
+            <section id="achievements" class="content-card">
+                <h2 class="section-title">Achievements & Activities</h2>
+                <div class="section-content">
+                    <div class="achievements-grid">
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <h3>Academic Excellence</h3>
+                                <p>Consistent Dean's List recognition for academic performance in Information Technology program.</p>
+                            </div>
+                        </div>
+
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <h3>Project Success</h3>
+                                <p>Successfully deployed capstone mobile application using Hostinger and Median.co platforms.</p>
+                            </div>
+                        </div>
+
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <h3>Peer Collaboration</h3>
+                                <p>Active participant in group projects and collaborative development with fellow IT students.</p>
+                            </div>
+                        </div>
+
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <h3>Continuous Learning</h3>
+                                <p>Self-directed learning through online resources and hands-on project development.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="content-card">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="section-content">
+                    <p>
+                        I'm currently seeking OJT opportunities where I can apply my web development skills 
+                        and continue learning in a professional environment. I'm particularly interested in 
+                        roles involving frontend development, full-stack web applications, or mobile web 
+                        technologies.
+                    </p>
+                    <p>
+                        Feel free to reach out if you have opportunities for a motivated IT student who's 
+                        eager to contribute and grow with your team.
+                    </p>
+                    <div class="contact-buttons">
+                        <a href="mailto:contact@jonjosiah.dev" class="contact-btn primary">
+                            <i class="fas fa-envelope"></i>
+                            Send Email
+                        </a>
+                        <a href="https://github.com/Siah-6" target="_blank" class="contact-btn secondary">
+                            <i class="fab fa-github"></i>
+                            GitHub
+                        </a>
+                        <a href="#" target="_blank" class="contact-btn secondary">
+                            <i class="fab fa-linkedin-in"></i>
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
 
     <!-- Particles JS -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
