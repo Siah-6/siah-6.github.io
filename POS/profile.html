@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Legend Brews</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --coffee-dark: #2c1810;
+            --coffee-medium: #6f4e37;
+            --coffee-light: #a67c52;
+            --coffee-accent: #c17d4a;
+            --coffee-cream: #f5e6d3;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+            color: var(--coffee-dark);
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, var(--coffee-dark) 0%, var(--coffee-medium) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--coffee-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            margin: 0 auto 1rem;
+        }
+        
+        .profile-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-role {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .role-admin {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .role-customer {
+            background: #28a745;
+            color: white;
+        }
+        
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--coffee-cream);
+            border-radius: 10px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--coffee-medium);
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--coffee-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--coffee-medium);
+            box-shadow: 0 0 0 0.2rem rgba(111, 78, 55, 0.25);
+            outline: none;
+        }
+        
+        .form-control:disabled {
+            background: #f8f9fa;
+            cursor: not-allowed;
+        }
+        
+        .btn-primary {
+            background: var(--coffee-medium);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: var(--coffee-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--coffee-cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--coffee-medium);
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .activity-time {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,0,0,.1);
+            border-radius: 50%;
+            border-top-color: var(--coffee-medium);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .profile-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: var(--coffee-dark);">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-mug-hot"></i>
+                Legend Brews
+            </a>
+            
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i> Home
+                        </a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav" id="authNav">
+                    <!-- Navigation will be populated by JavaScript -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <div class="container text-center">
+            <div class="profile-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <h1 class="profile-name" id="profileName">Loading...</h1>
+            <span class="profile-role role-customer" id="profileRole">Customer</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="profile-container">
+        <!-- Loading State -->
+        <div id="loadingState" class="profile-card">
+            <div class="text-center py-5">
+                <div class="loading-spinner"></div>
+                <p class="mt-3">Loading profile...</p>
+            </div>
+        </div>
+        
+        <!-- Profile Content -->
+        <div id="profileContent" style="display: none;">
+            <!-- Profile Stats -->
+            <div class="profile-card">
+                <h3 class="mb-4">Account Overview</h3>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalOrders">-</div>
+                        <div class="stat-label">Total Orders</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalSpent">-</div>
+                        <div class="stat-label">Total Spent</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="memberSince">-</div>
+                        <div class="stat-label">Member Since</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="loyaltyPoints">-</div>
+                        <div class="stat-label">Loyalty Points</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Personal Information -->
+            <div class="profile-card">
+                <h3 class="mb-4">Personal Information</h3>
+                <form id="profileForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" readonly>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Enter your last name">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" placeholder="+63 912 345 6789">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="birthday" class="form-label">Birthday</label>
+                            <input type="date" class="form-control" id="birthday">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <textarea class="form-control" id="address" rows="3" placeholder="Enter your address"></textarea>
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary" id="saveBtn">
+                            <i class="fas fa-save me-2"></i>Save Changes
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="cancelEdit()">
+                            <i class="fas fa-times me-2"></i>Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Recent Activity -->
+            <div class="profile-card">
+                <h3 class="mb-4">Recent Activity</h3>
+                <div id="recentActivity">
+                    <!-- Activity items will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Mock Services -->
+    <script src="mock-services.js"></script>
+    
+    <script>
+        let currentUser = null;
+        let userOrders = [];
+        let originalFormData = {};
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuthentication();
+            loadProfileData();
+        });
+
+        // Check authentication
+        function checkAuthentication() {
+            currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            
+            if (!currentUser) {
+                window.location.href = 'login.html?redirect=profile';
+                return;
+            }
+            
+            updateNavigation();
+            updateProfileHeader();
+        }
+
+        // Update navigation
+        function updateNavigation() {
+            const authNav = document.getElementById('authNav');
+            
+            if (currentUser) {
+                authNav.innerHTML = `
+                    <li class="nav-item">
+                        <a class="nav-link" href="orders.html">
+                            <i class="fas fa-receipt me-1"></i> My Orders
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="profile.html">
+                            <i class="fas fa-user me-1"></i> Profile
+                        </a>
+                    </li>
+                    ${currentUser.role === 'admin' ? `
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin/dashboard.html">
+                                <i class="fas fa-tachometer-alt me-1"></i> Admin
+                            </a>
+                        </li>
+                    ` : ''}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="logout()">
+                            <i class="fas fa-sign-out-alt me-1"></i> Logout
+                        </a>
+                    </li>
+                `;
+            }
+        }
+
+        // Update profile header
+        function updateProfileHeader() {
+            document.getElementById('profileName').textContent = currentUser.username;
+            
+            const roleElement = document.getElementById('profileRole');
+            roleElement.textContent = currentUser.role.charAt(0).toUpperCase() + currentUser.role.slice(1);
+            roleElement.className = `profile-role role-${currentUser.role}`;
+        }
+
+        // Load profile data
+        async function loadProfileData() {
+            try {
+                // Load user orders
+                userOrders = await MockOrdersService.getOrders(currentUser.id);
+                
+                // Also load orders from localStorage (for demo persistence)
+                const localOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+                const userLocalOrders = localOrders.filter(order => order.user_id === currentUser.id);
+                
+                // Combine mock and local orders
+                userOrders = [...userLocalOrders, ...userOrders];
+                
+                // Update stats
+                updateProfileStats();
+                
+                // Load form data
+                loadFormData();
+                
+                // Load recent activity
+                loadRecentActivity();
+                
+                // Show content
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('profileContent').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading profile data:', error);
+                showError('Failed to load profile data');
+            }
+        }
+
+        // Update profile stats
+        function updateProfileStats() {
+            const totalOrders = userOrders.length;
+            const totalSpent = userOrders.reduce((sum, order) => sum + order.total, 0);
+            const memberSince = currentUser.created_at || new Date().toISOString().split('T')[0];
+            const loyaltyPoints = Math.floor(totalSpent / 10); // 1 point per ₱10 spent
+            
+            document.getElementById('totalOrders').textContent = totalOrders.toLocaleString();
+            document.getElementById('totalSpent').textContent = `₱${totalSpent.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('memberSince').textContent = new Date(memberSince).getFullYear();
+            document.getElementById('loyaltyPoints').textContent = loyaltyPoints.toLocaleString();
+        }
+
+        // Load form data
+        function loadFormData() {
+            // Load saved profile data or use defaults
+            const savedProfile = JSON.parse(localStorage.getItem(`profile_${currentUser.id}`) || '{}');
+            
+            const formData = {
+                username: currentUser.username,
+                email: currentUser.email || `${currentUser.username}@legendbrews.com`,
+                firstName: savedProfile.firstName || '',
+                lastName: savedProfile.lastName || '',
+                phone: savedProfile.phone || '',
+                birthday: savedProfile.birthday || '',
+                address: savedProfile.address || ''
+            };
+            
+            // Set form values
+            Object.keys(formData).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.value = formData[key];
+                }
+            });
+            
+            // Store original data for comparison
+            originalFormData = { ...formData };
+        }
+
+        // Load recent activity
+        function loadRecentActivity() {
+            const activityContainer = document.getElementById('recentActivity');
+            
+            // Create activity items from orders
+            const activities = userOrders.slice(0, 5).map(order => ({
+                type: 'order',
+                title: `Placed Order #${String(order.id).padStart(6, '0')}`,
+                description: `₱${order.total.toFixed(2)}`,
+                time: new Date(order.created_at).toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric', 
+                    year: 'numeric' 
+                }),
+                icon: 'fa-shopping-cart'
+            }));
+            
+            // Add profile update activity if exists
+            const savedProfile = JSON.parse(localStorage.getItem(`profile_${currentUser.id}`) || '{}');
+            if (savedProfile.lastUpdated) {
+                activities.unshift({
+                    type: 'profile',
+                    title: 'Updated Profile',
+                    description: 'Personal information updated',
+                    time: new Date(savedProfile.lastUpdated).toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric', 
+                        year: 'numeric' 
+                    }),
+                    icon: 'fa-user-edit'
+                });
+            }
+            
+            if (activities.length === 0) {
+                activityContainer.innerHTML = `
+                    <div class="text-center py-4 text-muted">
+                        <i class="fas fa-history fa-2x mb-2"></i>
+                        <p>No recent activity</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            activityContainer.innerHTML = activities.map(activity => `
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas ${activity.icon}"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">${activity.title}</div>
+                        <div class="activity-time">${activity.description} • ${activity.time}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Form submission
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const saveBtn = document.getElementById('saveBtn');
+            
+            // Get form data
+            const formData = {
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                birthday: document.getElementById('birthday').value,
+                address: document.getElementById('address').value.trim(),
+                lastUpdated: new Date().toISOString()
+            };
+            
+            // Show loading state
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Saving...';
+            
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Save to localStorage
+                localStorage.setItem(`profile_${currentUser.id}`, JSON.stringify(formData));
+                
+                // Update original form data
+                originalFormData = { ...originalFormData, ...formData };
+                
+                // Show success message
+                showSuccess('Profile updated successfully!');
+                
+                // Reload recent activity
+                loadRecentActivity();
+                
+            } catch (error) {
+                console.error('Error saving profile:', error);
+                showError('Failed to save profile');
+            } finally {
+                // Reset button state
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fas fa-save me-2"></i>Save Changes';
+            }
+        });
+
+        // Cancel edit
+        function cancelEdit() {
+            // Restore original form data
+            Object.keys(originalFormData).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.value = originalFormData[key];
+                }
+            });
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            // Create toast notification
+            const toast = document.createElement('div');
+            toast.className = 'alert alert-success position-fixed top-0 end-0 m-3';
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                <i class="fas fa-check-circle me-2"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Show error message
+        function showError(message) {
+            // Create toast notification
+            const toast = document.createElement('div');
+            toast.className = 'alert alert-danger position-fixed top-0 end-0 m-3';
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

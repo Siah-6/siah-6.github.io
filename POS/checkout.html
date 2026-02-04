@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Legend Brews</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --coffee-dark: #2c1810;
+            --coffee-medium: #6f4e37;
+            --coffee-light: #a67c52;
+            --coffee-accent: #c17d4a;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+            color: var(--coffee-dark);
+        }
+        
+        .checkout-header {
+            background: linear-gradient(135deg, var(--coffee-dark) 0%, var(--coffee-medium) 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .checkout-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .checkout-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--coffee-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            color: var(--coffee-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--coffee-medium);
+            box-shadow: 0 0 0 0.2rem rgba(111, 78, 55, 0.25);
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 600;
+            color: var(--coffee-dark);
+        }
+        
+        .cart-item-price {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .cart-item-quantity {
+            background: var(--coffee-light);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .order-summary {
+            position: sticky;
+            top: 2rem;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+        
+        .summary-row.total {
+            border-top: 2px solid var(--coffee-dark);
+            padding-top: 1rem;
+            margin-top: 1rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .btn-checkout {
+            background: var(--coffee-medium);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-checkout:hover {
+            background: var(--coffee-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-checkout:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        
+        .empty-cart i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+        
+        .alert {
+            border-radius: 10px;
+            border: none;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        @media (max-width: 768px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-summary {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: var(--coffee-dark);">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-mug-hot"></i>
+                Legend Brews
+            </a>
+            
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i> Home
+                        </a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav" id="authNav">
+                    <!-- Navigation will be populated by JavaScript -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Checkout Header -->
+    <div class="checkout-header">
+        <div class="container text-center">
+            <h1 class="mb-2">Checkout</h1>
+            <p class="mb-0">Complete your order</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="checkout-container">
+        <!-- Success Message -->
+        <div id="successAlert" class="alert alert-success" style="display: none;">
+            <span id="successMessage"></span>
+        </div>
+        
+        <!-- Error Message -->
+        <div id="errorAlert" class="alert alert-danger" style="display: none;">
+            <span id="errorMessage"></span>
+        </div>
+        
+        <!-- Empty Cart State -->
+        <div id="emptyCartState" class="checkout-card" style="display: none;">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Your cart is empty</h3>
+                <p>Add some items to your cart before checkout</p>
+                <a href="index.html" class="btn btn-primary">
+                    <i class="fas fa-shopping-cart me-2"></i>Continue Shopping
+                </a>
+            </div>
+        </div>
+        
+        <!-- Order Completed State -->
+        <div id="orderCompletedState" class="checkout-card" style="display: none;">
+            <div class="text-center py-4">
+                <div class="success-icon mb-3">
+                    <i class="fas fa-check-circle" style="font-size: 3rem; color: #28a745;"></i>
+                </div>
+                <h4 class="mb-2">Order Completed Successfully!</h4>
+                <p class="text-muted mb-3">Order #<span id="orderNumber"></span></p>
+                <p class="mb-4">Thank you for your order. We'll prepare it right away!</p>
+                <div class="d-flex justify-content-center gap-2">
+                    <a href="index.html" class="btn btn-primary">
+                        <i class="fas fa-home me-2"></i>Continue Shopping
+                    </a>
+                    <a href="orders.html" class="btn btn-outline-primary">
+                        <i class="fas fa-receipt me-2"></i>View Orders
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Checkout Form -->
+        <form id="checkoutForm" style="display: none;">
+            <div class="checkout-grid">
+                <!-- Left Column -->
+                <div>
+                    <!-- Customer Information -->
+                    <div class="checkout-card">
+                        <h3 class="card-title">
+                            <i class="fas fa-user"></i>
+                            Customer Information
+                        </h3>
+                        
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" id="displayUsername" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phoneNumber" placeholder="+63 912 345 6789">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Delivery Address</label>
+                            <textarea class="form-control" id="deliveryAddress" rows="3" placeholder="Enter your delivery address" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Order Notes (Optional)</label>
+                            <textarea class="form-control" id="orderNotes" rows="2" placeholder="Special instructions or notes"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Method -->
+                    <div class="checkout-card">
+                        <h3 class="card-title">
+                            <i class="fas fa-credit-card"></i>
+                            Payment Method
+                        </h3>
+                        
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment" id="cod" value="cod" checked>
+                                <label class="form-check-label" for="cod">
+                                    <i class="fas fa-money-bill-wave me-2"></i>
+                                    Cash on Delivery
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment" id="gcash" value="gcash">
+                                <label class="form-check-label" for="gcash">
+                                    <i class="fas fa-mobile-alt me-2"></i>
+                                    GCash
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment" id="card" value="card">
+                                <label class="form-check-label" for="card">
+                                    <i class="fas fa-credit-card me-2"></i>
+                                    Credit/Debit Card
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column - Order Summary -->
+                <div class="order-summary">
+                    <div class="checkout-card">
+                        <h3 class="card-title">
+                            <i class="fas fa-shopping-cart"></i>
+                            Order Summary
+                        </h3>
+                        
+                        <!-- Cart Items -->
+                        <div id="cartItemsContainer">
+                            <!-- Cart items will be populated here -->
+                        </div>
+                        
+                        <!-- Summary -->
+                        <div class="mt-4">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="subtotal">₱0</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Delivery Fee</span>
+                                <span>₱50.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Service Fee</span>
+                                <span>₱20.00</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total</span>
+                                <span id="totalAmount">₱0</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Place Order Button -->
+                        <button type="submit" class="btn-checkout" id="placeOrderBtn">
+                            <i class="fas fa-check-circle me-2"></i>
+                            Place Order
+                        </button>
+                        
+                        <div class="text-center mt-3">
+                            <small class="text-muted">
+                                <i class="fas fa-lock me-1"></i>
+                                Secure checkout powered by Legend Brews
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Mock Services -->
+    <script src="mock-services.js"></script>
+    
+    <script>
+        let currentUser = null;
+        let cartItems = [];
+        let total = 0;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuthentication();
+            loadCartFromStorage();
+            updateNavigation();
+            loadCheckoutPage();
+        });
+
+        // Check authentication
+        function checkAuthentication() {
+            currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            
+            if (!currentUser) {
+                // Redirect to login with checkout redirect
+                window.location.href = 'login.html?redirect=checkout';
+                return;
+            }
+            
+            // Update display username
+            document.getElementById('displayUsername').value = currentUser.username;
+        }
+
+        // Update navigation
+        function updateNavigation() {
+            const authNav = document.getElementById('authNav');
+            
+            if (currentUser) {
+                authNav.innerHTML = `
+                    <li class="nav-item">
+                        <a class="nav-link" href="orders.html">
+                            <i class="fas fa-receipt me-1"></i> My Orders
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">
+                            <i class="fas fa-user me-1"></i> Profile
+                        </a>
+                    </li>
+                    ${currentUser.role === 'admin' ? `
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin/dashboard.html">
+                                <i class="fas fa-tachometer-alt me-1"></i> Admin
+                            </a>
+                        </li>
+                    ` : ''}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="logout()">
+                            <i class="fas fa-sign-out-alt me-1"></i> Logout
+                        </a>
+                    </li>
+                `;
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+
+        // Load cart from storage
+        function loadCartFromStorage() {
+            const savedCart = localStorage.getItem('cartItems');
+            if (savedCart) {
+                cartItems = JSON.parse(savedCart);
+            }
+        }
+
+        // Load checkout page
+        function loadCheckoutPage() {
+            if (cartItems.length === 0) {
+                showEmptyCart();
+                return;
+            }
+
+            // Show checkout form
+            document.getElementById('checkoutForm').style.display = 'block';
+            
+            // Calculate total
+            total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            // Display cart items
+            displayCartItems();
+            
+            // Update summary
+            updateSummary();
+        }
+
+        // Show empty cart state
+        function showEmptyCart() {
+            document.getElementById('emptyCartState').style.display = 'block';
+            document.getElementById('checkoutForm').style.display = 'none';
+        }
+
+        // Display cart items
+        function displayCartItems() {
+            const container = document.getElementById('cartItemsContainer');
+            
+            const itemsHTML = cartItems.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">₱${item.price.toFixed(2)}</div>
+                    </div>
+                    <div class="cart-item-quantity">x${item.quantity}</div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = itemsHTML;
+        }
+
+        // Update summary
+        function updateSummary() {
+            const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const totalWithFees = subtotal + 70; // 50 delivery + 20 service
+            
+            document.getElementById('subtotal').textContent = `₱${subtotal.toFixed(2)}`;
+            document.getElementById('totalAmount').textContent = `₱${totalWithFees.toFixed(2)}`;
+        }
+
+        // Form submission
+        document.getElementById('checkoutForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const deliveryAddress = document.getElementById('deliveryAddress').value.trim();
+            const placeOrderBtn = document.getElementById('placeOrderBtn');
+            
+            // Hide previous messages
+            hideMessages();
+            
+            // Validation
+            if (!deliveryAddress) {
+                showError('Please enter your delivery address');
+                return;
+            }
+            
+            if (cartItems.length === 0) {
+                showError('Your cart is empty');
+                return;
+            }
+            
+            // Show loading state
+            placeOrderBtn.disabled = true;
+            placeOrderBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Placing Order...';
+            
+            try {
+                // Calculate total with fees
+                const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const totalWithFees = subtotal + 70;
+                
+                // Create order
+                const result = await MockOrdersService.createOrder(
+                    currentUser.id, 
+                    cartItems, 
+                    totalWithFees
+                );
+                
+                if (result.success) {
+                    // Clear cart
+                    localStorage.removeItem('cartItems');
+                    localStorage.removeItem('cartTotal');
+                    
+                    // Show success state
+                    showOrderCompleted(result.order.id);
+                } else {
+                    showError('Failed to place order. Please try again.');
+                }
+            } catch (error) {
+                console.error('Checkout error:', error);
+                showError('An error occurred while placing your order');
+            } finally {
+                // Reset button state
+                placeOrderBtn.disabled = false;
+                placeOrderBtn.innerHTML = '<i class="fas fa-check-circle me-2"></i>Place Order';
+            }
+        });
+
+        // Show order completed state
+        function showOrderCompleted(orderId) {
+            document.getElementById('checkoutForm').style.display = 'none';
+            document.getElementById('orderCompletedState').style.display = 'block';
+            document.getElementById('orderNumber').textContent = String(orderId).padStart(6, '0');
+        }
+
+        // Show error message
+        function showError(message) {
+            hideMessages();
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('errorAlert').style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(hideMessages, 5000);
+        }
+
+        // Hide all messages
+        function hideMessages() {
+            document.getElementById('successAlert').style.display = 'none';
+            document.getElementById('errorAlert').style.display = 'none';
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            hideMessages();
+            document.getElementById('successMessage').textContent = message;
+            document.getElementById('successAlert').style.display = 'block';
+            
+            // Auto-hide after 3 seconds
+            setTimeout(hideMessages, 3000);
+        }
+    </script>
+</body>
+</html>

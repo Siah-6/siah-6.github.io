@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Management - Legend Brews</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --coffee-dark: #2c1810;
+            --coffee-medium: #6f4e37;
+            --coffee-light: #a67c52;
+            --coffee-accent: #c17d4a;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+            color: var(--coffee-dark);
+        }
+        
+        /* Sidebar styles (same as dashboard) */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 250px;
+            background: linear-gradient(135deg, var(--coffee-dark) 0%, var(--coffee-medium) 100%);
+            color: white;
+            padding: 2rem 0;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar.collapsed {
+            transform: translateX(-250px);
+        }
+        
+        .sidebar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 0 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 1.5rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-left: 3px solid var(--coffee-accent);
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            transition: margin-left 0.3s ease;
+        }
+        
+        .main-content.expanded {
+            margin-left: 0;
+        }
+        
+        .top-bar {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .sidebar-toggle {
+            background: var(--coffee-medium);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 1rem;
+        }
+        
+        /* Orders specific styles */
+        .orders-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-tab {
+            padding: 0.8rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .filter-tab:hover {
+            color: var(--coffee-medium);
+        }
+        
+        .filter-tab.active {
+            color: var(--coffee-medium);
+            border-bottom-color: var(--coffee-medium);
+        }
+        
+        .orders-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .orders-table table {
+            margin: 0;
+        }
+        
+        .orders-table th {
+            background: var(--coffee-dark);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 1rem;
+        }
+        
+        .orders-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+        
+        .orders-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .order-id {
+            font-weight: 700;
+            color: var(--coffee-medium);
+        }
+        
+        .order-status {
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-processing {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-pending {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .order-items-preview {
+            max-width: 300px;
+        }
+        
+        .order-item {
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-view {
+            background: #17a2b8;
+            color: white;
+        }
+        
+        .btn-view:hover {
+            background: #138496;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,0,0,.1);
+            border-radius: 50%;
+            border-top-color: var(--coffee-medium);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-250px);
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+            
+            .orders-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+            
+            .filter-tabs {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-mug-hot me-2"></i>
+            Legend Brews
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li>
+                <a href="dashboard.html">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="products.html">
+                    <i class="fas fa-box"></i>
+                    Products
+                </a>
+            </li>
+            <li>
+                <a href="orders.html" class="active">
+                    <i class="fas fa-receipt"></i>
+                    Orders
+                </a>
+            </li>
+            <li>
+                <a href="customers.html">
+                    <i class="fas fa-users"></i>
+                    Customers
+                </a>
+            </li>
+            <li>
+                <a href="analytics.html">
+                    <i class="fas fa-chart-line"></i>
+                    Analytics
+                </a>
+            </li>
+            <li>
+                <a href="inventory.html">
+                    <i class="fas fa-warehouse"></i>
+                    Inventory
+                </a>
+            </li>
+            <li>
+                <a href="../index.html">
+                    <i class="fas fa-store"></i>
+                    View Shop
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="d-flex align-items-center">
+                <button class="sidebar-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h4 class="mb-0 me-3">Orders Management</h4>
+            </div>
+            
+            <div class="d-flex align-items-center">
+                <span class="me-3">
+                    <i class="fas fa-user me-2"></i>
+                    <span id="currentUserDisplay">Admin</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="text-center py-5">
+            <div class="loading-spinner"></div>
+            <p class="mt-3">Loading orders...</p>
+        </div>
+
+        <!-- Orders Content -->
+        <div id="ordersContent" style="display: none;">
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">All Orders</button>
+                <button class="filter-tab" data-filter="pending">Pending</button>
+                <button class="filter-tab" data-filter="processing">Processing</button>
+                <button class="filter-tab" data-filter="completed">Completed</button>
+            </div>
+            
+            <!-- Orders Table -->
+            <div class="orders-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <!-- Orders will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Mock Services -->
+    <script src="../mock-services.js"></script>
+    
+    <script>
+        let currentUser = null;
+        let allOrders = [];
+        let currentFilter = 'all';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuthentication();
+            loadOrders();
+            setupFilterTabs();
+        });
+
+        // Check authentication
+        function checkAuthentication() {
+            currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            
+            if (!currentUser || currentUser.role !== 'admin') {
+                window.location.href = '../login.html?role=admin';
+                return;
+            }
+            
+            document.getElementById('currentUserDisplay').textContent = currentUser.username;
+        }
+
+        // Setup filter tabs
+        function setupFilterTabs() {
+            const tabs = document.querySelectorAll('.filter-tab');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentFilter = tab.dataset.filter;
+                    displayOrders();
+                });
+            });
+        }
+
+        // Load orders
+        async function loadOrders() {
+            try {
+                allOrders = await MockOrdersService.getOrders(); // Get all orders for admin
+                
+                // Also load orders from localStorage
+                const localOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+                allOrders = [...localOrders, ...allOrders];
+                
+                // Sort by date (newest first)
+                allOrders.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                
+                displayOrders();
+                
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('ordersContent').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                showError('Failed to load orders');
+            }
+        }
+
+        // Display orders
+        function displayOrders() {
+            const tbody = document.getElementById('ordersTableBody');
+            
+            // Filter orders
+            let filteredOrders = allOrders;
+            if (currentFilter !== 'all') {
+                filteredOrders = allOrders.filter(order => order.status === currentFilter);
+            }
+            
+            if (filteredOrders.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="text-center py-5">
+                            <i class="fas fa-receipt fa-2x text-muted mb-2"></i>
+                            <p class="text-muted">No orders found</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = filteredOrders.map(order => {
+                // Get customer info
+                const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]');
+                const customer = allUsers.find(u => u.id === order.user_id) || { username: 'Unknown' };
+                
+                return `
+                    <tr>
+                        <td><span class="order-id">#${String(order.id).padStart(6, '0')}</span></td>
+                        <td>${customer.username}</td>
+                        <td>
+                            <div class="order-items-preview">
+                                ${order.items.slice(0, 2).map(item => `
+                                    <div class="order-item">${item.product_name} x${item.quantity}</div>
+                                `).join('')}
+                                ${order.items.length > 2 ? `<div class="order-item text-muted">+${order.items.length - 2} more</div>` : ''}
+                            </div>
+                        </td>
+                        <td>₱${order.total.toFixed(2)}</td>
+                        <td>${new Date(order.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                        <td>
+                            <span class="order-status status-${order.status}">
+                                ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn-sm btn-view" onclick="viewOrderDetails(${order.id})">
+                                <i class="fas fa-eye me-1"></i> View
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // View order details
+        function viewOrderDetails(orderId) {
+            const order = allOrders.find(o => o.id === orderId);
+            if (!order) return;
+            
+            // Get customer info
+            const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]');
+            const customer = allUsers.find(u => u.id === order.user_id) || { username: 'Unknown' };
+            
+            const details = `
+Order ID: #${String(order.id).padStart(6, '0')}
+Customer: ${customer.username}
+Date: ${new Date(order.created_at).toLocaleString()}
+Status: ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+
+Items:
+${order.items.map(item => `- ${item.product_name} x${item.quantity} = ₱${(item.price * item.quantity).toFixed(2)}`).join('\n')}
+
+Subtotal: ₱${(order.total - 70).toFixed(2)}
+Delivery Fee: ₱50.00
+Service Fee: ₱20.00
+Total: ₱${order.total.toFixed(2)}
+            `;
+            
+            alert(details);
+        }
+
+        // Toggle sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '../login.html';
+        }
+
+        // Show error message
+        function showError(message) {
+            const toast = document.createElement('div');
+            toast.className = 'alert alert-danger position-fixed top-0 end-0 m-3';
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

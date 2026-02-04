@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Legend Brews</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --coffee-dark: #2c1810;
+            --coffee-medium: #6f4e37;
+            --coffee-light: #a67c52;
+            --coffee-accent: #c17d4a;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+            color: var(--coffee-dark);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 250px;
+            background: linear-gradient(135deg, var(--coffee-dark) 0%, var(--coffee-medium) 100%);
+            color: white;
+            padding: 2rem 0;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar.collapsed {
+            transform: translateX(-250px);
+        }
+        
+        .sidebar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 0 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 1.5rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-left: 3px solid var(--coffee-accent);
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            transition: margin-left 0.3s ease;
+        }
+        
+        .main-content.expanded {
+            margin-left: 0;
+        }
+        
+        /* Top Bar */
+        .top-bar {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .sidebar-toggle {
+            background: var(--coffee-medium);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 1rem;
+        }
+        
+        /* Stats Cards */
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .stat-card.primary {
+            border-left-color: var(--info);
+        }
+        
+        .stat-card.success {
+            border-left-color: var(--success);
+        }
+        
+        .stat-card.warning {
+            border-left-color: var(--warning);
+        }
+        
+        .stat-card.danger {
+            border-left-color: var(--danger);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-icon.primary {
+            background: rgba(23, 162, 184, 0.1);
+            color: var(--info);
+        }
+        
+        .stat-icon.success {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+        
+        .stat-icon.warning {
+            background: rgba(255, 193, 7, 0.1);
+            color: var(--warning);
+        }
+        
+        .stat-icon.danger {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .stat-change {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        
+        .stat-change.positive {
+            color: var(--success);
+        }
+        
+        .stat-change.negative {
+            color: var(--danger);
+        }
+        
+        /* Chart Container */
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            height: 400px;
+            margin-bottom: 2rem;
+        }
+        
+        .chart-container canvas {
+            max-height: 300px !important;
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .chart-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .chart-btn {
+            padding: 0.3rem 0.8rem;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .chart-btn.active,
+        .chart-btn:hover {
+            background: var(--coffee-medium);
+            color: white;
+            border-color: var(--coffee-medium);
+        }
+        
+        /* Tables */
+        .data-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .data-table table {
+            margin: 0;
+        }
+        
+        .data-table th {
+            background: var(--coffee-dark);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 1rem;
+        }
+        
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+        
+        .data-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        /* Badges */
+        .badge-custom {
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        /* Loading State */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,0,0,.1);
+            border-radius: 50%;
+            border-top-color: var(--coffee-medium);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-250px);
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+            
+            .stat-card {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-mug-hot me-2"></i>
+            Legend Brews
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li>
+                <a href="dashboard.html" class="active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="products.html">
+                    <i class="fas fa-box"></i>
+                    Products
+                </a>
+            </li>
+            <li>
+                <a href="orders.html">
+                    <i class="fas fa-receipt"></i>
+                    Orders
+                </a>
+            </li>
+            <li>
+                <a href="customers.html">
+                    <i class="fas fa-users"></i>
+                    Customers
+                </a>
+            </li>
+            <li>
+                <a href="analytics.html">
+                    <i class="fas fa-chart-line"></i>
+                    Analytics
+                </a>
+            </li>
+            <li>
+                <a href="inventory.html">
+                    <i class="fas fa-warehouse"></i>
+                    Inventory
+                </a>
+            </li>
+            <li>
+                <a href="../index.html">
+                    <i class="fas fa-store"></i>
+                    View Shop
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="d-flex align-items-center">
+                <button class="sidebar-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h4 class="mb-0 me-3">Admin Dashboard</h4>
+                <span class="badge bg-success">Live</span>
+            </div>
+            
+            <div class="d-flex align-items-center">
+                <span class="me-3">
+                    <i class="fas fa-user me-2"></i>
+                    <span id="currentUserDisplay">Admin</span>
+                </span>
+                <span id="currentTime"></span>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="text-center py-5">
+            <div class="loading-spinner"></div>
+            <p class="mt-3">Loading dashboard data...</p>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div id="dashboardContent" style="display: none;">
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="stat-card primary">
+                        <div class="stat-icon primary">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-value" id="totalProducts">-</div>
+                        <div class="stat-label">Total Products</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up me-1"></i>
+                            +12% from last month
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="stat-card success">
+                        <div class="stat-icon success">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-value" id="totalOrders">-</div>
+                        <div class="stat-label">Total Orders</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up me-1"></i>
+                            +8% from last month
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="stat-card warning">
+                        <div class="stat-icon warning">
+                            <i class="fas fa-peso-sign"></i>
+                        </div>
+                        <div class="stat-value" id="totalRevenue">-</div>
+                        <div class="stat-label">Total Revenue</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up me-1"></i>
+                            +15% from last month
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="stat-card danger">
+                        <div class="stat-icon danger">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-value" id="lowStock">-</div>
+                        <div class="stat-label">Low Stock Items</div>
+                        <div class="stat-change negative">
+                            <i class="fas fa-arrow-down me-1"></i>
+                            -3 from yesterday
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="row mb-4">
+                <div class="col-lg-8">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h5 class="chart-title">Sales Overview</h5>
+                            <div class="chart-controls">
+                                <button class="chart-btn active" onclick="updateChart('week')">Week</button>
+                                <button class="chart-btn" onclick="updateChart('month')">Month</button>
+                            </div>
+                        </div>
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h5 class="chart-title">Category Distribution</h5>
+                        </div>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tables Row -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="data-table">
+                        <div class="p-3">
+                            <h5 class="mb-3">Top Products</h5>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Sold</th>
+                                    <th>Revenue</th>
+                                </tr>
+                            </thead>
+                            <tbody id="topProductsTable">
+                                <!-- Will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="data-table">
+                        <div class="p-3">
+                            <h5 class="mb-3">Recent Orders</h5>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentOrdersTable">
+                                <!-- Will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Mock Services -->
+    <script src="../mock-services.js"></script>
+    
+    <script>
+        // Global variables
+        let salesChart, categoryChart;
+        let currentChartPeriod = 'week';
+        let currentUser = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuthentication();
+            loadDashboardData();
+            updateTime();
+            setInterval(updateTime, 1000);
+        });
+
+        // Check authentication
+        function checkAuthentication() {
+            currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            
+            if (!currentUser || currentUser.role !== 'admin') {
+                window.location.href = '../login.html?role=admin';
+                return;
+            }
+            
+            // Update user display
+            document.getElementById('currentUserDisplay').textContent = currentUser.username;
+        }
+
+        // Load dashboard data
+        async function loadDashboardData() {
+            try {
+                // Load all data in parallel
+                const [stats, salesData, topProducts, recentOrders] = await Promise.all([
+                    MockAnalyticsService.getDashboardStats(),
+                    MockAnalyticsService.getSalesData('week'),
+                    MockAnalyticsService.getTopProducts(),
+                    MockAnalyticsService.getRecentOrders()
+                ]);
+
+                // Update stats cards
+                updateStatsCards(stats);
+                
+                // Initialize charts
+                initializeCharts(salesData);
+                
+                // Update tables
+                updateTopProductsTable(topProducts);
+                updateRecentOrdersTable(recentOrders);
+                
+                // Show dashboard content
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('dashboardContent').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                showError('Failed to load dashboard data');
+            }
+        }
+
+        // Update stats cards
+        function updateStatsCards(stats) {
+            document.getElementById('totalProducts').textContent = stats.total_products.toLocaleString();
+            document.getElementById('totalOrders').textContent = stats.total_orders.toLocaleString();
+            document.getElementById('totalRevenue').textContent = `₱${stats.total_revenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('lowStock').textContent = stats.low_stock.toLocaleString();
+        }
+
+        // Initialize charts
+        function initializeCharts(salesData) {
+            // Sales Chart
+            const salesCtx = document.getElementById('salesChart').getContext('2d');
+            
+            salesChart = new Chart(salesCtx, {
+                type: 'line',
+                data: {
+                    labels: salesData.map(d => d.date),
+                    datasets: [{
+                        label: 'Revenue (₱)',
+                        data: salesData.map(d => d.revenue),
+                        borderColor: '#6f4e37',
+                        backgroundColor: 'rgba(111, 78, 55, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: 'Orders',
+                        data: salesData.map(d => d.orders),
+                        borderColor: '#17a2b8',
+                        backgroundColor: 'rgba(23, 162, 184, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        yAxisID: 'y1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            ticks: {
+                                callback: function(value) {
+                                    return '₱' + value.toLocaleString();
+                                }
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Category Chart
+            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+            categoryChart = new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Hot Drinks', 'Cold Drinks', 'Pastries', 'Merchandise'],
+                    datasets: [{
+                        data: [35, 25, 25, 15],
+                        backgroundColor: [
+                            '#6f4e37',
+                            '#17a2b8',
+                            '#ffc107',
+                            '#28a745'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update top products table
+        function updateTopProductsTable(topProducts) {
+            const tbody = document.getElementById('topProductsTable');
+            
+            tbody.innerHTML = topProducts.map(product => `
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="me-2">
+                                <i class="fas fa-coffee text-muted"></i>
+                            </div>
+                            ${product.name}
+                        </div>
+                    </td>
+                    <td>₱${product.price.toFixed(2)}</td>
+                    <td>
+                        <span class="badge bg-primary">${product.total_quantity}</span>
+                    </td>
+                    <td>₱${(product.price * product.total_quantity).toFixed(2)}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Update recent orders table
+        function updateRecentOrdersTable(recentOrders) {
+            const tbody = document.getElementById('recentOrdersTable');
+            
+            tbody.innerHTML = recentOrders.map(order => `
+                <tr>
+                    <td>
+                        <span class="badge bg-dark">#${order.id}</span>
+                    </td>
+                    <td>${order.item_count}</td>
+                    <td>₱${order.total.toFixed(2)}</td>
+                    <td>${new Date(order.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                    <td>
+                        <span class="badge badge-custom bg-success">Completed</span>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Toggle sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+        }
+
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('en-US', { 
+                weekday: 'short', 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            document.getElementById('currentTime').textContent = timeString;
+        }
+
+        // Update chart period
+        async function updateChart(period) {
+            // Update button states
+            document.querySelectorAll('.chart-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            currentChartPeriod = period;
+            
+            // Show loading state
+            showLoadingChart();
+            
+            // Load new data
+            try {
+                const salesData = await MockAnalyticsService.getSalesData(period);
+                updateChartData(salesData);
+            } catch (error) {
+                console.error('Error updating chart:', error);
+            }
+        }
+
+        // Show loading state
+        function showLoadingChart() {
+            if (salesChart) {
+                salesChart.data.datasets[0].data = Array(7).fill(null);
+                salesChart.data.datasets[1].data = Array(7).fill(null);
+                salesChart.update();
+            }
+        }
+
+        // Update chart data
+        function updateChartData(salesData) {
+            if (salesChart) {
+                salesChart.data.labels = salesData.map(d => d.date);
+                salesChart.data.datasets[0].data = salesData.map(d => d.revenue);
+                salesChart.data.datasets[1].data = salesData.map(d => d.orders);
+                salesChart.update();
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = '../login.html';
+        }
+
+        // Show error message
+        function showError(message) {
+            // Create toast notification
+            const toast = document.createElement('div');
+            toast.className = 'alert alert-danger position-fixed top-0 end-0 m-3';
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Mobile sidebar handling
+        if (window.innerWidth <= 768) {
+            document.addEventListener('click', (e) => {
+                const sidebar = document.getElementById('sidebar');
+                const toggleBtn = e.target.closest('.sidebar-toggle');
+                
+                if (!toggleBtn && !sidebar.contains(e.target)) {
+                    sidebar.classList.remove('show');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

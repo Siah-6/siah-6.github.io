@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Legend Brews</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --coffee-dark: #2c1810;
+            --coffee-medium: #6f4e37;
+            --coffee-light: #a67c52;
+            --coffee-accent: #c17d4a;
+            --coffee-cream: #f5e6d3;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8f9fa;
+            color: var(--coffee-dark);
+        }
+        
+        .orders-header {
+            background: linear-gradient(135deg, var(--coffee-dark) 0%, var(--coffee-medium) 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .orders-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .orders-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+        
+        .order-item {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--coffee-medium);
+            transition: all 0.3s ease;
+        }
+        
+        .order-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .order-id {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--coffee-dark);
+        }
+        
+        .order-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .order-status {
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-processing {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-pending {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .order-items {
+            margin-bottom: 1rem;
+        }
+        
+        .order-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .order-item-row:last-child {
+            border-bottom: none;
+        }
+        
+        .order-item-name {
+            font-weight: 500;
+        }
+        
+        .order-item-details {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .order-item-price {
+            font-weight: 600;
+            color: var(--coffee-medium);
+        }
+        
+        .order-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 2px solid var(--coffee-dark);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .empty-orders {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #666;
+        }
+        
+        .empty-orders i {
+            font-size: 4rem;
+            color: var(--coffee-light);
+            margin-bottom: 1rem;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,0,0,.1);
+            border-radius: 50%;
+            border-top-color: var(--coffee-medium);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .filter-tab {
+            padding: 0.8rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .filter-tab:hover {
+            color: var(--coffee-medium);
+        }
+        
+        .filter-tab.active {
+            color: var(--coffee-medium);
+            border-bottom-color: var(--coffee-medium);
+        }
+        
+        @media (max-width: 768px) {
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .order-summary {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: var(--coffee-dark);">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-mug-hot"></i>
+                Legend Brews
+            </a>
+            
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i> Home
+                        </a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav" id="authNav">
+                    <!-- Navigation will be populated by JavaScript -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Orders Header -->
+    <div class="orders-header">
+        <div class="container text-center">
+            <h1 class="mb-2">My Orders</h1>
+            <p class="mb-0">Track and manage your orders</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="orders-container">
+        <!-- Loading State -->
+        <div id="loadingState" class="orders-card">
+            <div class="text-center py-5">
+                <div class="loading-spinner"></div>
+                <p class="mt-3">Loading your orders...</p>
+            </div>
+        </div>
+        
+        <!-- Orders Content -->
+        <div id="ordersContent" style="display: none;">
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">All Orders</button>
+                <button class="filter-tab" data-filter="processing">Processing</button>
+                <button class="filter-tab" data-filter="completed">Completed</button>
+                <button class="filter-tab" data-filter="pending">Pending</button>
+            </div>
+            
+            <!-- Orders List -->
+            <div id="ordersList">
+                <!-- Orders will be populated here -->
+            </div>
+        </div>
+        
+        <!-- Empty State -->
+        <div id="emptyState" class="orders-card" style="display: none;">
+            <div class="empty-orders">
+                <i class="fas fa-receipt"></i>
+                <h3>No orders yet</h3>
+                <p>You haven't placed any orders yet. Start shopping to see your orders here!</p>
+                <a href="index.html" class="btn btn-primary">
+                    <i class="fas fa-shopping-cart me-2"></i>Start Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Mock Services -->
+    <script src="mock-services.js"></script>
+    
+    <script>
+        let currentUser = null;
+        let allOrders = [];
+        let currentFilter = 'all';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuthentication();
+            loadOrders();
+            setupFilterTabs();
+        });
+
+        // Check authentication
+        function checkAuthentication() {
+            currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            
+            if (!currentUser) {
+                window.location.href = 'login.html?redirect=orders';
+                return;
+            }
+            
+            updateNavigation();
+        }
+
+        // Update navigation
+        function updateNavigation() {
+            const authNav = document.getElementById('authNav');
+            
+            if (currentUser) {
+                authNav.innerHTML = `
+                    <li class="nav-item">
+                        <a class="nav-link active" href="orders.html">
+                            <i class="fas fa-receipt me-1"></i> My Orders
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">
+                            <i class="fas fa-user me-1"></i> Profile
+                        </a>
+                    </li>
+                    ${currentUser.role === 'admin' ? `
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin/dashboard.html">
+                                <i class="fas fa-tachometer-alt me-1"></i> Admin
+                            </a>
+                        </li>
+                    ` : ''}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="logout()">
+                            <i class="fas fa-sign-out-alt me-1"></i> Logout
+                        </a>
+                    </li>
+                `;
+            }
+        }
+
+        // Load orders
+        async function loadOrders() {
+            try {
+                allOrders = await MockOrdersService.getOrders(currentUser.id);
+                
+                // Also load orders from localStorage (for demo persistence)
+                const localOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+                const userLocalOrders = localOrders.filter(order => order.user_id === currentUser.id);
+                
+                // Combine mock and local orders
+                allOrders = [...userLocalOrders, ...allOrders];
+                
+                // Sort by date (newest first)
+                allOrders.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                
+                displayOrders();
+                
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                showError('Failed to load orders');
+            }
+        }
+
+        // Display orders
+        function displayOrders() {
+            const ordersContent = document.getElementById('ordersContent');
+            const emptyState = document.getElementById('emptyState');
+            const loadingState = document.getElementById('loadingState');
+            
+            // Hide loading state
+            loadingState.style.display = 'none';
+            
+            // Filter orders
+            let filteredOrders = allOrders;
+            if (currentFilter !== 'all') {
+                filteredOrders = allOrders.filter(order => order.status === currentFilter);
+            }
+            
+            if (filteredOrders.length === 0) {
+                ordersContent.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            ordersContent.style.display = 'block';
+            emptyState.style.display = 'none';
+            
+            const ordersList = document.getElementById('ordersList');
+            
+            ordersList.innerHTML = filteredOrders.map(order => `
+                <div class="order-item">
+                    <div class="order-header">
+                        <div>
+                            <div class="order-id">Order #${String(order.id).padStart(6, '0')}</div>
+                            <div class="order-date">${new Date(order.created_at).toLocaleDateString('en-US', { 
+                                weekday: 'long', 
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            })}</div>
+                        </div>
+                        <div class="order-status status-${order.status}">
+                            ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                        </div>
+                    </div>
+                    
+                    <div class="order-items">
+                        ${order.items.map(item => `
+                            <div class="order-item-row">
+                                <div>
+                                    <div class="order-item-name">${item.product_name}</div>
+                                    <div class="order-item-details">₱${item.price.toFixed(2)} x ${item.quantity}</div>
+                                </div>
+                                <div class="order-item-price">
+                                    ₱${(item.price * item.quantity).toFixed(2)}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="order-summary">
+                        <div>
+                            <small class="text-muted">Subtotal: ₱${(order.total - 70).toFixed(2)}</small><br>
+                            <small class="text-muted">Delivery: ₱50.00</small><br>
+                            <small class="text-muted">Service: ₱20.00</small>
+                        </div>
+                        <div>
+                            Total: ₱${order.total.toFixed(2)}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Setup filter tabs
+        function setupFilterTabs() {
+            const tabs = document.querySelectorAll('.filter-tab');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update active state
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Update filter and display
+                    currentFilter = tab.dataset.filter;
+                    displayOrders();
+                });
+            });
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login.html';
+        }
+
+        // Show error message
+        function showError(message) {
+            // Create toast notification
+            const toast = document.createElement('div');
+            toast.className = 'alert alert-danger position-fixed top-0 end-0 m-3';
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
