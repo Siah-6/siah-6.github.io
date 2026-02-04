@@ -470,9 +470,15 @@
                         <div class="projects-grid">
                             <!-- Core Memories -->
                             <div class="project-card">
-                                <div class="project-image">
-                                    <img src="images/core-memories.jpg"
-                                        alt="Core Memories">
+                                <div class="project-image slideshow-container">
+                                    <div class="slideshow">
+                                        <img src="images/core-memories.jpg" alt="Core Memories - Main Interface" class="slide active">
+                                        <img src="images/core-memories2.jpg" alt="Core Memories - Admin Dashboard" class="slide">
+                                    </div>
+                                    <div class="slideshow-dots">
+                                        <span class="dot active" onclick="currentSlide(1)"></span>
+                                        <span class="dot" onclick="currentSlide(2)"></span>
+                                    </div>
                                 </div>
                                 <div class="project-content">
                                     <h3>Core Memories</h3>
@@ -481,8 +487,9 @@
                                     <div class="project-tech">
                                         <span class="tech-tag">PHP</span>
                                         <span class="tech-tag">MySQL</span>
-                                        <span class="tech-tag">W3CSS</span>
-                                        <span class="tech-tag">Database Design</span>
+                                        <span class="tech-tag">JavaScript</span>
+                                        <span class="tech-tag">Chart.js</span>
+                                        <span class="tech-tag">Bootstrap 5</span>
                                     </div>
                                     <div class="project-links">
                                         <a href="core-memories/index.html" class="project-link">
@@ -612,6 +619,63 @@
 
     <!-- Custom Script -->
     <script src="script.js"></script>
+
+    <!-- Slideshow Script -->
+    <script>
+        let slideIndex = 1;
+        let slideInterval;
+
+        // Initialize slideshow
+        document.addEventListener('DOMContentLoaded', function() {
+            showSlide(slideIndex);
+            startSlideshow();
+        });
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slideshow .slide');
+            const dots = document.querySelectorAll('.slideshow-dots .dot');
+            
+            if (slides.length === 0) return;
+            
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show current slide
+            slides[slideIndex - 1].classList.add('active');
+            dots[slideIndex - 1].classList.add('active');
+        }
+
+        function currentSlide(n) {
+            clearInterval(slideInterval);
+            showSlide(slideIndex = n);
+            startSlideshow();
+        }
+
+        function nextSlide() {
+            slideIndex++;
+            showSlide(slideIndex);
+        }
+
+        function startSlideshow() {
+            slideInterval = setInterval(nextSlide, 3000); // Change slide every 3 seconds
+        }
+
+        // Pause on hover
+        const slideshowContainer = document.querySelector('.slideshow-container');
+        if (slideshowContainer) {
+            slideshowContainer.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            
+            slideshowContainer.addEventListener('mouseleave', () => {
+                startSlideshow();
+            });
+        }
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Island View - Core Memories</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="Icon" type="image/png" href="img/logo.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-image: url('img/blurbg.jpeg');
+            background-size: cover; background-position: center;
+            background-attachment: fixed; color: #fff; min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background: rgba(137, 164, 227, 0.8);
+            backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand { font-weight: 600; color: #fff !important; font-size: 1.5rem; }
+        .back-link {
+            color: rgba(255, 255, 255, 0.8); text-decoration: none;
+            padding: 0.5rem 1rem; border-radius: 20px; transition: all 0.3s ease;
+        }
+        .back-link:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
+        .island-header {
+            padding: 120px 0 60px; text-align: center;
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+            margin-bottom: 3rem;
+        }
+        .island-title {
+            font-size: 3.5rem; font-weight: 700; margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        .island-subtitle { font-size: 1.3rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem; }
+        .island-stats {
+            display: flex; justify-content: center; gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        .island-stat {
+            text-align: center;
+        }
+        .island-stat-number {
+            font-size: 2.5rem; font-weight: 700; color: #CCE5FF;
+            text-shadow: 0 0 10px rgba(204, 229, 255, 0.5);
+        }
+        .island-stat-label {
+            font-size: 1rem; color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .memories-section {
+            padding: 60px 0;
+        }
+        .section-title {
+            text-align: center; font-size: 2.5rem; font-weight: 600;
+            margin-bottom: 3rem; color: #CCE5FF;
+        }
+        .memories-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem; margin-bottom: 3rem;
+        }
+        .memory-card {
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+            border-radius: 20px; overflow: hidden; transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .memory-card:hover {
+            transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        .memory-image {
+            width: 100%; height: 250px; object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .memory-card:hover .memory-image { transform: scale(1.1); }
+        .memory-content {
+            padding: 2rem;
+        }
+        .memory-title {
+            font-size: 1.5rem; font-weight: 600; color: #fff;
+            margin-bottom: 1rem;
+        }
+        .memory-desc {
+            color: rgba(255, 255, 255, 0.9); margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .memory-meta {
+            display: flex; justify-content: space-between;
+            align-items: center; padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .memory-views {
+            display: flex; align-items: center; gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .memory-date {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .filter-bar {
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+            border-radius: 15px; padding: 1.5rem; margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .filter-buttons {
+            display: flex; gap: 1rem; flex-wrap: wrap;
+            justify-content: center;
+        }
+        .filter-btn {
+            padding: 0.8rem 1.5rem; border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1); color: #fff;
+            border-radius: 25px; cursor: pointer; transition: all 0.3s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #CCE5FF; transform: translateY(-2px);
+        }
+        .search-box {
+            position: relative; margin-bottom: 2rem;
+        }
+        .search-box input {
+            width: 100%; padding: 1rem 3rem 1rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1); color: #fff;
+            border-radius: 25px; font-size: 1rem;
+        }
+        .search-box input::placeholder { color: rgba(255, 255, 255, 0.7); }
+        .search-box i {
+            position: absolute; right: 1.5rem; top: 50%;
+            transform: translateY(-50%); color: rgba(255, 255, 255, 0.7);
+        }
+        .pagination {
+            display: flex; justify-content: center; gap: 0.5rem; margin-top: 3rem;
+        }
+        .page-btn {
+            padding: 0.8rem 1.2rem; background: rgba(255, 255, 255, 0.1);
+            color: #fff; border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px; cursor: pointer; transition: all 0.3s ease;
+        }
+        .page-btn:hover, .page-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #CCE5FF; transform: translateY(-2px);
+        }
+        @media (max-width: 768px) {
+            .island-title { font-size: 2.5rem; }
+            .island-stats { flex-direction: column; gap: 1rem; }
+            .memories-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-brain me-2"></i>Core Memories
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link back-link" href="index.html">
+                    <i class="fas fa-arrow-left me-1"></i> Back to Islands
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Island Header -->
+    <header class="island-header">
+        <div class="container">
+            <h1 class="island-title" id="islandName">Loading...</h1>
+            <p class="island-subtitle" id="islandDesc">Loading...</p>
+            <div class="island-stats">
+                <div class="island-stat">
+                    <div class="island-stat-number" id="memoryCount">0</div>
+                    <div class="island-stat-label">Memories</div>
+                </div>
+                <div class="island-stat">
+                    <div class="island-stat-number" id="totalViews">0</div>
+                    <div class="island-stat-label">Total Views</div>
+                </div>
+                <div class="island-stat">
+                    <div class="island-stat-number" id="lastUpdated">Today</div>
+                    <div class="island-stat-label">Last Updated</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Memories Section -->
+    <section class="memories-section">
+        <div class="container">
+            <h2 class="section-title">Island Memories</h2>
+            
+            <!-- Search and Filter -->
+            <div class="filter-bar">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search memories...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterMemories('all')">All</button>
+                    <button class="filter-btn" onclick="filterMemories('recent')">Recent</button>
+                    <button class="filter-btn" onclick="filterMemories('popular')">Popular</button>
+                    <button class="filter-btn" onclick="filterMemories('favorites')">Favorites</button>
+                </div>
+            </div>
+
+            <!-- Memories Grid -->
+            <div class="memories-grid" id="memoriesGrid">
+                <!-- Memories will be dynamically loaded here -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- Pagination will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Mock data
+        const islandsData = {
+            1: {
+                name: 'Meowy the Cat',
+                shortDesc: 'Adventures of my beloved feline companion',
+                longDesc: 'A collection of precious moments with my cat, from playful antics to cozy cuddles. Every memory captures the unique personality and charm that makes my feline friend so special.',
+                color: '#FF6B6B',
+                image: 'catlogo.jpg',
+                memories: [
+                    { id: 1, title: 'Sleeping Beauty', desc: 'Caught in a peaceful nap, dreaming of cat adventures', views: 145, date: '2024-01-15', image: 'cat1.jpg' },
+                    { id: 13, title: 'Play Time', desc: 'Chasing toys and having the time of my life', views: 167, date: '2024-01-18', image: 'cat2.jpg' },
+                    { id: 14, title: 'Morning Stretch', desc: 'Starting the day with a good stretch routine', views: 89, date: '2024-01-20', image: 'cat3.jpg' },
+                    { id: 19, title: 'Cozy Nap', desc: 'Finding the perfect sunny spot for a nap', views: 234, date: '2024-01-22', image: 'cat4.jpg' },
+                    { id: 23, title: 'Treat Time', desc: 'Getting my favorite treats - the best moment of the day', views: 312, date: '2024-01-25', image: 'cat5.jpg' },
+                    { id: 24, title: 'Window Watcher', desc: 'Keeping an eye on the world from my favorite window', views: 198, date: '2024-01-28', image: 'cat6.jpg' }
+                ]
+            },
+            2: {
+                name: 'MLBB',
+                shortDesc: 'Mobile Legends gaming adventures',
+                longDesc: 'Epic battles, team strategies, and memorable victories in Mobile Legends. Each memory represents a moment of triumph, teamwork, and gaming excellence.',
+                color: '#4ECDC4',
+                image: 'gamelogo.jpg',
+                memories: [
+                    { id: 2, title: 'Victory Moment', desc: 'Clutching the game with an epic final push', views: 234, date: '2024-01-16', image: 'ml2.jpg' },
+                    { id: 3, title: 'Team Fight', desc: 'Coordinated team battle that turned the tide', views: 298, date: '2024-01-19', image: 'ml1.jpg' },
+                    { id: 4, title: 'Epic Comeback', desc: 'Coming back from the brink of defeat', views: 456, date: '2024-01-21', image: 'ml3.jpg' },
+                    { id: 5, title: 'MVP Game', desc: 'My best performance - carrying the team to victory', views: 523, date: '2024-01-23', image: 'ml4.jpg' },
+                    { id: 11, title: 'Ranked Win', desc: 'Finally reaching the next rank after hard work', views: 389, date: '2024-01-26', image: 'ml5.jpg' },
+                    { id: 20, title: 'Perfect Team', desc: 'Amazing coordination with random teammates', views: 267, date: '2024-01-29', image: 'ml6.jpg' },
+                    { id: 25, title: 'Final Push', desc: 'Breaking through the enemy base for the win', views: 345, date: '2024-01-31', image: 'ml7.jpg' }
+                ]
+            },
+            3: {
+                name: 'Random Me',
+                shortDesc: 'Personal moments and daily life',
+                longDesc: 'Random snapshots of life, personal growth, and everyday adventures. These memories capture the small moments that make life meaningful.',
+                color: '#45B7D1',
+                image: 'piclogo.jpg',
+                memories: [
+                    { id: 15, title: 'Golden Sunset', desc: 'Beautiful sunset painting the sky in golden colors', views: 89, date: '2024-01-17', image: 'pic1.jpg' },
+                    { id: 16, title: 'Coffee Moment', desc: 'Perfect morning coffee to start the day right', views: 76, date: '2024-01-20', image: 'pic2.jpg' },
+                    { id: 17, title: 'Peaceful Walk', desc: 'Refreshing walk in the park with nature', views: 123, date: '2024-01-24', image: 'pic3.jpg' },
+                    { id: 18, title: 'Reading Time', desc: 'Getting lost in a good book', views: 98, date: '2024-01-27', image: 'pic4.jpg' },
+                    { id: 21, title: 'Weekend Vibes', desc: 'Relaxing weekend doing what I love', views: 156, date: '2024-01-30', image: 'pic5.jpg' },
+                    { id: 22, title: 'Evening Chill', desc: 'Peaceful evening reflecting on the day', views: 134, date: '2024-02-01', image: 'pic6.jpg' }
+                ]
+            },
+            4: {
+                name: 'Best Anime',
+                shortDesc: 'Favorite anime series and movies',
+                longDesc: 'Amazing anime experiences, character moments, and unforgettable scenes. Each memory represents a story that touched my heart and imagination.',
+                color: '#96CEB4',
+                image: 'animelogo.jpg',
+                memories: [
+                    { id: 6, title: 'Favorite Scene', desc: 'That one scene that made everything worth it', views: 312, date: '2024-01-18', image: 'anime1.jpg' },
+                    { id: 7, title: 'Character Moment', desc: 'Perfect character development and growth', views: 189, date: '2024-01-21', image: 'anime2.jpg' },
+                    { id: 8, title: 'Epic Battle', desc: 'Intense fight scene that kept me on the edge', views: 423, date: '2024-01-25', image: 'anime3.jpg' },
+                    { id: 9, title: 'Emotional Scene', desc: 'Heart-wrenching moment that brought tears', views: 278, date: '2024-01-28', image: 'anime4.jpg' },
+                    { id: 10, title: 'Comedy Gold', desc: 'Hilarious moment that made me laugh out loud', views: 167, date: '2024-02-02', image: 'anime5.jpg' }
+                ]
+            }
+        };
+
+        let currentIslandId = null;
+        let currentFilter = 'all';
+        let currentPage = 1;
+        const memoriesPerPage = 6;
+
+        // Get island ID from URL or default to 1
+        function getIslandId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return parseInt(urlParams.get('id')) || 1;
+        }
+
+        // Initialize island view
+        function initializeIslandView() {
+            currentIslandId = getIslandId();
+            const island = islandsData[currentIslandId];
+            
+            if (!island) {
+                // Redirect to main page if island not found
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Update island information
+            document.getElementById('islandName').textContent = island.name;
+            document.getElementById('islandDesc').textContent = island.longDesc;
+            document.getElementById('memoryCount').textContent = island.memories.length;
+            
+            // Calculate total views
+            const totalViews = island.memories.reduce((sum, memory) => sum + memory.views, 0);
+            document.getElementById('totalViews').textContent = totalViews.toLocaleString();
+            
+            // Load memories
+            loadMemories();
+        }
+
+        function loadMemories() {
+            const island = islandsData[currentIslandId];
+            let memories = [...island.memories];
+            
+            // Apply filter
+            if (currentFilter === 'recent') {
+                memories.sort((a, b) => new Date(b.date) - new Date(a.date));
+            } else if (currentFilter === 'popular') {
+                memories.sort((a, b) => b.views - a.views);
+            } else if (currentFilter === 'favorites') {
+                // In a real app, this would filter by user favorites
+                memories = memories.filter(m => m.views > 200);
+            }
+            
+            // Apply search
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm) {
+                memories = memories.filter(m => 
+                    m.title.toLowerCase().includes(searchTerm) || 
+                    m.desc.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Pagination
+            const totalPages = Math.ceil(memories.length / memoriesPerPage);
+            const startIndex = (currentPage - 1) * memoriesPerPage;
+            const endIndex = startIndex + memoriesPerPage;
+            const pageMemories = memories.slice(startIndex, endIndex);
+            
+            // Render memories
+            renderMemories(pageMemories);
+            renderPagination(totalPages);
+        }
+
+        function renderMemories(memories) {
+            const grid = document.getElementById('memoriesGrid');
+            grid.innerHTML = '';
+            
+            memories.forEach(memory => {
+                const memoryCard = document.createElement('div');
+                memoryCard.className = 'memory-card';
+                memoryCard.innerHTML = `
+                    <img src="img/${memory.image}" alt="${memory.title}" class="memory-image">
+                    <div class="memory-content">
+                        <h3 class="memory-title">${memory.title}</h3>
+                        <p class="memory-desc">${memory.desc}</p>
+                        <div class="memory-meta">
+                            <div class="memory-views">
+                                <i class="fas fa-eye"></i>
+                                <span>${memory.views.toLocaleString()}</span>
+                            </div>
+                            <div class="memory-date">${formatDate(memory.date)}</div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(memoryCard);
+            });
+        }
+
+        function renderPagination(totalPages) {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+            
+            if (totalPages <= 1) return;
+            
+            // Previous button
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'page-btn';
+            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.onclick = () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    loadMemories();
+                }
+            };
+            pagination.appendChild(prevBtn);
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                pageBtn.textContent = i;
+                pageBtn.onclick = () => {
+                    currentPage = i;
+                    loadMemories();
+                };
+                pagination.appendChild(pageBtn);
+            }
+            
+            // Next button
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'page-btn';
+            nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.onclick = () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    loadMemories();
+                }
+            };
+            pagination.appendChild(nextBtn);
+        }
+
+        function filterMemories(filter) {
+            currentFilter = filter;
+            currentPage = 1;
+            
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            loadMemories();
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric', 
+                year: 'numeric' 
+            });
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function() {
+            currentPage = 1;
+            loadMemories();
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeIslandView();
+        });
+    </script>
+</body>
+
+</html>

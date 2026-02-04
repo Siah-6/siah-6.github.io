@@ -6,277 +6,361 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Core Memories</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="Icon" type="image/png" href="img/logo.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background-image: url('img/blurbg.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: #fff;
-            min-height: 100vh;
+            background-size: cover; background-position: center;
+            background-attachment: fixed; color: #fff; min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        .header {
+        .navbar {
             background: rgba(137, 164, 227, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
+            backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
         }
-
-        .container {
-            width: 90%;
-            max-width: 1400px;
-            margin: 0 auto;
+        .navbar-brand { font-weight: 600; color: #fff !important; font-size: 1.5rem; }
+        .admin-link {
+            color: rgba(255, 255, 255, 0.8); text-decoration: none;
+            padding: 0.5rem 1rem; border-radius: 20px; transition: all 0.3s ease;
         }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .admin-link:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
+        .hero-section { padding: 120px 0 80px; text-align: center; }
+        .hero-title {
+            font-size: 4rem; font-weight: 700; margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #CCE5FF, #89A4E7);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #fff;
-            text-decoration: none;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        .hero-subtitle { font-size: 1.2rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 3rem; }
+        .analytics-section {
+            padding: 60px 0; background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px); margin: 40px 0; border-radius: 20px;
         }
-
-        .hero {
-            padding-top: 120px;
-            text-align: center;
-            margin-bottom: 4rem;
+        .section-title { text-align: center; font-size: 2.5rem; font-weight: 600; margin-bottom: 3rem; color: #CCE5FF; }
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem; margin-bottom: 3rem;
         }
-
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            color: #CCE5FF;
-            text-shadow: 0 0 10px rgba(204, 229, 255, 0.5);
-            animation: glow 2s ease-in-out infinite alternate;
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+            border-radius: 20px; padding: 2rem; text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s ease;
         }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px rgba(204, 229, 255, 0.5);
-            }
-            to {
-                text-shadow: 0 0 20px rgba(204, 229, 255, 0.8);
-            }
+        .stat-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); }
+        .stat-number { font-size: 3rem; font-weight: 700; color: #CCE5FF; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 1rem; color: rgba(255, 255, 255, 0.9); text-transform: uppercase; }
+        .card-bg {
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.4s ease;
+            border-radius: 20px; overflow: hidden; position: relative;
         }
-
-        .memory-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            padding: 2rem 0;
+        .card-bg::before {
+            content: ''; position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg); transition: 0.6s; opacity: 0;
         }
-
-        .memory-card {
-            position: relative;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .memory-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg,
-                    transparent,
-                    rgba(255, 255, 255, 0.1),
-                    transparent);
-            transform: rotate(45deg);
-            transition: 0.6s;
-            opacity: 0;
-        }
-
-        .memory-card:hover::before {
-            animation: shine 1.5s;
-        }
-
+        .card-bg:hover::before { animation: shine 1.5s; }
         @keyframes shine {
-            0% {
-                transform: rotate(45deg) translateX(-100%);
-                opacity: 0;
-            }
-            50% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: rotate(45deg) translateX(100%);
-                opacity: 0;
-            }
+            0% { transform: rotate(45deg) translateX(-100%); opacity: 0; }
+            50% { opacity: 0.3; }
+            100% { transform: rotate(45deg) translateX(100%); opacity: 0; }
         }
-
-        .memory-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 0.4);
+        .card-bg:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); }
+        .card-img-top { height: 250px; object-fit: cover; transition: transform 0.5s ease; }
+        .card-bg:hover .card-img-top { transform: scale(1.1); }
+        .card-body { 
+            padding: 1.5rem; position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6), transparent);
+            transform: translateY(100%); transition: transform 0.3s ease;
         }
-
-        .memory-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
+        .card-bg:hover .card-body { transform: translateY(0); }
+        .card-title { font-size: 1.25rem; font-weight: 600; color: #fff; margin-bottom: 0.5rem; }
+        .card-text { color: rgba(255, 255, 255, 0.9); margin-bottom: 1rem; line-height: 1.5; }
+        .btn-primary {
+            display: inline-block; padding: 0.6rem 1.8rem;
+            background: rgba(137, 164, 227, 0.8); color: #fff;
+            text-decoration: none; border-radius: 25px; font-size: 0.9rem;
+            transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);
         }
-
-        .memory-card:hover img {
-            transform: scale(1.1);
-        }
-
-        .memory-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem;
-            background: linear-gradient(to top,
-                    rgba(0, 0, 0, 0.9),
-                    rgba(0, 0, 0, 0.6),
-                    transparent);
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .memory-card:hover .memory-content {
-            transform: translateY(0);
-        }
-
-        .memory-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #fff;
-        }
-
-        .memory-desc {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .memory-link {
-            display: inline-block;
-            padding: 0.6rem 1.8rem;
-            background: rgba(137, 164, 227, 0.8);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .memory-link:hover {
-            background: rgba(137, 164, 227, 1);
-            transform: translateY(-2px);
+        .btn-primary:hover {
+            background: rgba(137, 164, 227, 1); transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(137, 164, 227, 0.4);
         }
-
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            text-align: center;
-            padding: 1.5rem 0;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
-            background: rgba(0, 0, 0, 0.9);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            z-index: 1000;
+        .islands-section { padding: 80px 0; }
+        
+        /* Login Overlay */
+        .login-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
+            display: none; align-items: center; justify-content: center; z-index: 2000;
+        }
+        .login-overlay.active { display: flex; }
+        .login-container {
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            border-radius: 20px; padding: 3rem; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%; max-width: 400px; text-align: center; position: relative;
+        }
+        .login-container::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 5px; background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        .login-header { margin-bottom: 2rem; }
+        .login-icon { font-size: 3rem; color: #667eea; margin-bottom: 1rem; }
+        .login-header h2 { font-size: 2rem; font-weight: 700; color: #333; margin-bottom: 0.5rem; }
+        .login-header p { color: #666; font-size: 0.9rem; margin-bottom: 2rem; }
+        .form-group { margin-bottom: 1.5rem; text-align: left; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #555; }
+        .form-group input {
+            width: 100%; padding: 1rem; border: 2px solid #e1e1e1;
+            border-radius: 10px; font-size: 1rem; transition: all 0.3s ease;
+        }
+        .form-group input:focus {
+            outline: none; border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .login-btn {
+            width: 100%; padding: 1rem; background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white; border: none; border-radius: 10px; font-size: 1rem;
+            font-weight: 600; cursor: pointer; transition: all 0.3s ease; margin-top: 1rem;
+        }
+        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3); }
+        .close-login {
+            position: absolute; top: 1rem; right: 1rem; background: none;
+            border: none; font-size: 1.5rem; color: #666; cursor: pointer;
+        }
+        .demo-note {
+            background: #fff3cd; border: 1px solid #ffeaa7; color: #856404;
+            padding: 1rem; border-radius: 10px; margin-top: 2rem; font-size: 0.9rem;
         }
     </style>
 </head>
 
 <body>
-    <header class="header">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <div class="nav-content">
-                <a href="index.html" class="logo">Core Memories</a>
-                <span class="author">Jon Josiah</span>
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-brain me-2"></i>Core Memories
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link admin-link" href="#" onclick="showLogin()">
+                    <i class="fas fa-user-shield me-1"></i> Admin Panel
+                </a>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <main>
-        <section class="hero">
+    <!-- Main Content -->
+    <div id="mainContent">
+        <!-- Hero Section -->
+        <section class="hero-section">
             <div class="container">
-                <h1>CORE MEMORIES</h1>
-                <p>More Memories to Come ^^ </p>
+                <h1 class="hero-title">CORE MEMORIES</h1>
+                <p class="hero-subtitle">A collection of precious moments and memories organized into beautiful islands of personality</p>
             </div>
         </section>
 
-        <div class="container">
-            <div class="memory-grid">
-                <!-- Anime Island -->
-                <div class="memory-card">
-                    <img src="img/animelogo.jpg" alt="Anime">
-                    <div class="memory-content">
-                        <h2 class="memory-title">Anime</h2>
-                        <a href="anime.html" class="memory-link">Go here</a>
+        <!-- Analytics Section -->
+        <section class="analytics-section">
+            <div class="container">
+                <h2 class="section-title">Memory Analytics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">25</div>
+                        <div class="stat-label">Total Memories</div>
                     </div>
-                </div>
-
-                <!-- Cat Island -->
-                <div class="memory-card">
-                    <img src="img/catlogo.jpg" alt="Cats">
-                    <div class="memory-content">
-                        <h2 class="memory-title">Cats</h2>
-                        <a href="cats.html" class="memory-link">Go here</a>
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Memory Islands</div>
                     </div>
-                </div>
-
-                <!-- Games Island -->
-                <div class="memory-card">
-                    <img src="img/gamelogo.jpg" alt="Games">
-                    <div class="memory-content">
-                        <h2 class="memory-title">MLBB</h2>
-                        <a href="games.html" class="memory-link">Go here</a>
+                    <div class="stat-card">
+                        <div class="stat-number">6.3</div>
+                        <div class="stat-label">Avg per Island</div>
                     </div>
-                </div>
-
-                <!-- Pictures Island -->
-                <div class="memory-card">
-                    <img src="img/piclogo.jpg" alt="Pictures">
-                    <div class="memory-content">
-                        <h2 class="memory-title">Selfies</h2>
-                        <a href="pictures.html" class="memory-link">Go here</a>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Completion</div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </section>
 
-    <footer class="footer">
-        <div class="container">
-            <p>© 2025 Core Memories - Static Demo Version</p>
+        <!-- Islands Section -->
+        <section class="islands-section">
+            <div class="container">
+                <h2 class="section-title">Memory Islands</h2>
+                <div class="row g-4" id="islandsGrid">
+                    <!-- Islands will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Login Overlay -->
+    <div id="loginOverlay" class="login-overlay">
+        <div class="login-container">
+            <button class="close-login" onclick="hideLogin()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="login-header">
+                <div class="login-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h2>Admin Login</h2>
+                <p>Access the Core Memories Admin Panel</p>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            <div class="demo-note">
+                <i class="fas fa-info-circle"></i> <strong>Demo Mode:</strong> Any credentials will work for demonstration purposes.
+            </div>
         </div>
-    </footer>
-    
+    </div>
+
+    <script>
+        // Mock data from database
+        const islandsData = [
+            {
+                id: 1,
+                name: 'Meowy the Cat',
+                color: '#FF6B6B',
+                image: 'catlogo.jpg',
+                memories: 6
+            },
+            {
+                id: 2,
+                name: 'MLBB',
+                shortDesc: 'Mobile Legends gaming adventures',
+                color: '#4ECDC4',
+                image: 'gamelogo.jpg',
+                memories: 7
+            },
+            {
+                id: 3,
+                name: 'Random Me',
+                shortDesc: 'Personal moments and daily life',
+                color: '#45B7D1',
+                image: 'piclogo.jpg',
+                memories: 6
+            },
+            {
+                id: 4,
+                name: 'Best Anime',
+                shortDesc: 'Favorite anime series and movies',
+                color: '#96CEB4',
+                image: 'animelogo.jpg',
+                memories: 6
+            }
+        ];
+
+        const memoriesData = [
+            // Cat memories
+            { id: 1, islandId: 1, image: 'cat1.jpg', content: 'Sleeping cat moment' },
+            { id: 13, islandId: 1, image: 'cat2.jpg', content: 'Playing with toys' },
+            { id: 14, islandId: 1, image: 'cat3.jpg', content: 'Morning stretch' },
+            { id: 19, islandId: 1, image: 'cat4.jpg', content: 'Nap time' },
+            { id: 23, islandId: 1, image: 'cat5.jpg', content: 'Treat time' },
+            { id: 24, islandId: 1, image: 'cat6.jpg', content: 'Window watching' },
+            
+            // MLBB memories
+            { id: 2, islandId: 2, image: 'ml2.jpg', content: 'Victory moment' },
+            { id: 3, islandId: 2, image: 'ml1.jpg', content: 'Team fight' },
+            { id: 4, islandId: 2, image: 'ml3.jpg', content: 'Epic comeback' },
+            { id: 5, islandId: 2, image: 'ml4.jpg', content: 'MVP game' },
+            { id: 11, islandId: 2, image: 'ml5.jpg', content: 'Ranked win' },
+            { id: 20, islandId: 2, image: 'ml6.jpg', content: 'Team coordination' },
+            { id: 25, islandId: 2, image: 'ml7.jpg', content: 'Final push' },
+            
+            // Random memories
+            { id: 15, islandId: 3, image: 'pic1.jpg', content: 'Sunset view' },
+            { id: 16, islandId: 3, image: 'pic2.jpg', content: 'Coffee time' },
+            { id: 17, islandId: 3, image: 'pic3.jpg', content: 'Walk in park' },
+            { id: 18, islandId: 3, image: 'pic4.jpg', content: 'Reading moment' },
+            { id: 21, islandId: 3, image: 'pic5.jpg', content: 'Weekend vibes' },
+            { id: 22, islandId: 3, image: 'pic6.jpg', content: 'Evening chill' },
+            
+            // Anime memories
+            { id: 6, islandId: 4, image: 'anime1.jpg', content: 'Favorite scene' },
+            { id: 7, islandId: 4, image: 'anime2.jpg', content: 'Character moment' },
+            { id: 8, islandId: 4, image: 'anime3.jpg', content: 'Epic fight' },
+            { id: 9, islandId: 4, image: 'anime4.jpg', content: 'Emotional scene' },
+            { id: 10, islandId: 4, image: 'anime5.jpg', content: 'Comedy moment' }
+        ];
+
+        // Initialize islands
+        function initializeIslands() {
+            const islandsGrid = document.getElementById('islandsGrid');
+            islandsGrid.innerHTML = '';
+            
+            islandsData.forEach(island => {
+                const islandCard = document.createElement('div');
+                islandCard.className = 'col';
+                islandCard.innerHTML = `
+                    <div class="card card-bg overflow-hidden" style="background:radial-gradient(${island.color})">
+                        <img src="img/${island.image}" class="card-img-top" alt="${island.name}">
+                        <div class="card-body">
+                            <h5 class="card-title">${island.name}</h5>
+                            <a href="#" class="btn btn-primary" onclick="viewIsland(${island.id})">Go here</a>
+                        </div>
+                    </div>
+                `;
+                islandsGrid.appendChild(islandCard);
+            });
+        }
+
+        // Login functions
+        function showLogin() {
+            document.getElementById('loginOverlay').classList.add('active');
+        }
+
+        function hideLogin() {
+            document.getElementById('loginOverlay').classList.remove('active');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            // Demo mode - accept any credentials
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username && password) {
+                alert(`Welcome to Admin Panel, ${username}! (Demo Mode - Full access granted)`);
+                hideLogin();
+                // Redirect to admin dashboard
+                window.location.href = 'admin.html';
+            }
+        }
+
+        function viewIsland(islandId) {
+            // Redirect to detailed island view
+            window.location.href = `view.html?id=${islandId}`;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeIslands();
+        });
+
+        // Close login when clicking outside
+        document.getElementById('loginOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideLogin();
+            }
+        });
+    </script>
 </body>
 
 </html>
