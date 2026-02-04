@@ -437,31 +437,7 @@
                                 </div>
                             </div>
                             
-                            <!-- Legend Brews Coffee Shop -->
-                            <div class="project-card">
-                                <div class="project-image">
-                                    <img src="images/coffee.jpg" alt="Legend Brews Coffee Shop">
-                                </div>
-                                <div class="project-content">
-                                    <h3>Legend Brews Coffee Shop</h3>
-                                    <p><strong>Problem:</strong> Managing coffee shop orders and inventory efficiently.</p>
-                                    <p><strong>Solution:</strong> Built a full-stack web application with PHP/MySQL backend for order management and Bootstrap frontend for user interface.</p>
-                                    <div class="project-tech">
-                                        <span class="tech-tag">PHP</span>
-                                        <span class="tech-tag">MySQL</span>
-                                        <span class="tech-tag">Bootstrap</span>
-                                    </div>
-                                    <div class="project-links">
-                                        <a href="ADET/A04/index.html" class="project-link">
-                                            <i class="fas fa-external-link-alt"></i> Live Demo
-                                        </a>
-                                        <a href="https://github.com/Siah-6/siah-6.github.io/tree/main/dog-site" class="project-link">
-                                            <i class="fab fa-github"></i> Code
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                                    </div>
                     </div>
 
                     <!-- Full-Stack Projects -->
@@ -470,14 +446,14 @@
                         <div class="projects-grid">
                             <!-- Core Memories -->
                             <div class="project-card">
-                                <div class="project-image slideshow-container">
+                                <div class="project-image slideshow-container" id="core-slideshow">
                                     <div class="slideshow">
                                         <img src="images/core-memories.jpg" alt="Core Memories - Main Interface" class="slide active">
                                         <img src="images/core-memories2.jpg" alt="Core Memories - Admin Dashboard" class="slide">
                                     </div>
                                     <div class="slideshow-dots">
-                                        <span class="dot active" onclick="currentSlide(1)"></span>
-                                        <span class="dot" onclick="currentSlide(2)"></span>
+                                        <span class="dot active" onclick="currentSlide(1, 'core')"></span>
+                                        <span class="dot" onclick="currentSlide(2, 'core')"></span>
                                     </div>
                                 </div>
                                 <div class="project-content">
@@ -496,6 +472,42 @@
                                             <i class="fas fa-external-link-alt"></i> Live Demo
                                         </a>
                                         <a href="https://github.com/Siah-6/WD-BE/tree/main/A08" class="project-link">
+                                            <i class="fab fa-github"></i> Code
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Point of Sale System -->
+                            <div class="project-card">
+                                <div class="project-image slideshow-container" id="pos-slideshow">
+                                    <div class="slideshow">
+                                        <img src="images/pos1.jpg" alt="Point of Sale System - Main Interface" class="slide active">
+                                        <img src="images/pos2.jpg" alt="Point of Sale System - Order Management" class="slide">
+                                        <img src="images/pos3.jpg" alt="Point of Sale System - Analytics Dashboard" class="slide">
+                                    </div>
+                                    <div class="slideshow-dots">
+                                        <span class="dot active" onclick="currentSlide(1, 'pos')"></span>
+                                        <span class="dot" onclick="currentSlide(2, 'pos')"></span>
+                                        <span class="dot" onclick="currentSlide(3, 'pos')"></span>
+                                    </div>
+                                </div>
+                                <div class="project-content">
+                                    <h3>Point of Sale System</h3>
+                                    <p><strong>Problem:</strong> Creating an efficient point-of-sale system for coffee shop management with real-time inventory tracking and sales analytics.</p>
+                                    <p><strong>Solution:</strong> Developed a comprehensive POS system with order management, inventory tracking, sales analytics, and responsive dashboard for coffee shop operations.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-tag">HTML5/CSS3</span>
+                                        <span class="tech-tag">JavaScript</span>
+                                        <span class="tech-tag">Bootstrap 5</span>
+                                        <span class="tech-tag">POS Management</span>
+                                        <span class="tech-tag">Sales Analytics</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="POS/index.html" class="project-link">
+                                            <i class="fas fa-external-link-alt"></i> Live Demo
+                                        </a>
+                                        <a href="#" class="project-link">
                                             <i class="fab fa-github"></i> Code
                                         </a>
                                     </div>
@@ -622,59 +634,103 @@
 
     <!-- Slideshow Script -->
     <script>
-        let slideIndex = 1;
-        let slideInterval;
+        // Multiple slideshow management
+        const slideshows = {
+            core: { index: 1, interval: null, container: null },
+            pos: { index: 1, interval: null, container: null }
+        };
 
-        // Initialize slideshow
+        // Initialize slideshows
         document.addEventListener('DOMContentLoaded', function() {
-            showSlide(slideIndex);
-            startSlideshow();
+            // Initialize Core Memories slideshow
+            const coreContainer = document.getElementById('core-slideshow');
+            if (coreContainer) {
+                slideshows.core.container = coreContainer;
+                showSlide(1, 'core');
+                startSlideshow('core');
+            }
+            
+            // Initialize POS slideshow
+            const posContainer = document.getElementById('pos-slideshow');
+            if (posContainer) {
+                slideshows.pos.container = posContainer;
+                showSlide(1, 'pos');
+                startSlideshow('pos');
+            }
         });
 
-        function showSlide(n) {
-            const slides = document.querySelectorAll('.slideshow .slide');
-            const dots = document.querySelectorAll('.slideshow-dots .dot');
+        function showSlide(n, slideshowName) {
+            const slideshow = slideshows[slideshowName];
+            if (!slideshow || !slideshow.container) return;
+
+            const slides = slideshow.container.querySelectorAll('.slideshow .slide');
+            const dots = slideshow.container.querySelectorAll('.slideshow-dots .dot');
             
             if (slides.length === 0) return;
             
-            if (n > slides.length) { slideIndex = 1 }
-            if (n < 1) { slideIndex = slides.length }
+            if (n > slides.length) { slideshow.index = 1 }
+            if (n < 1) { slideshow.index = slides.length }
             
             // Hide all slides
             slides.forEach(slide => slide.classList.remove('active'));
             dots.forEach(dot => dot.classList.remove('active'));
             
             // Show current slide
-            slides[slideIndex - 1].classList.add('active');
-            dots[slideIndex - 1].classList.add('active');
+            slides[slideshow.index - 1].classList.add('active');
+            dots[slideshow.index - 1].classList.add('active');
         }
 
-        function currentSlide(n) {
-            clearInterval(slideInterval);
-            showSlide(slideIndex = n);
-            startSlideshow();
+        function currentSlide(n, slideshowName) {
+            const slideshow = slideshows[slideshowName];
+            if (!slideshow) return;
+
+            clearInterval(slideshow.interval);
+            slideshow.index = n;
+            showSlide(n, slideshowName);
+            startSlideshow(slideshowName);
         }
 
-        function nextSlide() {
-            slideIndex++;
-            showSlide(slideIndex);
+        function nextSlide(slideshowName) {
+            const slideshow = slideshows[slideshowName];
+            if (!slideshow) return;
+
+            slideshow.index++;
+            showSlide(slideshow.index, slideshowName);
         }
 
-        function startSlideshow() {
-            slideInterval = setInterval(nextSlide, 3000); // Change slide every 3 seconds
+        function startSlideshow(slideshowName) {
+            const slideshow = slideshows[slideshowName];
+            if (!slideshow) return;
+
+            slideshow.interval = setInterval(() => {
+                nextSlide(slideshowName);
+            }, 3000); // Change slide every 3 seconds
         }
 
-        // Pause on hover
-        const slideshowContainer = document.querySelector('.slideshow-container');
-        if (slideshowContainer) {
-            slideshowContainer.addEventListener('mouseenter', () => {
-                clearInterval(slideInterval);
+        // Pause on hover for all slideshows
+        document.querySelectorAll('.slideshow-container').forEach(container => {
+            container.addEventListener('mouseenter', () => {
+                // Determine which slideshow this is by ID
+                let slideshowName = null;
+                if (container.id === 'core-slideshow') slideshowName = 'core';
+                else if (container.id === 'pos-slideshow') slideshowName = 'pos';
+                
+                if (slideshowName) {
+                    clearInterval(slideshows[slideshowName].interval);
+                }
             });
             
-            slideshowContainer.addEventListener('mouseleave', () => {
-                startSlideshow();
+            container.addEventListener('mouseleave', () => {
+                // Determine which slideshow this is by ID
+                let slideshowName = null;
+                if (container.id === 'core-slideshow') slideshowName = 'core';
+                else if (container.id === 'pos-slideshow') slideshowName = 'pos';
+                
+                if (slideshowName) {
+                    startSlideshow(slideshowName);
+                }
             });
-        }
+        });
     </script>
 </body>
 
