@@ -1,0 +1,179 @@
+/* Css for About Page */
+
+body {
+    background-color: white;
+    position: relative;
+}
+
+/* Bg image */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../assets/images/about/bg.png");
+    background-size: cover;
+    filter: blur(5px);
+    z-index: -1;
+    opacity: 0.8;
+}
+
+.card {
+    width: 100%;
+    max-width: 1190px;
+    height: auto;
+    background-color: black;
+    border-radius: 60px;
+    justify-content: center;
+    margin-top: 30px;
+    display: flex;
+
+}
+
+.story-card {
+    width: 100%;
+    max-width: 1500px !important;
+    height: auto;
+    background-color: #19afa5;
+    border-radius: 60px;
+    justify-content: center;
+    display: flex;
+    border: 1px solid #19afa5;
+}
+
+.card-title {
+    color: #19afa5;
+    font-size: 70px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.card-text {
+    color: white;
+    font-size: 14px;
+    text-align: justify;
+    padding-left: 10vh;
+    padding-right: 10vh;
+}
+
+.card-text-black {
+    font-size: 14px;
+    text-align: justify;
+    padding-left: 10vh;
+    padding-right: 10vh;
+}
+
+.story-title {
+    font-size: 60px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.story-title span {
+    line-height: 1;
+}
+
+.story-title span:last-child {
+    color: white;
+    line-height: 1;
+}
+
+.choose-title {
+    font-size: 60px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.choose-title span:last-child {
+    color: white;
+}
+
+.team-title {
+    font-size: 50px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1;
+    margin-top: 60px;
+}
+
+@media (max-width: 767px) {
+    .card-title {
+        font-size: 30px;
+    }
+
+    .story-title span {
+        font-size: 25px;
+    }
+
+    .story-title span:last-child {
+        font-size: 25px;
+    }
+
+    .choose-title span {
+        font-size: 25px;
+    }
+
+    .choose-title span:last-child {
+        font-size: 25px;
+    }
+
+    .team-title {
+        font-size: 25px;
+    }
+
+    .card-text {
+        font-size: 12px;
+        padding-left: 5vh;
+        padding-right: 5vh;
+    }
+
+    .card-text-black {
+        font-size: 12px;
+        padding-left: 5vh;
+        padding-right: 5vh;
+    }
+}
+
+/* Carousel styles */
+.carousel-inner .carousel-item .team-member {
+    text-align: center;
+}
+
+.carousel-inner .carousel-item img {
+    max-width: 100%;
+    border-radius: 50%;
+}
+
+.carousel-control-prev img,
+.carousel-control-next img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Separator */
+.line {
+    width: 100%;
+    height: 4px;
+    background-color: #19AFA5;
+    margin-bottom: 1.5rem;
+}
+
+/* Links */
+.icon-link:hover i {
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+.icon-link i {
+    font-size: 2.5rem;
+    color: #000101;
+}
+
+.connect-team .icn-style {
+    font-weight: 500;
+}

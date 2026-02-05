@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Products | ServeIT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- assets -->
+    <link rel="stylesheet" href="assets/css/nav/nav.css">
+    <link rel="icon" href="assets/images/nav/logo-nav.png">
+    <link rel="stylesheet" href="assets/css/landing-page/style.css">
+    <link rel="stylesheet" href="assets/css/footer/footer.css">
+    <link rel="stylesheet" href="assets/css/cart/cart.css">
+
+</head>
+
+<body>
+    <div id="nav-container"></div>
+
+    <div class="container">
+        <div class="mt-3 d-flex align-items-center">
+            <a href="services.html">
+                <img src="assets/images/about/prev.png" alt="Back Button">
+            </a>
+            <p class="fs-1 fw-bold mb-0 ms-3">
+                ACCOUNT/CART
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-5">
+                <div class="ms-3 mt-5 d-flex align-items-center">
+                    <img src="assets/images/cart/cart.png" alt="Cart Icon" class="img-fluid me-3">
+                    <p class="fs-2 fw-bold mb-0">
+                        CART
+                    </p>
+                    <div class="ms-auto d-flex align-items-center">
+                        <form method="POST" class="d-flex align-items-center" id="clear-cart-form">
+                            <input type="hidden" name="removeALLFromCart" value="">
+                            <button type="submit" class="btn p-0 me-2">
+                                <img src="assets/images/cart/trashBin.png" alt="Delete Cart" class="img-fluid">
+                            </button>
+                        </form>
+                        <div class="text-center pt-4" style="font-size: 12px">
+                            <p>Clear Cart</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-2"></div>
+        <div class="col-12 col-md-5"></div>
+
+        <!-- CARTS-->
+        <div class="row">
+            <div class="col-12 col-md-5">
+                <div id="cart-items-container">
+                    <!-- Cart items will be dynamically inserted here -->
+                </div>
+                
+                <!--SHOW MORE SHOW LESS FUNCTION-->
+                <div id="show-more-container" class="d-flex justify-content-center mt-3" style="display: none;">
+                    <form method="post">
+                        <button type="submit" name="showMoreBtn" value="showMore" class="btn btn-more btn-primary mx-auto mb-3">
+                            Show More
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!--GAP BETWEEN CART AND SUMMARY-->
+            <div class="col-md-2"></div>
+
+            <!-- CHECK OUT PROCESS-->
+            <div class="col-12 col-md-5">
+                <form method="post" id="checkout-form">
+                    <ul class="list-group mt-3 rounded-5">
+                        <li class="list-group-item">
+                            <p class="fw-bold fs-2 text-center"> SUMMARY </p>
+                            <p class="fw-lighter fs-6 text-start ms-5 mb-0"> Items:</p>
+                            <p class="fw-medium fs-6 ms-5 mb-0" id="items-list"></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="fw-lighter fs-6 text-start ms-5 mb-0"> Subtotal:
+                                ₱<span id="subtotal">0</span>
+                            </p>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="fw-lighter fs-6 text-start ms-5 mb-1"> Mode Of Payment:</p>
+                                    <!-- Radio for Maya-->
+                                    <div class="form-check fw-lighter fs-6 text-start ms-5">
+                                        <input class="form-check-input" type="radio" name="paymentMode" id="maya"
+                                            value="maya">
+                                        <label class="form-check-label" for="maya">Maya</label>
+                                    </div>
+
+                                    <!-- Radio for Gcash -->
+                                    <div class="form-check fw-lighter fs-6 text-start ms-5">
+                                        <input class="form-check-input" type="radio" name="paymentMode" id="gcash"
+                                            value="gcash">
+                                        <label class="form-check-label" for="gcash">Gcash</label>
+                                    </div>
+                                </div>
+
+                                <!-- ENTER REFERENCE -->
+                                <div class="col-6">
+                                    <div class="mt-4">
+                                        <label class="form-label fs-6 mb-0">Enter Reference Number</label>
+                                        <input type="text" class="form-control" name="reference"
+                                            placeholder="Reference Number" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- VAT-->
+                        <li class="list-group-item">
+                            <p class="fw-lighter fs-6 text-start ms-5 mb-0"> VAT: ₱0.00 </p>
+                        </li>
+
+                        <!-- TOTAL-->
+                        <li class="list-group-item mb-0">
+                            <p class="fw-bolder fs-5 text-start text-center mb-0">Total:
+                                ₱<span id="grand-total">0</span>
+                            </p>
+                        </li>
+                    </ul>
+
+                    <!-- MODAL FOR GCASH -->
+                    <div class="modal fade" id="gcashQR" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Please pay the total amount:
+                                        ₱<span id="gcash-total">0</span></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body d-flex justify-content-center">
+                                    <img src="assets/images/cart/gcashQR.png" alt="gcash qr code" class="img-fluid">
+                                </div>
+                                <p class="modal-number text-center fw-bolder m-0 pt-3">
+                                    Pay via QR or send to 09123456789
+                                </p>
+                                <div class="modal-footer m-0">
+                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">DONE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MODAL FOR MAYA -->
+                    <div class="modal fade" id="mayaQR" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Please pay the total amount:
+                                        ₱<span id="maya-total">0</span></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body d-flex justify-content-center">
+                                    <img src="assets/images/cart/mayaQR.png" alt="maya qr code" class="img-fluid">
+                                </div>
+                                <p class="modal-number text-center fw-bolder m-0 pt-3">
+                                    Pay via QR or send to 09987654321
+                                </p>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">DONE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-3">
+                        <button type="button" class="btn btn-more btn-primary mx-auto mb-3 mt-0" data-bs-toggle="modal"
+                            data-bs-target="#myModal" id="checkout-btn" disabled>Check Out</button>
+                    </div>
+
+                    <!-- MODAL FOR CHECK-OUT -->
+                    <div class="modal" id="myModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Confirm Checkout</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to checkout?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                                    <input type="hidden" name="insertToTransaction">
+                                    <input type="hidden" name="updateCartID" value="">
+                                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Yes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <p class="fs-2 fw-bold">
+            Interest
+        </p>
+    </div>
+
+    <!-- interest Content -->
+    <div class="tabs">
+        <div class="tab-buttons d-flex justify-content-center">
+            <button class="tab-btn active" onclick="showTab('services')">Services</button>
+            <button class="tab-btn" onclick="showTab('products')">Products</button>
+        </div>
+
+        <div class="container mt-5">
+            <!-- Services Tab Content -->
+            <div id="services" class="tab-content" style="display: block;">
+                <div class="row justify-content-center" id="services-container">
+                    <!-- Services will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Products Tab Content -->
+            <div id="products" class="tab-content" style="display: none;">
+                <div class="row justify-content-center" id="products-container">
+                    <!-- Products will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Show all button -->
+    <div class="d-flex justify-content-center">
+        <a id="showAllBtn" href="products.html">
+            <button type="button" class="btn rounded-5 fs-5 fw-normal" onclick="showAll()"
+                style="background-color:rgb(0, 0, 0); color: white;">
+                Show all
+            </button>
+        </a>
+    </div>
+
+    <!-- SM PAYMENT-->
+    <div id="smpayment-container"></div>
+
+    <!-- FOOTER-->
+    <div id="footer-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="sharedAssets/darkmode.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/session.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- JS FOR REDIRECTING SHOW ALL AND FOR ACTIVE SERVICE OR PRODUCT-->
+    <script>
+        function showTab(tabName) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => {
+                tab.style.display = 'none';
+            });
+
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            document.getElementById(tabName).style.display = 'block';
+            const activeButton = document.querySelector(`.tab-btn[onclick="showTab('${tabName}')"]`);
+            activeButton.classList.add('active');
+
+            const showAllBtn = document.getElementById('showAllBtn');
+            if (tabName === 'services') {
+                showAllBtn.href = 'services.html';
+            } else if (tabName === 'products') {
+                showAllBtn.href = 'products.html';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const activeTab = document.querySelector('.tab-btn.active');
+            if (activeTab) {
+                const tabName = activeTab.getAttribute('onclick').match(/'(.+)'/)[1];
+                showTab(tabName);
+            }
+        });
+    </script>
+
+    <script>
+        // Listen for changes in the radio buttons
+        document.querySelectorAll('input[name="paymentMode"]').forEach((radio) => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'gcash') {
+                    // Show the modal when Gcash is selected
+                    const modal = new bootstrap.Modal(document.getElementById('gcashQR'));
+                    modal.show();
+                } else if (this.value === 'maya') {
+                    // Show the modal when Maya is selected
+                    const modal = new bootstrap.Modal(document.getElementById('mayaQR'));
+                    modal.show();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Check login status and initialize cart
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = sessionManager.getCurrentUser();
+            if (!currentUser || !currentUser.isLoggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            initializeCartPage();
+            
+            // Add event listener for storage changes (when cart is updated from other pages)
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'serveit_cart') {
+                    loadCartItems();
+                }
+            });
+            
+            // Also refresh cart when page gets focus
+            window.addEventListener('focus', function() {
+                loadCartItems();
+            });
+        });
+        
+        function initializeCartPage() {
+            loadNavigation();
+            loadFooter();
+            loadSMPayment();
+            loadCartItems();
+            loadServices();
+            loadProducts();
+        }
+        
+        function loadCartItems() {
+            // Get cart items from localStorage (no mock data override)
+            const cartItems = JSON.parse(localStorage.getItem('serveit_cart') || '[]');
+            
+            const container = document.getElementById('cart-items-container');
+            const showMoreContainer = document.getElementById('show-more-container');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            
+            if (cartItems.length === 0) {
+                container.innerHTML = '<div class="container text-center fs-5">Cart is empty</div>';
+                checkoutBtn.disabled = true;
+                showMoreContainer.style.display = 'none';
+                updateSummary([], 0);
+                return;
+            }
+            
+            // Show first 3 items
+            const displayItems = cartItems.slice(0, 3);
+            let html = '';
+            
+            displayItems.forEach((item, index) => {
+                html += `
+                    <div class="border-0 mt-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title fw-bold fs-6">${item.title}</h5>
+                                <p class="card-text mb-0 fs-6">₱${item.price}</p>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="card-text text-truncate fs-6" style="max-width: calc(65% - 100px);">
+                                    ${item.shortDescription}
+                                </p>
+                                <div class="d-flex ms-auto flex-nowrap">
+                                    <form method="post" class="remove-item-form" data-index="${index}">
+                                        <button type="submit" class="btn btn-danger rounded-5 fs-6 p-1">Remove</button>
+                                    </form>
+                                    <a href="${item.type === 'product' ? 'productInfo.html' : 'serviceInfo.html'}?itemID=${item.itemID}">
+                                        <button type="button" class="btn rounded-5 ms-2 fs-6 p-1"
+                                            style="background-color: #19AFA5; color: black;">See More</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5"></div>
+                `;
+            });
+            
+            container.innerHTML = html;
+            
+            // Show show more button if there are more than 3 items
+            if (cartItems.length > 3) {
+                showMoreContainer.style.display = 'block';
+                showMoreContainer.innerHTML = `
+                    <form method="post">
+                        <button type="submit" name="showMoreBtn" value="showMore" class="btn btn-more btn-primary mx-auto mb-3">
+                            Show More
+                        </button>
+                    </form>
+                `;
+            } else {
+                showMoreContainer.style.display = 'none';
+            }
+            
+            checkoutBtn.disabled = false;
+            updateSummary(cartItems, calculateTotal(cartItems));
+            
+            // Add event listeners for remove buttons
+            document.querySelectorAll('.remove-item-form').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const index = parseInt(this.dataset.index);
+                    removeFromCart(index);
+                });
+            });
+        }
+        
+        function removeFromCart(index) {
+            const cartItems = JSON.parse(localStorage.getItem('serveit_cart') || '[]');
+            cartItems.splice(index, 1);
+            localStorage.setItem('serveit_cart', JSON.stringify(cartItems));
+            loadCartItems();
+        }
+        
+        function clearCart() {
+            if (confirm('Are you sure you want to clear your cart?')) {
+                localStorage.setItem('serveit_cart', JSON.stringify([]));
+                loadCartItems();
+            }
+        }
+        
+        function calculateTotal(items) {
+            return items.reduce((total, item) => total + parseFloat(item.price), 0);
+        }
+        
+        function updateSummary(items, total) {
+            const itemsList = document.getElementById('items-list');
+            const subtotal = document.getElementById('subtotal');
+            const grandTotal = document.getElementById('grand-total');
+            const gcashTotal = document.getElementById('gcash-total');
+            const mayaTotal = document.getElementById('maya-total');
+            
+            let itemsHtml = '';
+            items.forEach(item => {
+                itemsHtml += `* ${item.title}<br>`;
+            });
+            
+            itemsList.innerHTML = itemsHtml;
+            subtotal.textContent = total.toFixed(2);
+            grandTotal.textContent = total.toFixed(2);
+            gcashTotal.textContent = total.toFixed(2);
+            mayaTotal.textContent = total.toFixed(2);
+        }
+        
+        function loadServices() {
+            const container = document.getElementById('services-container');
+            const services = getServices().slice(0, 6);
+            
+            let html = '';
+            services.forEach(service => {
+                html += `
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="serviceCard rounded mx-auto">
+                            <div class="card-body d-flex flex-column justify-content-between align-items-center">
+                                <div class="serviceImage">
+                                    <img src="assets/images/items/${service.attachment}" alt="${service.title}">
+                                </div>
+                                <div class="w-100 d-flex justify-content-between align-items-center">
+                                    <span class="serviceTitle text-truncate fs-5">${service.title}</span>
+                                    <span class="servicePrice ms-4">₱${service.price}</span>
+                                </div>
+                                <div class="w-100 d-flex justify-content-between align-items-center">
+                                    <p class="serviceDescription">${service.shortDescription}</p>
+                                    <a href="serviceInfo.html?itemID=${service.itemID}">
+                                        <button class="btnSeeMore rounded-pill ms-2">See More</button>
+                                    </a>
+                                </div>
+                                <div style="border-top: 2px solid black; width: 100%; margin: 10px 0;"></div>
+                                <div class="category">
+                                    <span>${service.categoryName}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function loadProducts() {
+            const container = document.getElementById('products-container');
+            const products = getProducts().slice(0, 6);
+            
+            let html = '';
+            products.forEach(product => {
+                html += `
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="productCard rounded mx-auto">
+                            <div class="card-body d-flex flex-column justify-content-between align-items-center">
+                                <div class="productImage">
+                                    <img src="assets/images/items/${product.attachment}" alt="${product.title}">
+                                </div>
+                                <div class="w-100 d-flex justify-content-between align-items-center">
+                                    <span class="productTitle text-truncate fs-5">${product.title}</span>
+                                    <span class="productPrice ms-4">₱${product.price}</span>
+                                </div>
+                                <div class="w-100 d-flex justify-content-between align-items-center">
+                                    <p class="productDescription text-truncate">${product.shortDescription}</p>
+                                    <a href="productInfo.html?itemID=${product.itemID}">
+                                        <button class="btnSeeMore rounded-pill ms-2">See More</button>
+                                    </a>
+                                </div>
+                                <div style="border-top: 2px solid black; width: 100%; margin: 10px 0;"></div>
+                                <div class="category">
+                                    <span>${product.categoryName}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        // Clear cart form handler
+        document.getElementById('clear-cart-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            clearCart();
+        });
+        
+        // Checkout form handler
+        document.getElementById('checkout-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // For demo purposes, just show success
+            alert('Checkout successful! (Demo mode)');
+            localStorage.setItem('serveit_cart', JSON.stringify([]));
+            loadCartItems();
+        });
+    </script>
+
+</body>
+
+</html>

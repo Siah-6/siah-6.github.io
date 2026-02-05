@@ -550,6 +550,43 @@
                                 </div>
                             </div>
 
+                            <!-- ServeIT - E-Commerce Platform -->
+                            <div class="project-card">
+                                <div class="project-image slideshow-container" id="serveit-slideshow">
+                                    <div class="slideshow">
+                                        <img src="images/serve1.jpg" alt="ServeIT E-Commerce Platform - Home Page" class="slide active">
+                                        <img src="images/serve2.jpg" alt="ServeIT E-Commerce Platform - Product Catalog" class="slide">
+                                        <img src="images/serve3.jpg" alt="ServeIT E-Commerce Platform - Shopping Cart" class="slide">
+                                    </div>
+                                    <div class="slideshow-dots">
+                                        <span class="dot active" onclick="currentSlide(1, 'serveit')"></span>
+                                        <span class="dot" onclick="currentSlide(2, 'serveit')"></span>
+                                        <span class="dot" onclick="currentSlide(3, 'serveit')"></span>
+                                    </div>
+                                </div>
+                                <div class="project-content">
+                                    <h3>ServeIT - E-Commerce Platform</h3>
+                                    <p><strong>Problem:</strong> Creating a comprehensive e-commerce platform for digital products and services with secure shopping experience and admin management.</p>
+                                    <p><strong>Solution:</strong> Developed a full-featured e-commerce marketplace with product catalog, shopping cart, checkout system, user authentication, and admin dashboard.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-tag">HTML5/CSS3</span>
+                                        <span class="tech-tag">JavaScript</span>
+                                        <span class="tech-tag">Bootstrap 5</span>
+                                        <span class="tech-tag">E-Commerce</span>
+                                        <span class="tech-tag">Shopping Cart</span>
+                                        <span class="tech-tag">Admin Dashboard</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="ServeIT/index.html" class="project-link">
+                                            <i class="fas fa-external-link-alt"></i> Live Demo
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fab fa-github"></i> Code
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Airport Flight Logs -->
                             <div class="project-card">
                                 <div class="project-image">
@@ -674,7 +711,8 @@
         const slideshows = {
             core: { index: 1, interval: null, container: null },
             pos: { index: 1, interval: null, container: null },
-            mesy: { index: 1, interval: null, container: null }
+            mesy: { index: 1, interval: null, container: null },
+            serveit: { index: 1, interval: null, container: null }
         };
 
         // Initialize slideshows
@@ -701,6 +739,14 @@
                 slideshows.mesy.container = mesyContainer;
                 showSlide(1, 'mesy');
                 startSlideshow('mesy');
+            }
+            
+            // Initialize ServeIT slideshow
+            const serveitContainer = document.getElementById('serveit-slideshow');
+            if (serveitContainer) {
+                slideshows.serveit.container = serveitContainer;
+                showSlide(1, 'serveit');
+                startSlideshow('serveit');
             }
         });
 
@@ -760,6 +806,7 @@
                 if (container.id === 'core-slideshow') slideshowName = 'core';
                 else if (container.id === 'pos-slideshow') slideshowName = 'pos';
                 else if (container.id === 'mesy-slideshow') slideshowName = 'mesy';
+                else if (container.id === 'serveit-slideshow') slideshowName = 'serveit';
                 
                 if (slideshowName) {
                     clearInterval(slideshows[slideshowName].interval);
@@ -772,6 +819,7 @@
                 if (container.id === 'core-slideshow') slideshowName = 'core';
                 else if (container.id === 'pos-slideshow') slideshowName = 'pos';
                 else if (container.id === 'mesy-slideshow') slideshowName = 'mesy';
+                else if (container.id === 'serveit-slideshow') slideshowName = 'serveit';
                 
                 if (slideshowName) {
                     startSlideshow(slideshowName);
