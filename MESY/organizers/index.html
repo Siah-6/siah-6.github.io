@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MESY - Organizer Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/eventList.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="icon" href="../assets/img/logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Organizer Navigation Bar (exact copy from PHP) -->
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        .navbar {
+            background-color: #FE5722;
+        }
+
+        .border-active {
+            border-color: #FE5722 !important;
+        }
+    </style>
+
+    <nav class="navbar navbar-expand-lg p-2 position-relative z-1">
+        <div class="container-fluid">
+            <div class="w-100 d-flex align-items-center justify-content-between">
+
+                <button class="btn text-dark fs-3 ms-3" data-bs-toggle="offcanvas" data-bs-target="#sideNavbar"
+                    aria-controls="sideNavbar">
+                    &#9776;
+                </button>
+
+                <div class="position-absolute start-50 translate-middle-x d-flex align-items-center gap-2">
+                    <img src="../assets/img/logo.svg" alt="logo" style="height: 60px;">
+                </div>
+
+                <div class="d-flex align-items-center gap-2 me-3">
+
+                    <a href="eventForm.html">
+                        <button class="btn btn-md p-2 rounded-3 ps-3 pe-3 d-none d-lg-inline text-white"
+                            style="background-color: #E7400C;">Add
+                            Event
+                        </button>
+                    </a>
+                    <a href="#" onclick="logout()" class="btn btn-md p-2 rounded-3 ps-3 pe-3 d-none d-lg-inline"
+                        style="background-color: #D9D9D9;">
+                        Log Out
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sideNavbar" aria-labelledby="sideNavbarLabel">
+        <div class="offcanvas-header" style="background-color: #FE5722;">
+            <img src="../assets/img/logo.svg" class="me-2" alt="logo" style="height: 60px;">
+
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link text-decoration-none text-dark fw-semibold"
+                        href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link text-decoration-none text-dark fw-semibold"
+                        href="archivedEvent.html">Archived Events</a></li>
+                <li class="nav-item"><a class="nav-link text-decoration-none text-dark fw-semibold" href="myEvents.html">My
+                        Events</a></li>
+            </ul>
+            <hr class=" d-lg-none"style="border-top: 2px solid #FE5722;">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-decoration-none text-dark fw-semibold d-lg-none" href="eventForm.html">Add Event</a>
+                </li>
+                <li class="nav-item">
+                    <a class=" nav-link text-decoration-none text-dark fw-semibold d-lg-none" href="#" onclick="logout()">Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="main">
+        <div class="container">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center gap-3 mt-3 flex-wrap justify-content-center">
+
+                    <nav class="nav-mid mx-auto mx-md-0 justify-content-center">
+                        <a class="nav-link fw-semibold text-dark border-bottom border-2 border-active"
+                            href="index.html">Events</a>
+                        <a class="nav-link fw-semibold text-dark" href="archivedEvent.html">Archived</a>
+                        <a class="nav-link fw-semibold text-dark" href="myEvents.html">My Events</a>
+                    </nav>
+
+                </div>
+            </div>
+            <div class="page-header mt-3">
+                <h1 class="page-title">Upcoming Events</h1>
+                <p class="page-subtitle">Discover amazing events happening near you</p>
+            </div>
+
+            <div class="search-section">
+                <div class="search-form">
+                    <div class="search-input-group">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="searchInput" class="search-input"
+                            placeholder="Search events by title or organizer...">
+                    </div>
+                </div>
+
+                <div class="location-filter">
+                    <div class="select-wrapper">
+                        <i class="fas fa-map-marker-alt location-icon"></i>
+                        <select id="locationFilter" class="location-select">
+                            <option value="">All Locations</option>
+                            <option value="Angeles City">Angeles City</option>
+                            <option value="Antipolo">Antipolo</option>
+                            <option value="Bacoor">Bacoor</option>
+                            <option value="Baguio">Baguio</option>
+                            <option value="Baliuag">Baliuag</option>
+                            <option value="Balanga">Balanga</option>
+                            <option value="Batangas">Batangas</option>
+                            <option value="Biñan">Biñan</option>
+                            <option value="Cabanatuan">Cabanatuan</option>
+                            <option value="Calamba">Calamba</option>
+                            <option value="Caloocan">Caloocan</option>
+                            <option value="Cavite City">Cavite City</option>
+                            <option value="Dagupan">Dagupan</option>
+                            <option value="Dasmariñas">Dasmariñas</option>
+                            <option value="Gapan">Gapan</option>
+                            <option value="Imus">Imus</option>
+                            <option value="Laoag">Laoag</option>
+                            <option value="Las Piñas">Las Piñas</option>
+                            <option value="Lipa City">Lipa City</option>
+                            <option value="Lucena">Lucena</option>
+                            <option value="Malabon">Malabon</option>
+                            <option value="Malolos">Malolos</option>
+                            <option value="Makati">Makati</option>
+                            <option value="Mandaluyong">Mandaluyong</option>
+                            <option value="Manila">Manila</option>
+                            <option value="Marikina">Marikina</option>
+                            <option value="Meycauayan">Meycauayan</option>
+                            <option value="Muntinlupa">Muntinlupa</option>
+                            <option value="Navotas">Navotas</option>
+                            <option value="Olongapo">Olongapo</option>
+                            <option value="Parañaque">Parañaque</option>
+                            <option value="Pasay">Pasay</option>
+                            <option value="Pasig">Pasig</option>
+                            <option value="Plaridel">Plaridel</option>
+                            <option value="Quezon City">Quezon City</option>
+                            <option value="Rodriguez (Montalban)">Rodriguez (Montalban)</option>
+                            <option value="San Fernando">San Fernando</option>
+                            <option value="San Jose del Monte">San Jose del Monte</option>
+                            <option value="San Juan">San Juan</option>
+                            <option value="San Mateo">San Mateo</option>
+                            <option value="San Pablo">San Pablo</option>
+                            <option value="San Pedro">San Pedro</option>
+                            <option value="Santa Maria">Santa Maria</option>
+                            <option value="Santa Rosa">Santa Rosa</option>
+                            <option value="Santiago City">Santiago City</option>
+                            <option value="Science City of Muñoz">Science City of Muñoz</option>
+                            <option value="Tabuk">Tabuk</option>
+                            <option value="Taguig City">Taguig City</option>
+                            <option value="Tarlac City">Tarlac City</option>
+                            <option value="Tuguegarao">Tuguegarao</option>
+                            <option value="Valenzuela">Valenzuela</option>
+                            <option value="Vigan">Vigan</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="search-actions">
+                    <button class="btn btn-primary" onclick="searchEvents()">
+                        <i class="fas fa-search"></i>
+                        Search
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearFilters()" id="clearBtn" style="display: none;">
+                        <i class="fas fa-times"></i>
+                        Clear
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-info" id="resultsInfo">
+                <p>Found <span id="eventCount">0</span> upcoming events</p>
+            </div>
+
+            <div class="events-grid" id="eventsGrid">
+                <!-- Events will be dynamically loaded here -->
+            </div>
+
+            <div class="no-results" id="noResults" style="display: none;">
+                <div class="alert alert-info text-center no-results-content" role="alert">
+                    <i class="fas fa-calendar-times fa-2x mb-2"></i>
+                    <h3>No Events Found</h3>
+                    <p>No events match your search criteria. Try adjusting your filters.</p>
+                    <button class="btn btn-primary" onclick="clearFilters()">Clear Filters</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript for organizer dashboard -->
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/eventList.js"></script>
+    <script>
+        // Check authentication (replaces PHP session check)
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!session.requireAuth()) {
+                return;
+            }
+        });
+
+        function logout() {
+            session.logout();
+            window.location.href = '../login.html';
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous">
+        </script>
+</body>
+
+</html>

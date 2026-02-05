@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MESY - My Events</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/eventList.css">
+    <link rel="icon" href="../assets/img/logo.svg" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Organizer Navigation Bar (exact copy from PHP) -->
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        .navbar {
+            background-color: #FE5722;
+        }
+
+        .border-active {
+            border-color: #FE5722 !important;
+        }
+    </style>
+
+    <nav class="navbar navbar-expand-lg p-2 position-relative z-1">
+        <div class="container-fluid">
+            <div class="w-100 d-flex align-items-center justify-content-between">
+
+                <button class="btn text-dark fs-3 ms-3" data-bs-toggle="offcanvas" data-bs-target="#sideNavbar"
+                    aria-controls="sideNavbar">
+                    &#9776;
+                </button>
+
+                <div class="position-absolute start-50 translate-middle-x d-flex align-items-center gap-2">
+                    <img src="../assets/img/logo.svg" alt="logo" style="height: 60px;">
+                </div>
+
+                <div class="d-flex align-items-center gap-2 me-3">
+
+                    <a href="eventForm.html">
+                        <button class="btn btn-md p-2 rounded-3 ps-3 pe-3 d-none d-lg-inline text-white"
+                            style="background-color: #E7400C;">Add
+                            Event
+                        </button>
+                    </a>
+                    <a href="#" onclick="logout()" class="btn btn-md p-2 rounded-3 ps-3 pe-3 d-none d-lg-inline"
+                        style="background-color: #D9D9D9;">
+                        Log Out
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sideNavbar" aria-labelledby="sideNavbarLabel">
+        <div class="offcanvas-header" style="background-color: #FE5722;">
+            <img src="../assets/img/logo.svg" class="me-2" alt="logo" style="height: 60px;">
+
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link text-decoration-none text-dark fw-semibold"
+                        href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link text-decoration-none text-dark fw-semibold"
+                        href="archivedEvent.html">Archived Events</a></li>
+                <li class="nav-item"><a class="nav-link text-decoration-none text-dark fw-semibold" href="myEvents.html">My
+                        Events</a></li>
+            </ul>
+            <hr class=" d-lg-none"style="border-top: 2px solid #FE5722;">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-decoration-none text-dark fw-semibold d-lg-none" href="eventForm.html">Add Event</a>
+                </li>
+                <li class="nav-item">
+                    <a class=" nav-link text-decoration-none text-dark fw-semibold d-lg-none" href="#" onclick="logout()">Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="d-flex align-items-center gap-3 mt-5 flex-wrap justify-content-center">
+            <nav class="nav-mid mx-auto mx-md-0 justify-content-center">
+                <a class="nav-link fw-semibold text-dark" href="index.html">Events</a>
+                <a class="nav-link fw-semibold text-dark" href="archivedEvent.html">Archived</a>
+                <a class="nav-link fw-semibold text-dark border-bottom border-2 border-active" href="myEvents.html">My
+                    Events</a>
+            </nav>
+        </div>
+    </div>
+
+    <main class="main">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">My Events</h1>
+                <p class="page-subtitle">Here are the events you created.</p>
+            </div>
+
+            <div class="results-info">
+                <p>Found <span id="eventCount">0</span> of your events</p>
+            </div>
+
+            <div class="events-grid" id="eventsGrid">
+                <!-- Events will be dynamically loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/data.js"></script>
+    <script>
+        let myEvents = [];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!session.requireAuth()) {
+                return;
+            }
+
+            loadMyEvents();
+        });
+
+        function loadMyEvents() {
+            // Filter events created by current user
+            // In a real app, this would filter by organizerId from database
+            myEvents = sampleEvents.filter(event => 
+                event.organizerId === session.currentUser.organizerId
+            );
+
+            // Add some demo events for the current user if none exist
+            if (myEvents.length === 0) {
+                myEvents = [
+                    {
+                        id: 1001,
+                        eventName: "My Tech Workshop",
+                        category: "Technology",
+                        description: "A hands-on workshop on modern web development technologies.",
+                        eventDate: "2024-12-25",
+                        startTime: "09:00",
+                        endTime: "17:00",
+                        location: "Manila",
+                        organizerName: session.currentUser.name || session.currentUser.username,
+                        organizerId: session.currentUser.organizerId,
+                        eventImage: null
+                    },
+                    {
+                        id: 1002,
+                        eventName: "Community Meetup",
+                        category: "Networking",
+                        description: "Connect with local professionals and share ideas.",
+                        eventDate: "2025-01-10",
+                        startTime: "18:00",
+                        endTime: "21:00",
+                        location: "Quezon City",
+                        organizerName: session.currentUser.name || session.currentUser.username,
+                        organizerId: session.currentUser.organizerId,
+                        eventImage: null
+                    }
+                ];
+            }
+
+            filteredMyEvents = [...myEvents];
+            renderEvents();
+            updateResultsInfo();
+        }
+
+        function renderEvents() {
+            const eventsGrid = document.getElementById('eventsGrid');
+            
+            if (filteredMyEvents.length === 0) {
+                eventsGrid.innerHTML = '';
+                return;
+            }
+
+            eventsGrid.innerHTML = filteredMyEvents.map(event => createEventCard(event)).join('');
+        }
+
+        function createEventCard(event) {
+            const eventDate = new Date(event.eventDate);
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            let dateBadge = '';
+            let badgeClass = '';
+
+            if (eventDate.toDateString() === today.toDateString()) {
+                dateBadge = 'Today';
+                badgeClass = 'today';
+            } else if (eventDate.toDateString() === tomorrow.toDateString()) {
+                dateBadge = 'Tomorrow';
+                badgeClass = 'tomorrow';
+            } else {
+                dateBadge = eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                badgeClass = '';
+            }
+
+            const formattedDate = eventDate.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            const timeRange = formatTime(event.startTime) + ' - ' + formatTime(event.endTime);
+
+            return `
+                <div>
+                    <div class="event-card h-100"
+                        data-location="${event.location}"
+                        data-organizer="${event.organizerName}">
+                        <div class="event-actions">
+                            <button class="btn-action" onclick="editEvent(${event.id})" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-action" onclick="deleteEvent(${event.id})" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        <div class="event-banner">
+                            ${event.eventImage ? 
+                                `<img src="../assets/uploads/${event.eventImage}" alt="Event Image">` :
+                                `<div class="banner-placeholder w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                                    <i class="fa-regular fa-image"></i>
+                                    <span>No Image</span>
+                                </div>`
+                            }
+                            <span class="date-badge ${badgeClass}">${dateBadge}</span>
+                        </div>
+                        <div class="event-content d-flex flex-column h-100">
+                            <div class="event-title">${event.eventName}</div>
+                            <p class="text-secondary">${event.category}</p>
+                            <div class="event-details mb-2">
+                                <div class="event-description mb-2">
+                                    ${event.description}
+                                </div>
+                                <div class="event-detail">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    ${formattedDate}
+                                </div>
+                                <div class="event-detail">
+                                    <i class="fa-regular fa-clock"></i>
+                                    ${timeRange}
+                                </div>
+                                <div class="event-detail">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    ${event.location}
+                                </div>
+                                <div class="event-detail">
+                                    <i class="fa-solid fa-users"></i>
+                                    ${Math.floor(Math.random() * 50) + 10} Attendees
+                                </div>
+                                <div class="event-footer mt-4">
+                                    <a href="../eventInfoPage.html?eventId=${event.id}" class="event-button text-white">
+                                        View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatTime(timeString) {
+            const [hours, minutes] = timeString.split(':');
+            const hour = parseInt(hours);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const hour12 = hour % 12 || 12;
+            return `${hour12}:${minutes} ${ampm}`;
+        }
+
+        function searchEvents() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            
+            filteredMyEvents = myEvents.filter(event => {
+                const matchesSearch = !searchTerm || 
+                    event.eventName.toLowerCase().includes(searchTerm) ||
+                    event.description.toLowerCase().includes(searchTerm) ||
+                    event.category.toLowerCase().includes(searchTerm);
+                
+                return matchesSearch;
+            });
+
+            renderEvents();
+            updateResultsInfo();
+            updateClearButton();
+        }
+
+        function clearFilters() {
+            document.getElementById('searchInput').value = '';
+            filteredMyEvents = [...myEvents];
+            renderEvents();
+            updateResultsInfo();
+            updateClearButton();
+        }
+
+        function updateClearButton() {
+            const hasFilters = document.getElementById('searchInput').value.trim() !== '';
+            document.getElementById('clearBtn').style.display = hasFilters ? 'flex' : 'none';
+        }
+
+        function updateResultsInfo() {
+            document.getElementById('eventCount').textContent = filteredMyEvents.length;
+            
+            const noResults = document.getElementById('noResults');
+            const resultsInfo = document.getElementById('resultsInfo');
+            const eventsGrid = document.getElementById('eventsGrid');
+            
+            if (filteredMyEvents.length === 0) {
+                eventsGrid.style.display = 'none';
+                resultsInfo.style.display = 'none';
+                noResults.style.display = 'block';
+            } else {
+                eventsGrid.style.display = 'grid';
+                resultsInfo.style.display = 'block';
+                noResults.style.display = 'none';
+            }
+        }
+
+        function updateStatistics() {
+            document.getElementById('totalEvents').textContent = myEvents.length;
+            
+            const upcoming = myEvents.filter(event => new Date(event.eventDate) >= new Date()).length;
+            document.getElementById('upcomingEvents').textContent = upcoming;
+            
+            // Simulate attendee counts
+            const totalAttendees = myEvents.reduce((sum, event) => sum + Math.floor(Math.random() * 50) + 10, 0);
+            document.getElementById('totalAttendees').textContent = totalAttendees;
+            
+            const avgAttendance = myEvents.length > 0 ? Math.floor(totalAttendees / myEvents.length) : 0;
+            document.getElementById('avgAttendance').textContent = avgAttendance;
+        }
+
+        function editEvent(eventId) {
+            // In a real app, this would navigate to edit page with event data
+            alert(`Edit event ${eventId} - This would navigate to an edit form`);
+            // window.location.href = `editEvent.html?eventId=${eventId}`;
+        }
+
+        function deleteEvent(eventId) {
+            if (confirm('Are you sure you want to delete this event? This action cannot be undone.')) {
+                // Remove event from array (in real app, this would delete from database)
+                const index = myEvents.findIndex(event => event.id === eventId);
+                if (index > -1) {
+                    myEvents.splice(index, 1);
+                    filteredMyEvents = [...myEvents];
+                    renderEvents();
+                    updateResultsInfo();
+                    updateStatistics();
+                    alert('Event deleted successfully');
+                }
+            }
+        }
+
+        function logout() {
+            session.logout();
+            window.location.href = '../login.html';
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', function() {
+            updateClearButton();
+        });
+
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                searchEvents();
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

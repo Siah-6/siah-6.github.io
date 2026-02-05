@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Prevent browser caching -->
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- Prevent browser caching -->
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Event Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link rel="icon" href="../assets/img/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/css/eventForm.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+</head>
+
+<body>
+    <!-- Organizer Navigation Bar (exact copy from PHP) -->
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        .navbar {
+            background-color: #FE5722;
+        }
+
+        .border-active {
+            border-color: #FE5722 !important;
+        }
+    </style>
+
+    <nav class="navbar navbar-expand-lg p-2 position-relative z-1">
+        <div class="container-fluid">
+            <div class="w-100 d-flex align-items-center justify-content-between">
+
+                <button class="btn text-dark fs-3 ms-3" data-bs-toggle="offcanvas" data-bs-target="#sideNavbar"
+                    aria-controls="sideNavbar">
+                    &#9776;
+                </button>
+
+                <div class="position-absolute start-50 translate-middle-x d-flex align-items-center gap-2">
+                    <img src="../assets/img/logo.svg" alt="logo" style="height: 60px;">
+                </div>
+
+                <div class="d-flex align-items-center gap-2 me-3">
+
+                    <a href="eventForm.html">
+                        <button class="btn btn-md p-2 rounded-3 ps-3 pe-3 d-none d-lg-inline text-white"
+                            style="background-color: #E7400C;">Add
+                            Event
+                        </button>
+                    </a>
+                    <a href="#" onclick="logout()" class="btn btn-md p-2 rounded-3 ps-3 pe-3 d-none d-lg-inline"
+                        style="background-color: #D9D9D9;">
+                        Log Out
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sideNavbar" aria-labelledby="sideNavbarLabel">
+        <div class="offcanvas-header" style="background-color: #FE5722;">
+            <img src="../assets/img/logo.svg" class="me-2" alt="logo" style="height: 60px;">
+
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link text-decoration-none text-dark fw-semibold"
+                        href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link text-decoration-none text-dark fw-semibold"
+                        href="archivedEvent.html">Archived Events</a></li>
+                <li class="nav-item"><a class="nav-link text-decoration-none text-dark fw-semibold" href="myEvents.html">My
+                        Events</a></li>
+            </ul>
+            <hr class=" d-lg-none"style="border-top: 2px solid #FE5722;">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-decoration-none text-dark fw-semibold d-lg-none" href="eventForm.html">Add Event</a>
+                </li>
+                <li class="nav-item">
+                    <a class=" nav-link text-decoration-none text-dark fw-semibold d-lg-none" href="#" onclick="logout()">Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 pageTitle">
+                Create Events
+            </div>
+        </div>
+    </div>
+
+    <div class="container d-flex justify-content-center">
+        <div class="card cardDetails">
+            <div class="eventFormTitle">
+                Event Form
+            </div>
+            <div class="eventFormSubText">
+                What kind of event is it?</div>
+            <div class="eventInstruction">
+                Please enter your details
+            </div>
+
+            <form id="eventForm" action="" method="POST" enctype="multipart/form-data">
+                <!-- <-----Event Name----->
+                <div class="eventFormContainer">
+                    <div class="row d-flex firstCategoryForm">
+                        <div class="col-md-6 d-flex flex-column">
+                            <div class="mb-4 d-flex flex-column">
+                                <label for="eventName" class="form-label eventName">Event Name</label>
+                                <input type="text" class="form-control" placeholder="Enter event name" name="eventName"
+                                    required>
+                            </div>
+                        </div>
+
+                        <!-- <-----Event Category----->
+                        <div class="col-md-6 d-flex flex-column">
+                            <div class="mb-4 d-flex flex-column">
+                                <label for="eventCategory" class="form-label eventCategory">Event Category</label>
+                                <div class="position-relative d-flex">
+                                    <select class="form-control pe-5" required
+                                        style="appearance: none; position: relative; z-index: 1;" name="eventCategory">
+                                        <option value="" selected disabled class="chooseCategory">Choose Category
+                                        </option>
+                                        <option value="Concerts & Music">Concerts & Music</option>
+                                        <option value="Festivals & Fairs">Festivals & Fairs</option>
+                                        <option value="Sports & Fitness">Sports & Fitness</option>
+                                        <option value="Conferences & Seminars">Conferences & Seminars</option>
+                                        <option value="Workshops & Training">Workshops & Training</option>
+                                    </select>
+                                    <i class="fa-solid fa-caret-down position-absolute"
+                                        style="top: 12px; right: 15px; z-index: 2; color: #A0A0A0; pointer-events: none;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <-----Event Age Requirement----->
+                    <div class="row d-flex">
+                        <div class="col-md-6 d-flex flex-column">
+                            <div class="mb-4 d-flex flex-column">
+                                <label for="ageRequirement" class="form-label ageRequirement">Age Requirement</label>
+                                <div class="position-relative d-flex">
+                                    <select class="form-control pe-5" required
+                                        style="appearance: none; position: relative; z-index: 1;" name="ageRequirement">
+                                        <option value="" selected disabled class="chooseCategory">Choose age range
+                                        </option>
+                                        <option value="Open to All Ages">Open to All Ages</option>
+                                        <option value="Under 12">12 Below</option>
+                                        <option value="13 - 17">17 Below</option>
+                                        <option value="18 - 24">18 Above</option>
+                                    </select>
+                                    <i class="fa-solid fa-caret-down position-absolute"
+                                        style="top: 12px; right: 15px; z-index: 2; color: #A0A0A0; pointer-events: none;"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 d-flex flex-column">
+                            <div class="mb-4 d-flex flex-column">
+                                <div class="numberOfAttendees flex-grow-1">
+                                    <label for="numberOfAttendees">Max Number of Attendees</label>
+                                    <input type="number" id="" class="form-control"
+                                        placeholder="Enter maximum number of attendees" name="numberOfAttendees"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <-----Event Description----->
+                <div class="eventDescription flex-grow-1">
+                    <label for="eventDescription">Event Description</label>
+                    <textarea id="eventDescription" class="form-control"
+                        placeholder="Type your event description here...." name="eventDescription" required></textarea>
+                </div>
+
+                <!-- <-----Event Date and Time----->
+                <div class="row d-flex dateTimeContainer">
+                    <div class="col-md-4 d-flex flex-column">
+                        <div class="mb-4 d-flex flex-column">
+                            <label for="date" class="form-label eventDate">Date</label>
+                            <input type="date" class="form-control" placeholder="" name="eventDate" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex flex-column">
+                        <div class="mb-4 d-flex flex-column">
+                            <label for="startTime" class="form-label eventTime">Start Time</label>
+                            <input type="time" class="form-control" placeholder="" name="eventStartTime" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex flex-column">
+                        <div class="mb-4 d-flex flex-column">
+                            <label for="endTime" class="form-label eventTime">End Time</label>
+                            <input type="time" class="form-control" placeholder="" name="eventEndTime" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <-----Event Location----->
+                <div class="eventLocation flex-grow-1">
+                    <label for="">Event Location</label>
+                    <div class="locationInstruction"> You can either search for a location using the icon, or click the
+                        pin to manually select a location on the map.</div>
+                    <div class="position-relative d-flex">
+                        <input type="text" id="eventLocation" class="form-control pe-5"
+                            placeholder="Your Current Location" name="eventLocation" readonly style="cursor: default">
+
+                        <!-- Pin button inside input -->
+                        <button type="button" onclick="pinLocation()" id="pinLocationBtn" class="btn position-absolute"
+                            style="top: 50%; right: 10px; transform: translateY(-50%); padding: 0; border: none; background: none;">
+                            <img src="../assets/img/pin.png" alt="Pin" style="height: 20px;">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pinMap" style="width: 100%;">
+                    <div class="card" style="height: auto; width: 100%; margin-bottom: 30px;">
+                        <div id="map" style="height: 300px;"></div>
+                        <input type="hidden" id="latitude" name="latitude">
+                        <input type="hidden" id="longitude" name="longitude">
+                    </div>
+                </div>
+
+                <div class="row d-flex">
+                    <div class="flex-grow-1">
+                        <label for="eventQuestions" class="form-label createQuestionTitle">Create Questions for
+                            Guests</label>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <input type="text" id="questionInput" class="form-control"
+                                placeholder="Type your question here">
+                        </div>
+                    </div>
+                    <div class="eventQuestionForm d-flex align-items-center gap-3 flex-wrap">
+                        <button onclick="addQuestion()" type="button" class="btnAddQuestion">Add Question</button>
+                    </div>
+                </div>
+
+                <!-- <-----Event Created Questions----->
+                <div class="finishQuestionTitle">Created Questions:</div>
+                <div id="questionsContainer">
+                    <div id="questionTitle">
+                        <div class="questionType" id="createdOption">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <-----Event Upload Attachment----->
+                <div class="d-flex flex-column">
+                    <div class="uploadAttachment">Upload Attachment</div>
+                    <div class="d-flex align-items-center">
+                        <input type="file" id="uploadImage" name="imgFile" enctype="multipart/form-data"
+                            class="form-control upload-file me-2" accept=".png, .jpg, .jpeg" />
+                        <button onclick="addImage()" type="button" class="btnUpload">Upload</button>
+                        <span id="fileName" class="ms-2"></span>
+                    </div>
+                </div>
+
+                <div class="imageContainer flex-col">
+                    <div class="row" id="imageIsUploaded">
+                    </div>
+                </div>
+
+                <!-- <-----Event Button Cancel and Create----->
+                <div class="buttonContainer">
+                    <button type="button" class="btnCancel" onclick="window.location.href='index.html'">Cancel</button>
+                    <button class="btnCreate" type="submit" name="createEvent"> Create </button>
+                </div>
+
+                <!-- <-----Event Modal----->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="eventsSuccessfully" id="exampleModalLabel">Events Added Successfully</div>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Congratulations on creating your event!
+                            </div>
+                            <div class="modal-footer">
+                                <a href="index.html" class="btnDone">Go back to Home</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/data.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script>
+        let createdQuestions = [];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!session.requireAuth()) {
+                return;
+            }
+
+            initializeMap();
+        });
+
+        function initializeMap() {
+            map = L.map("map").setView([13.9397, 121.1633], 13);
+
+            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            }).addTo(map);
+
+            var geocoder = L.Control.geocoder({
+                defaultMarkGeocode: false
+            })
+                .on('markgeocode', function (e) {
+                    var latlng = e.geocode.center;
+
+                    map.setView(latlng, 15);
+                    L.marker(latlng).addTo(map)
+                        .bindPopup(e.geocode.name)
+                        .openPopup();
+
+                    document.getElementById("latitude").value = latlng.lat;
+                    document.getElementById("longitude").value = latlng.lng;
+                    document.getElementById("eventLocation").value = e.geocode.name;
+                })
+                .addTo(map);
+        }
+
+        function pinLocation() {
+            alert("You clicked the pin! Click a location on the map.");
+
+            if (map) {
+                map.setView([13.9397, 121.1633], 15);
+
+                map.once("click", function (e) {
+                    const lat = e.latlng.lat;
+                    const lng = e.latlng.lng;
+
+                    L.marker([lat, lng]).addTo(map).bindPopup("You pinned here!").openPopup();
+
+                    document.getElementById("latitude").value = lat;
+                    document.getElementById("longitude").value = lng;
+
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById("eventLocation").value = data.display_name;
+                        })
+                        .catch(error => {
+                            console.error('Error getting location name:', error);
+                            document.getElementById("eventLocation").value = `Lat: ${lat}, Lng: ${lng}`;
+                        });
+                });
+            }
+        }
+
+        function addQuestion() {
+            const questionInput = document.getElementById('questionInput');
+            const questionText = questionInput.value.trim();
+            
+            if (questionText) {
+                createdQuestions.push(questionText);
+                updateQuestionsDisplay();
+                questionInput.value = '';
+            }
+        }
+
+        function updateQuestionsDisplay() {
+            const container = document.getElementById('createdOption');
+            container.innerHTML = createdQuestions.map((question, index) => `
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span>${question}</span>
+                    <button type="button" class="btn btn-sm btn-danger" onclick="removeQuestion(${index})">×</button>
+                </div>
+            `).join('');
+        }
+
+        function removeQuestion(index) {
+            createdQuestions.splice(index, 1);
+            updateQuestionsDisplay();
+        }
+
+        function addImage() {
+            const fileInput = document.getElementById('uploadImage');
+            const fileName = document.getElementById('fileName');
+            
+            if (fileInput.files.length > 0) {
+                fileName.textContent = fileInput.files[0].name;
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('eventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Add questions to data
+            data.guestsQuestions = createdQuestions;
+            
+            // Simulate event creation
+            const newEvent = {
+                id: sampleEvents.length + 1,
+                eventName: data.eventName,
+                category: data.eventCategory,
+                ageRequirement: data.ageRequirement,
+                numberOfAttendees: data.numberOfAttendees,
+                description: data.eventDescription,
+                eventDate: data.eventDate,
+                startTime: data.eventStartTime,
+                endTime: data.eventEndTime,
+                location: data.eventLocation,
+                latitude: data.latitude,
+                longitude: data.longitude,
+                organizerName: session.currentUser.name || session.currentUser.username,
+                organizerId: session.currentUser.organizerId,
+                eventImage: data.imgFile ? data.imgFile.name : null
+            };
+
+            sampleEvents.push(newEvent);
+
+            // Show success modal
+            var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+            myModal.show();
+        });
+
+        function logout() {
+            session.logout();
+            window.location.href = '../login.html';
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

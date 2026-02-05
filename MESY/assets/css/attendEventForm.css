@@ -1,0 +1,40 @@
+
+@font-face {
+  font-family: "Belove";
+  src: url("..//font/BeloveRegular.ttf") format("truetype");
+}
+
+
+body {
+    font-family: 'Belove', sans-serif;
+}
+.navbar {
+    background-color: #FE5722;
+}
+
+
+.borderColor{
+    border-radius: 20px;
+    border-color: #FF8A65;
+    border-style: solid;
+
+}
+
+.calendarIcon{
+    max-height: 30px;
+    max-width: 30px;
+}
+
+.locationIcon{
+    max-height: 30px;
+    max-width: 30px;
+}
+
+.btnRegister{
+    border-radius: 20px;
+    background-color: #FF8A65 !important;
+    color: #F3F3F3 !important;
+    min-height: 60px;
+    min-width: 250px;
+
+}

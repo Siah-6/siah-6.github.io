@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'Belove';
+    src: url('..//font/BeloveRegular.ttf') format('truetype');
+}
+
+:root {
+    --ff-title: "Belove", sans-serif;
+    --ff-text: "Poppins", sans-serif;
+    --c-primary-orange: #FF5722;
+    --c-secondary-orange: #FF916F;
+    --c-black: #333;
+}
+
+body {
+    font-family: var(--ff-text);
+}

@@ -1,0 +1,348 @@
+@font-face {
+  font-family: "Belove";
+  src: url("..//font/BeloveRegular.ttf") format("truetype");
+}
+
+:root {
+  --ff-title: "Belove", sans-serif;
+  --ff-text: "Poppins", sans-serif;
+  --c-primary-orange: #ff5722;
+  --c-secondary-orange: #ff916f;
+  --c-black: #333;
+}
+
+body {
+  font-family: var(--ff-text);
+}
+
+.navbar {
+  background-color: var(--c-primary-orange);
+  box-shadow: 1px 1px 25px 1px rgb(132, 132, 132);
+  height: fit-content;
+}
+
+.pageTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ff-title);
+  font-size: 50px;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+.cardDetails {
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto 40px;
+  border: none;
+  padding: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.eventFormTitle {
+  margin: 20px 0 0 30px;
+  font-size: 40px;
+  font-weight: bold;
+  color: var(--c-primary-orange);
+}
+
+.eventFormSubText {
+  margin-left: 50px;
+  font-weight: bold;
+  color: #111;
+}
+
+.eventInstruction {
+  margin-left: 50px;
+  font-weight: bold;
+  color: #111;
+  margin-bottom: 30px;
+}
+
+.eventFormSubText {
+  margin-top: 20px;
+  font-size: 30px;
+}
+
+.eventInstruction {
+  margin-top: 1px;
+  font-size: 15px;
+  font-weight: normal;
+  color: #7c7c7c;
+}
+
+@media (max-width: 504px) {
+  .eventFormTitle {
+    margin-left: 20px;
+  }
+  .eventFormSubText,
+  .eventInstruction {
+    margin-left: 15px;
+  }
+  .eventFormSubText {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 371px) {
+  .eventFormSubText {
+    font-size: 20px;
+  }
+}
+
+select.form-control,
+input.form-control,
+textarea.form-control {
+  border: 1px solid black;
+  font-size: 14px;
+  color: #0b0b0b;
+}
+
+.inputOption {
+  margin-bottom: 10px;
+  margin-top: -5px;
+  display: flex;
+}
+
+textarea.form-control {
+  height: 150px;
+  resize: none;
+  vertical-align: top;
+}
+
+.eventName,
+.eventCategory,
+.ageRequirement,
+.eventType,
+.eventDate,
+.eventTime,
+.eventDuration {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 3px;
+  margin-top: 5px;
+}
+
+.numberOfAttendees {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-top: 8px;
+}
+
+.eventOrganizer {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 3px;
+  margin-top: 10px;
+}
+
+.eventDescription {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 3px;
+  margin-top: 10px;
+}
+
+.eventLocation {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.eventLocation .locationInstruction {
+  font-size: 15px;
+  font-weight: normal;
+  margin-top: 2px;
+  margin-bottom: 3px;
+}
+
+#eventLocation::placeholder {
+  color: #121212;
+  opacity: 1;
+  font-size: 13px;
+}
+
+.createQuestionTitle {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 3px;
+  margin-top: 6px;
+}
+
+.btnAddQuestion {
+  border: 1px solid black;
+  height: 35px;
+  border-radius: 10px;
+  font-size: 15px;
+  margin-top: 3px;
+}
+
+.uploadAttachment {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  margin-top: 30px;
+}
+
+.btnAdd,
+.btnUpload,
+.btnDeleteQuestion {
+  border: 1px solid black;
+  height: 35px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.btnAdd {
+  width: 70px;
+}
+.btnAddGuests,
+.btnUpload {
+  width: 100px;
+}
+.btnAddQuestion {
+  width: 130px;
+  margin-right: 20px;
+}
+.btnDeleteQuestion {
+  width: 80px;
+  height: 30px;
+  margin-bottom: 15px;
+  margin-left: -6px;
+  font-size: 14px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 80px 0 30px;
+  gap: 10px;
+  position: relative;
+  z-index: 10;
+}
+
+.btnCancel {
+  width: 120px;
+  height: 45px;
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.btnCreate {
+  width: 120px;
+  height: 45px;
+  background-color: var(--c-primary-orange);
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.btnDone {
+  width: fit-content;
+  height: fit-content;
+  padding: 8px;
+  background-color: var(--c-primary-orange);
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  text-decoration: none;
+}
+
+.eventQuestionForm {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.priceTable {
+  margin-top: 3px;
+  border: 1px solid black;
+  margin-bottom: 20px;
+}
+
+td button {
+  border: none;
+  background: none;
+  font-size: 17px;
+  cursor: pointer;
+  display: flex;
+  justify-content: end;
+  text-align: right;
+}
+
+td:last-child {
+  text-align: right;
+}
+
+.dateTimeContainer {
+  margin-top: 30px;
+}
+
+.guestsEmail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.guestsEmail .card {
+  background-color: #e1e1e1;
+  border-radius: 20px;
+  padding: 5px 10px;
+  border: none;
+  font-size: 15px;
+  margin-top: 7px;
+  width: fit-content;
+}
+
+.guestsEmail img {
+  width: 15px;
+  height: 15px;
+}
+
+.card.emailCard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.btnDelete {
+  border: none;
+  background-color: transparent;
+}
+
+.questionsTitle {
+  font-size: 18px;
+  font-weight: normal;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.finishQuestionTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 8px;
+}
+
+.eventsSuccessfully {
+  font-size: 23px;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}

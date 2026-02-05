@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MESY | Attend Event Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <link rel="icon" href="assets/img/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/attendEventForm.css">
+</head>
+
+<body>
+    <!-- Guest Navigation Bar (exact copy from PHP) -->
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        .navbar {
+            background-color: #FE5722;
+        }
+
+        .border-active {
+            border-color: #FE5722 !important;
+        }
+    </style>
+
+    <nav class="navbar navbar-expand-lg p-2 position-relative z-1">
+        <div class="container-fluid">
+            <div class="w-100 d-flex align-items-center justify-content-between">
+
+                <button class="btn text-dark fs-3 ms-3" data-bs-toggle="offcanvas" data-bs-target="#sideNavbar"
+                    aria-controls="sideNavbar">
+                    &#9776;
+                </button>
+
+                <div class="position-absolute start-50 translate-middle-x d-flex align-items-center gap-2">
+                    <img src="assets/img/logo.svg" alt="logo" style="height: 60px;">
+                </div>
+
+                <div class="d-flex align-items-center gap-2 me-3">
+                    <a href="login.html" class="btn btn-md p-2 rounded-3 ps-3 pe-3 d-none d-lg-inline"
+                        style="background-color: #D9D9D9;">
+                        Log In
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sideNavbar" aria-labelledby="sideNavbarLabel">
+        <div class="offcanvas-header" style="background-color: #FE5722;">
+            <img src="assets/img/logo.svg" class="me-2" alt="logo" style="height: 60px;">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link text-decoration-none text-dark fw-semibold"
+                        href="index.html">Upcoming Events</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="borderColor">
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="d-flex flex-column">
+                                <div class="d-flex align-items-center gap-2 mt-3">
+                                    <i class="fas fa-calendar calendarIcon"></i>
+                                    <h5 id="eventDate">December 15, 2024</h5>
+                                </div>
+                                <div class="d-flex align-items-center gap-2 mt-3">
+                                    <i class="fas fa-clock calendarIcon"></i>
+                                    <h5 id="eventTime">2:00 PM</h5>
+                                </div>
+                                <div class="d-flex align-items-center gap-2 mt-3">
+                                    <i class="fas fa-map-marker-alt locationIcon"></i>
+                                    <h5 id="eventLocation">Manila</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="d-flex flex-column">
+                                <h1 id="eventName" class="fw-bold">TechChika with Campus DEVCON</h1>
+                                <p class="mt-3" id="eventDescription">Join us for an exciting tech talk and networking event featuring the latest innovations in web development and AI.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="borderColor">
+                    <form id="attendEventForm">
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 class="fw-bold mt-3">Personal Details</h3>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <div class="mb-3">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="mb-3">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <div class="mb-3">
+                                    <label for="suffix" class="form-label">Suffix</label>
+                                    <input type="text" class="form-control" id="suffix">
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <div class="mb-3">
+                                    <label for="age" class="form-label">Age</label>
+                                    <input type="number" class="form-control" id="age" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="mb-3">
+                                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phoneNumber" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 class="fw-bold mt-3">Address</h3>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-6">
+                                <div class="mb-3">
+                                    <label for="province" class="form-label">Province</label>
+                                    <select class="form-control" id="province" required>
+                                        <option value="">Select Province</option>
+                                        <option value="Metro Manila">Metro Manila</option>
+                                        <option value="Luzon">Luzon</option>
+                                        <option value="Visayas">Visayas</option>
+                                        <option value="Mindanao">Mindanao</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="mb-3">
+                                    <label for="city" class="form-label">City</label>
+                                    <select class="form-control" id="city" required>
+                                        <option value="">Select City</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 class="fw-bold mt-3">Questionnaire</h3>
+                            </div>
+                        </div>
+
+                        <div id="questionsContainer">
+                            <!-- Questions will be dynamically loaded here -->
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="termsConsent" required>
+                                    <label class="form-check-label" for="termsConsent">
+                                        I agree to the <a href="privacyAndPolicy.html" target="_blank">Terms and Conditions</a> and <a href="privacyAndPolicy.html" target="_blank">Privacy Policy</a>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="updatesConsent">
+                                    <label class="form-check-label" for="updatesConsent">
+                                        I consent to receive updates about this event
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btnRegister" id="registerButton">Register</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/data.js"></script>
+    <script>
+        let currentEvent = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadEventDetails();
+            setupProvinceCity();
+        });
+
+        function loadEventDetails() {
+            // Get event ID from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventId = urlParams.get('eventId');
+
+            if (!eventId) {
+                currentEvent = sampleEvents[0];
+            } else {
+                currentEvent = sampleEvents.find(event => event.id == eventId);
+            }
+
+            if (!currentEvent) {
+                alert('Event not found');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            updateEventDetails();
+            loadQuestions();
+        }
+
+        function updateEventDetails() {
+            const eventDate = new Date(currentEvent.eventDate);
+            const formattedDate = eventDate.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            const timeRange = formatTime(currentEvent.startTime);
+
+            document.getElementById('eventName').textContent = currentEvent.eventName;
+            document.getElementById('eventDescription').textContent = currentEvent.description;
+            document.getElementById('eventDate').textContent = formattedDate;
+            document.getElementById('eventTime').textContent = timeRange;
+            document.getElementById('eventLocation').textContent = currentEvent.location;
+        }
+
+        function formatTime(timeString) {
+            const [hours, minutes] = timeString.split(':');
+            const hour = parseInt(hours);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const hour12 = hour % 12 || 12;
+            return `${hour12}:${minutes} ${ampm}`;
+        }
+
+        function setupProvinceCity() {
+            const provinceSelect = document.getElementById('province');
+            const citySelect = document.getElementById('city');
+
+            const cities = {
+                'Metro Manila': ['Manila', 'Quezon City', 'Makati', 'Pasig', 'Taguig', 'Mandaluyong', 'San Juan', 'Pasay', 'Caloocan', 'Malabon', 'Navotas', 'Muntinlupa', 'Las Piñas', 'Marikina', 'Parañaque', 'Valenzuela'],
+                'Luzon': ['Baguio', 'Angeles', 'San Fernando', 'Cabuyao', 'Santa Rosa', 'Biñan', 'San Pedro', 'Dasmariñas', 'Bacoor', 'Imus', 'General Trias', 'Trece Martires', 'Tagaytay', 'Silang', 'Dasmariñas', 'Cavite City'],
+                'Visayas': ['Cebu City', 'Mandaue', 'Lapu-Lapu', 'Talisay', 'Naga', 'Iloilo City', 'Bacolod', 'Dumaguete', 'Tacloban', 'Ormoc'],
+                'Mindanao': ['Davao City', 'Cagayan de Oro', 'General Santos', 'Zamboanga City', 'Butuan', 'Surigao', 'Iligan', 'Marawi', 'Koronadal', 'Kidapawan']
+            };
+
+            provinceSelect.addEventListener('change', function() {
+                const selectedProvince = this.value;
+                citySelect.innerHTML = '<option value="">Select City</option>';
+                
+                if (selectedProvince && cities[selectedProvince]) {
+                    cities[selectedProvince].forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city;
+                        option.textContent = city;
+                        citySelect.appendChild(option);
+                    });
+                }
+            });
+        }
+
+        function loadQuestions() {
+            // Sample questions for the event
+            const sampleQuestions = [
+                "How did you hear about this event?",
+                "What is your primary reason for attending?",
+                "Do you have any dietary restrictions?"
+            ];
+
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = sampleQuestions.map((question, index) => `
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <label class="form-label">${index + 1}. ${question}</label>
+                        <input type="text" class="form-control" name="question_${index}" placeholder="Your answer">
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Handle form submission
+        document.getElementById('attendEventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate form
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const age = document.getElementById('age').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const province = document.getElementById('province').value;
+            const city = document.getElementById('city').value;
+            const termsConsent = document.getElementById('termsConsent').checked;
+
+            if (!firstName || !lastName || !email || !age || !phoneNumber || !province || !city || !termsConsent) {
+                alert('Please fill in all required fields and accept the terms and conditions.');
+                return;
+            }
+
+            // Simulate registration
+            alert('Thank you for registering! You will receive a confirmation email shortly.');
+            
+            // Reset form
+            this.reset();
+            
+            // Redirect to events page
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

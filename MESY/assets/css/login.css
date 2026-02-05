@@ -1,0 +1,46 @@
+ .greetings h1 {
+        font-size: 50px;
+        font-family: Belove;
+    }
+
+    .greetings p {
+        font-size: 20px;
+    }
+
+    .login-form label,
+    .button-forget,
+    .register-link-section {
+        font-size: 18px;
+    }
+
+    .submit {
+        background-color: #FE5722;
+        transition: all 0.3s ease;
+    }
+
+    .submit:hover {
+        background-color: #ff4400;
+        cursor: pointer;
+    }
+    .seeEventsbtn {
+        color: #ff4400;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+
+    .seeEventsbtn::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 1px;
+        width: 0;
+        height: 2px;
+        background-color: #FE5722;
+        transition: width 0.3s ease;
+    }
+
+    .seeEventsbtn:hover::after {
+        width: 100%;
+    }

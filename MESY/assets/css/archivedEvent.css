@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+@font-face {
+    font-family: 'Belove';
+    src: url('../font/BeloveRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #F3F3F3;
+}
+
+.navbar {
+    background-color: #FE5722;
+}
+
+.event-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-hover:hover {
+    transform: scale(1.01);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background-color: #fef9f6;
+    border-radius: 10px;
+}
+
+.border-active {
+    border-color: #FE5722 !important;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #E7400C;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
