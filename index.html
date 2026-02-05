@@ -497,14 +497,50 @@
                                     <p><strong>Problem:</strong> Creating an efficient point-of-sale system for coffee shop management with real-time inventory tracking and sales analytics.</p>
                                     <p><strong>Solution:</strong> Developed a comprehensive POS system with order management, inventory tracking, sales analytics, and responsive dashboard for coffee shop operations.</p>
                                     <div class="project-tech">
-                                        <span class="tech-tag">HTML5/CSS3</span>
+                                        <span class="tech-tag">PHP</span>
+                                        <span class="tech-tag">CSS3</span>
                                         <span class="tech-tag">JavaScript</span>
+                                        <span class="tech-tag">MySQL</span>
                                         <span class="tech-tag">Bootstrap 5</span>
-                                        <span class="tech-tag">POS Management</span>
-                                        <span class="tech-tag">Sales Analytics</span>
                                     </div>
                                     <div class="project-links">
                                         <a href="POS/index.html" class="project-link">
+                                            <i class="fas fa-external-link-alt"></i> Live Demo
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fab fa-github"></i> Code
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- MESY Event Manager -->
+                            <div class="project-card">
+                                <div class="project-image slideshow-container" id="mesy-slideshow">
+                                    <div class="slideshow">
+                                        <img src="images/mesy1.jpg" alt="MESY Event Manager - Main Interface" class="slide active">
+                                        <img src="images/mesy2.jpg" alt="MESY Event Manager - Event Details" class="slide">
+                                    </div>
+                                    <div class="slideshow-dots">
+                                        <span class="dot active" onclick="currentSlide(1, 'mesy')"></span>
+                                        <span class="dot" onclick="currentSlide(2, 'mesy')"></span>
+                                    </div>
+                                </div>
+                                <div class="project-content">
+                                    <h3>MESY Event Manager</h3>
+                                    <p><strong>Problem:</strong> Creating a comprehensive event management system with location-based filtering, mapping, and user registration capabilities.</p>
+                                    <p><strong>Solution:</strong> Developed a full-featured event management platform with Google Maps integration, geolocation filtering, user authentication, and responsive dashboard interface.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-tag">PHP</span>
+                                        <span class="tech-tag">CSS3</span>
+                                        <span class="tech-tag">JavaScript</span>
+                                        <span class="tech-tag">MySQL</span>
+                                        <span class="tech-tag">Bootstrap 5</span>
+                                        <span class="tech-tag">Google Maps API</span>
+                                        <span class="tech-tag">Geolocation</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="MESY/index.html" class="project-link">
                                             <i class="fas fa-external-link-alt"></i> Live Demo
                                         </a>
                                         <a href="#" class="project-link">
@@ -637,7 +673,8 @@
         // Multiple slideshow management
         const slideshows = {
             core: { index: 1, interval: null, container: null },
-            pos: { index: 1, interval: null, container: null }
+            pos: { index: 1, interval: null, container: null },
+            mesy: { index: 1, interval: null, container: null }
         };
 
         // Initialize slideshows
@@ -656,6 +693,14 @@
                 slideshows.pos.container = posContainer;
                 showSlide(1, 'pos');
                 startSlideshow('pos');
+            }
+            
+            // Initialize MESY slideshow
+            const mesyContainer = document.getElementById('mesy-slideshow');
+            if (mesyContainer) {
+                slideshows.mesy.container = mesyContainer;
+                showSlide(1, 'mesy');
+                startSlideshow('mesy');
             }
         });
 
@@ -714,6 +759,7 @@
                 let slideshowName = null;
                 if (container.id === 'core-slideshow') slideshowName = 'core';
                 else if (container.id === 'pos-slideshow') slideshowName = 'pos';
+                else if (container.id === 'mesy-slideshow') slideshowName = 'mesy';
                 
                 if (slideshowName) {
                     clearInterval(slideshows[slideshowName].interval);
@@ -725,6 +771,7 @@
                 let slideshowName = null;
                 if (container.id === 'core-slideshow') slideshowName = 'core';
                 else if (container.id === 'pos-slideshow') slideshowName = 'pos';
+                else if (container.id === 'mesy-slideshow') slideshowName = 'mesy';
                 
                 if (slideshowName) {
                     startSlideshow(slideshowName);
