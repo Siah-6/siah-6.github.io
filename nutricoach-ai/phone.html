@@ -16,9 +16,10 @@
         html, body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: 
-                radial-gradient(ellipse at top, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom, rgba(118, 75, 162, 0.15) 0%, transparent 50%),
-                linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
+                radial-gradient(ellipse at 20% 30%, rgba(74, 158, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(74, 158, 255, 0.03) 0%, transparent 70%),
+                linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
             height: 100vh;
             width: 100vw;
             overflow: hidden;
@@ -50,6 +51,7 @@
             max-height: 90vh;
             position: relative;
             overflow: hidden;
+            z-index: 10;
         }
 
         .phone-container::before {
@@ -101,17 +103,18 @@
             top: -70px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(30, 41, 59, 0.8);
             backdrop-filter: blur(20px);
             padding: 10px 20px;
             border-radius: 20px;
-            color: #475569;
+            color: #e2e8f0;
             font-size: 13px;
             font-weight: 500;
             box-shadow: 
-                0 4px 20px rgba(0, 0, 0, 0.08),
-                0 1px 3px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+                0 4px 20px rgba(0, 0, 0, 0.3),
+                0 1px 3px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(74, 158, 255, 0.2);
+            z-index: 11;
         }
 
         /* Responsive adjustments */
@@ -169,6 +172,25 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Neural Network Background */
+        .neural-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        #neuralCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
         /* Hide loading after iframe loads */
         .phone-iframe.loaded + .loading-overlay {
             opacity: 0;
@@ -178,6 +200,11 @@
     </style>
 </head>
 <body>
+    <!-- Neural Network Background -->
+    <div class="neural-background">
+        <canvas id="neuralCanvas"></canvas>
+    </div>
+    
     <div class="demo-label">
         📱 NutriCoach AI - Mobile Demo
     </div>
@@ -198,5 +225,137 @@
             <div class="phone-home-indicator"></div>
         </div>
     </div>
+
+    <!-- Neural Network Animation Script -->
+    <script>
+        // Neural Network Background Animation
+        class NeuralNetwork {
+            constructor() {
+                this.canvas = document.getElementById('neuralCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.nodes = [];
+                this.connections = [];
+                this.animationId = null;
+                
+                this.init();
+                this.animate();
+                
+                // Handle resize
+                window.addEventListener('resize', () => this.init());
+            }
+            
+            init() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                
+                // Create nodes
+                this.nodes = [];
+                const nodeCount = Math.floor((this.canvas.width * this.canvas.height) / 15000);
+                
+                for (let i = 0; i < nodeCount; i++) {
+                    this.nodes.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        vx: (Math.random() - 0.5) * 0.3,
+                        vy: (Math.random() - 0.5) * 0.3,
+                        radius: Math.random() * 2 + 1,
+                        opacity: Math.random() * 0.5 + 0.2,
+                        pulsePhase: Math.random() * Math.PI * 2
+                    });
+                }
+            }
+            
+            updateNodes() {
+                this.nodes.forEach(node => {
+                    // Update position
+                    node.x += node.vx;
+                    node.y += node.vy;
+                    
+                    // Bounce off edges
+                    if (node.x < 0 || node.x > this.canvas.width) node.vx *= -1;
+                    if (node.y < 0 || node.y > this.canvas.height) node.vy *= -1;
+                    
+                    // Keep within bounds
+                    node.x = Math.max(0, Math.min(this.canvas.width, node.x));
+                    node.y = Math.max(0, Math.min(this.canvas.height, node.y));
+                    
+                    // Pulse effect
+                    node.pulsePhase += 0.02;
+                    node.currentOpacity = node.opacity * (0.7 + 0.3 * Math.sin(node.pulsePhase));
+                });
+            }
+            
+            drawConnections() {
+                const maxDistance = 150;
+                
+                for (let i = 0; i < this.nodes.length; i++) {
+                    for (let j = i + 1; j < this.nodes.length; j++) {
+                        const dx = this.nodes[i].x - this.nodes[j].x;
+                        const dy = this.nodes[i].y - this.nodes[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < maxDistance) {
+                            const opacity = (1 - distance / maxDistance) * 0.2;
+                            const gradient = this.ctx.createLinearGradient(
+                                this.nodes[i].x, this.nodes[i].y,
+                                this.nodes[j].x, this.nodes[j].y
+                            );
+                            
+                            gradient.addColorStop(0, `rgba(74, 158, 255, ${opacity})`);
+                            gradient.addColorStop(0.5, `rgba(139, 92, 246, ${opacity * 0.8})`);
+                            gradient.addColorStop(1, `rgba(74, 158, 255, ${opacity})`);
+                            
+                            this.ctx.strokeStyle = gradient;
+                            this.ctx.lineWidth = 0.5;
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(this.nodes[i].x, this.nodes[i].y);
+                            this.ctx.lineTo(this.nodes[j].x, this.nodes[j].y);
+                            this.ctx.stroke();
+                        }
+                    }
+                }
+            }
+            
+            drawNodes() {
+                this.nodes.forEach(node => {
+                    // Node glow
+                    const gradient = this.ctx.createRadialGradient(
+                        node.x, node.y, 0,
+                        node.x, node.y, node.radius * 3
+                    );
+                    
+                    gradient.addColorStop(0, `rgba(74, 158, 255, ${node.currentOpacity})`);
+                    gradient.addColorStop(0.5, `rgba(139, 92, 246, ${node.currentOpacity * 0.5})`);
+                    gradient.addColorStop(1, 'rgba(74, 158, 255, 0)');
+                    
+                    this.ctx.fillStyle = gradient;
+                    this.ctx.beginPath();
+                    this.ctx.arc(node.x, node.y, node.radius * 3, 0, Math.PI * 2);
+                    this.ctx.fill();
+                    
+                    // Node core
+                    this.ctx.fillStyle = `rgba(255, 255, 255, ${node.currentOpacity * 0.8})`;
+                    this.ctx.beginPath();
+                    this.ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                    this.ctx.fill();
+                });
+            }
+            
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                this.updateNodes();
+                this.drawConnections();
+                this.drawNodes();
+                
+                this.animationId = requestAnimationFrame(() => this.animate());
+            }
+        }
+        
+        // Initialize neural network when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            new NeuralNetwork();
+        });
+    </script>
 </body>
 </html>
