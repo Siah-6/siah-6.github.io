@@ -109,8 +109,8 @@ class BackgroundTimer {
         if ('Notification' in window && Notification.permission === 'granted') {
             new Notification(title, {
                 body,
-                icon: '/nutricoach-ai/assets/images/NutriLogo.png',
-                badge: '/nutricoach-ai/assets/images/NutriLogo.png',
+                icon: '/assets/images/NutriLogo.png',
+                badge: '/assets/images/NutriLogo.png',
                 vibrate: [200, 100, 200],
                 tag: 'rest-timer',
                 requireInteraction: false
