@@ -587,6 +587,45 @@
                                 </div>
                             </div>
 
+                            <!-- NutriCoach AI -->
+                            <div class="project-card">
+                                <div class="project-image slideshow-container" id="nutri-slideshow">
+                                    <div class="slideshow">
+                                        <img src="images/nutri1.jpg" alt="NutriCoach AI - Home Dashboard" class="slide active">
+                                        <img src="images/nutri2.jpg" alt="NutriCoach AI - Workout Plans" class="slide">
+                                        <img src="images/nutri3.jpg" alt="NutriCoach AI - Nutrition Tracking" class="slide">
+                                    </div>
+                                    <div class="slideshow-dots">
+                                        <span class="dot active" onclick="currentSlide(1, 'nutri')"></span>
+                                        <span class="dot" onclick="currentSlide(2, 'nutri')"></span>
+                                        <span class="dot" onclick="currentSlide(3, 'nutri')"></span>
+                                    </div>
+                                </div>
+                                <div class="project-content">
+                                    <h3>NutriCoach AI</h3>
+                                    <p><strong>Problem:</strong> Creating an AI-powered fitness coaching platform with personalized workout plans, nutrition tracking, and real-time progress monitoring.</p>
+                                    <p><strong>Solution:</strong> Developed a comprehensive fitness coaching app with AI-driven recommendations, mobile-first design, and interactive user experience.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-tag">HTML5/CSS3</span>
+                                        <span class="tech-tag">JavaScript</span>
+                                        <span class="tech-tag">AI Integration</span>
+                                        <span class="tech-tag">Mobile-First</span>
+                                        <span class="tech-tag">Fitness Tracking</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="nutricoach-ai/phone.html" class="project-link">
+                                            <i class="fas fa-external-link-alt"></i> Mobile Demo
+                                        </a>
+                                        <a href="nutricoach-ai/index.html" class="project-link">
+                                            <i class="fas fa-mobile-alt"></i> Direct View
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fab fa-github"></i> Code
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Airport Flight Logs -->
                             <div class="project-card">
                                 <div class="project-image">
@@ -712,7 +751,8 @@
             core: { index: 1, interval: null, container: null },
             pos: { index: 1, interval: null, container: null },
             mesy: { index: 1, interval: null, container: null },
-            serveit: { index: 1, interval: null, container: null }
+            serveit: { index: 1, interval: null, container: null },
+            nutri: { index: 1, interval: null, container: null }
         };
 
         // Initialize slideshows
@@ -747,6 +787,14 @@
                 slideshows.serveit.container = serveitContainer;
                 showSlide(1, 'serveit');
                 startSlideshow('serveit');
+            }
+            
+            // Initialize NutriCoach slideshow
+            const nutriContainer = document.getElementById('nutri-slideshow');
+            if (nutriContainer) {
+                slideshows.nutri.container = nutriContainer;
+                showSlide(1, 'nutri');
+                startSlideshow('nutri');
             }
         });
 
@@ -807,6 +855,7 @@
                 else if (container.id === 'pos-slideshow') slideshowName = 'pos';
                 else if (container.id === 'mesy-slideshow') slideshowName = 'mesy';
                 else if (container.id === 'serveit-slideshow') slideshowName = 'serveit';
+                else if (container.id === 'nutri-slideshow') slideshowName = 'nutri';
                 
                 if (slideshowName) {
                     clearInterval(slideshows[slideshowName].interval);
@@ -820,6 +869,7 @@
                 else if (container.id === 'pos-slideshow') slideshowName = 'pos';
                 else if (container.id === 'mesy-slideshow') slideshowName = 'mesy';
                 else if (container.id === 'serveit-slideshow') slideshowName = 'serveit';
+                else if (container.id === 'nutri-slideshow') slideshowName = 'nutri';
                 
                 if (slideshowName) {
                     startSlideshow(slideshowName);
