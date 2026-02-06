@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0A1628">
+    <title>Meal Tracker - NutriCoach AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/mobile-redesign.css">
+    <link rel="stylesheet" href="../assets/css/dark-theme.css">
+    <link rel="stylesheet" href="../assets/css/header-dark.css">
+    <link rel="stylesheet" href="../assets/css/bottom-nav-dark.css">
+    <link rel="stylesheet" href="../assets/css/meal-tracker-dark.css">
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="dashboard.html" class="navbar-brand">
+                    <img src="../assets/images/NutriLogo.png" alt="NutriCoach" class="navbar-logo">
+                    <span>NutriCoach AI</span>
+                </a>
+                <button class="navbar-toggle" aria-label="Toggle menu">☰</button>
+                <ul class="navbar-menu">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="workout-plan-improved.html">Workouts</a></li>
+                    <li><a href="meal-tracker.html">Meals</a></li>
+                    <li><a href="progress.html">Progress</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="../index.html">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="meal-tracker-container">
+        <div class="tracker-header">
+            <h1>🍽️ Meal Tracker</h1>
+            <div class="date-selector">
+                <div class="date-display-header">
+                    <button class="date-nav-btn" onclick="changeMonth(-1)">◀</button>
+                    <div class="current-month" id="currentMonth">February 6, 2026</div>
+                    <button class="date-nav-btn" onclick="changeMonth(1)">▶</button>
+                    <button class="btn-today-small" onclick="goToToday()">Today</button>
+                </div>
+                <div class="week-days">
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Today</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                    <span>Sun</span>
+                </div>
+                <div class="week-dates" id="weekDates"></div>
+            </div>
+        </div>
+
+        <div class="calorie-summary-card">
+            <div class="calorie-circle">
+                <svg viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="90" fill="none" stroke="#1a2332" stroke-width="20"/>
+                    <circle id="calorieProgress" cx="100" cy="100" r="90" fill="none" stroke="#ff6b6b" stroke-width="20" 
+                            stroke-dasharray="565" stroke-dashoffset="565" transform="rotate(-90 100 100)"/>
+                </svg>
+                <div class="calorie-text">
+                    <div class="calorie-number" id="caloriesLeft">2200</div>
+                    <div class="calorie-label">Kcal Left</div>
+                </div>
+            </div>
+
+            <div class="macro-stats">
+                <div class="macro-stat">
+                    <div class="macro-value" id="caloriesEaten">0</div>
+                    <div class="macro-label">Eaten</div>
+                </div>
+                <div class="macro-stat">
+                    <div class="macro-value">0</div>
+                    <div class="macro-label">Burned</div>
+                </div>
+            </div>
+
+            <div class="macro-breakdown">
+                <div class="macro-item">
+                    <div class="macro-header">
+                        <span>Carbs</span>
+                        <span class="macro-badge carbs" id="carbsPercent">0%</span>
+                    </div>
+                    <div class="macro-progress">
+                        <div class="macro-progress-bar carbs" id="carbsBar" style="width: 0%"></div>
+                    </div>
+                    <div class="macro-values">
+                        <span id="carbsValue">0</span> / 275 g
+                    </div>
+                </div>
+
+                <div class="macro-item">
+                    <div class="macro-header">
+                        <span>Protein</span>
+                        <span class="macro-badge protein" id="proteinPercent">0%</span>
+                    </div>
+                    <div class="macro-progress">
+                        <div class="macro-progress-bar protein" id="proteinBar" style="width: 0%"></div>
+                    </div>
+                    <div class="macro-values">
+                        <span id="proteinValue">0</span> / 165 g
+                    </div>
+                </div>
+
+                <div class="macro-item">
+                    <div class="macro-header">
+                        <span>Fats</span>
+                        <span class="macro-badge fats" id="fatsPercent">0%</span>
+                    </div>
+                    <div class="macro-progress">
+                        <div class="macro-progress-bar fats" id="fatsBar" style="width: 0%"></div>
+                    </div>
+                    <div class="macro-values">
+                        <span id="fatsValue">0</span> / 61 g
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ai-meal-plan-section">
+            <button class="btn-ai-meal-plan" onclick="window.location.href='meal-plan-ai.html'">
+                <span class="ai-icon">🤖</span>
+                <div class="ai-text">
+                    <span class="ai-title">AI Meal Plan</span>
+                    <span class="ai-subtitle">Get personalized daily meals</span>
+                </div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="section-header">
+            <h2>Log your meals</h2>
+        </div>
+
+        <div class="meal-list">
+            <div class="meal-card" onclick="openMealLogger('breakfast')">
+                <div class="meal-icon">🥞</div>
+                <div class="meal-info">
+                    <div class="meal-name">Breakfast</div>
+                    <div class="meal-calories" id="breakfastCalories">0 Kcal</div>
+                </div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+            </div>
+
+            <div class="meal-card" onclick="openMealLogger('morning-snack')">
+                <div class="meal-icon">🍌</div>
+                <div class="meal-info">
+                    <div class="meal-name">Morning snack</div>
+                    <div class="meal-calories" id="morningSnackCalories">0 Kcal</div>
+                </div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+            </div>
+
+            <div class="meal-card" onclick="openMealLogger('lunch')">
+                <div class="meal-icon">🍖</div>
+                <div class="meal-info">
+                    <div class="meal-name">Lunch</div>
+                    <div class="meal-calories" id="lunchCalories">0 Kcal</div>
+                </div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+            </div>
+
+            <div class="meal-card" onclick="openMealLogger('afternoon-snack')">
+                <div class="meal-icon">🍌</div>
+                <div class="meal-info">
+                    <div class="meal-name">Afternoon snack</div>
+                    <div class="meal-calories" id="afternoonSnackCalories">0 Kcal</div>
+                </div>
+                <svg width="24" height="24" fill="none" stroke="currentColor">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+            </div>
+
+            <div class="meal-card" onclick="openMealLogger('dinner')">
+                <div class="meal-icon">🍽️</div>
+                <div class="meal-info">
+                    <div class="meal-name">Dinner</div>
+                    <div class="meal-calories" id="dinnerCalories">0 Kcal</div>
+                </div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meal Logger Modal -->
+    <div class="modal-overlay" id="mealModal" style="display: none;">
+        <div class="modal-content meal-modal">
+            <div class="modal-header">
+                <button class="btn-back" onclick="closeMealLogger()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <h2 id="modalMealName">Breakfast</h2>
+                <button class="btn-icon" onclick="clearMeal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="food-categories">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="vegetables">🥦 Vegetables</button>
+                <button class="category-btn" data-category="fruits">🍎 Fruits</button>
+                <button class="category-btn" data-category="protein">🥩 Protein</button>
+                <button class="category-btn" data-category="grains">🍞 Grains</button>
+                <button class="category-btn" data-category="dairy">🥛 Dairy</button>
+            </div>
+
+            <div class="food-list" id="foodList">
+                <!-- Static food items for demo -->
+                <div class="food-item" data-category="protein" data-calories="250" data-protein="25" data-carbs="0" data-fats="15">
+                    <div class="food-info">
+                        <div class="food-name">Grilled Chicken Breast</div>
+                        <div class="food-stats">250 kcal | 25g protein</div>
+                    </div>
+                    <button class="btn-add-food" onclick="addFoodItem(this)">+</button>
+                </div>
+                <div class="food-item" data-category="protein" data-calories="180" data-protein="20" data-carbs="0" data-fats="10">
+                    <div class="food-info">
+                        <div class="food-name">Salmon Fillet</div>
+                        <div class="food-stats">180 kcal | 20g protein</div>
+                    </div>
+                    <button class="btn-add-food" onclick="addFoodItem(this)">+</button>
+                </div>
+                <div class="food-item" data-category="vegetables" data-calories="50" data-protein="2" data-carbs="10" data-fats="0">
+                    <div class="food-info">
+                        <div class="food-name">Mixed Vegetables</div>
+                        <div class="food-stats">50 kcal | 10g carbs</div>
+                    </div>
+                    <button class="btn-add-food" onclick="addFoodItem(this)">+</button>
+                </div>
+                <div class="food-item" data-category="grains" data-calories="150" data-protein="5" data-carbs="30" data-fats="2">
+                    <div class="food-info">
+                        <div class="food-name">Brown Rice</div>
+                        <div class="food-stats">150 kcal | 30g carbs</div>
+                    </div>
+                    <button class="btn-add-food" onclick="addFoodItem(this)">+</button>
+                </div>
+                <div class="food-item" data-category="fruits" data-calories="80" data-protein="1" data-carbs="20" data-fats="0">
+                    <div class="food-info">
+                        <div class="food-name">Apple</div>
+                        <div class="food-stats">80 kcal | 20g carbs</div>
+                    </div>
+                    <button class="btn-add-food" onclick="addFoodItem(this)">+</button>
+                </div>
+                <div class="food-item" data-category="dairy" data-calories="120" data-protein="8" data-carbs="12" data-fats="5">
+                    <div class="food-info">
+                        <div class="food-name">Greek Yogurt</div>
+                        <div class="food-stats">120 kcal | 8g protein</div>
+                    </div>
+                    <button class="btn-add-food" onclick="addFoodItem(this)">+</button>
+                </div>
+            </div>
+
+            <div class="selected-items" id="selectedItems" style="display: none;">
+                <h3>Selected Items <span id="selectedCount">0</span></h3>
+                <div id="selectedList"></div>
+            </div>
+
+            <button class="btn-log-meal" onclick="logMeal()">Log Meal</button>
+        </div>
+    </div>
+
+    <nav class="mobile-bottom-nav">
+        <a href="dashboard.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a href="workout-plan-improved.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6.5 6.5h11v11h-11z"></path>
+                <path d="M3 3v18h18"></path>
+            </svg>
+            <span>Workout</span>
+        </a>
+        <a href="chat.html" class="nav-item nav-item-center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>AI Chat</span>
+        </a>
+        <a href="meal-tracker.html" class="nav-item active">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                <path d="M7 2v20"></path>
+                <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0V7"></path>
+            </svg>
+            <span>Meals</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navToggle = document.querySelector('.navbar-toggle');
+            const navMenu = document.querySelector('.navbar-menu');
+
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+            }
+
+            // Initialize week dates
+            generateWeekDates();
+        });
+
+        let currentMealType = '';
+        let selectedFoods = [];
+        let selectedDate = new Date();
+        let currentViewDate = new Date();
+
+        function generateWeekDates() {
+            const weekDates = document.getElementById('weekDates');
+            const currentMonth = document.getElementById('currentMonth');
+            
+            // Update month display based on selected date
+            currentMonth.textContent = selectedDate.toLocaleDateString('en-US', { 
+                month: 'long', 
+                day: 'numeric', 
+                year: 'numeric' 
+            });
+            
+            // Always show the week that contains the selected date
+            const startOfWeek = new Date(selectedDate);
+            const day = startOfWeek.getDay();
+            const diff = startOfWeek.getDate() - day + (day === 0 ? -6 : 1); // Adjust to Monday
+            startOfWeek.setDate(diff);
+            
+            weekDates.innerHTML = '';
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(startOfWeek);
+                date.setDate(startOfWeek.getDate() + i);
+                
+                const dateItem = document.createElement('div');
+                dateItem.className = 'date-item';
+                dateItem.textContent = date.getDate();
+                
+                // Check if it's today
+                if (formatDate(date) === formatDate(today)) {
+                    dateItem.classList.add('today');
+                }
+                
+                // Check if it's selected
+                if (formatDate(date) === formatDate(selectedDate)) {
+                    dateItem.classList.add('selected');
+                }
+                
+                // Disable future dates
+                if (date > today) {
+                    dateItem.classList.add('disabled');
+                } else {
+                    dateItem.onclick = () => selectDate(date);
+                }
+                
+                weekDates.appendChild(dateItem);
+            }
+        }
+
+        function formatDate(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function selectDate(date) {
+            // Update selected date and regenerate calendar
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            if (date <= today) {
+                selectedDate = new Date(date);
+                generateWeekDates();
+                // In static version, we'll just show a message
+                console.log('Selected date:', date);
+            }
+        }
+
+        function openMealLogger(mealType) {
+            currentMealType = mealType;
+            const modal = document.getElementById('mealModal');
+            const modalTitle = document.getElementById('modalMealName');
+            
+            const mealNames = {
+                'breakfast': 'Breakfast',
+                'morning-snack': 'Morning Snack',
+                'lunch': 'Lunch',
+                'afternoon-snack': 'Afternoon Snack',
+                'dinner': 'Dinner'
+            };
+            
+            modalTitle.textContent = mealNames[mealType];
+            modal.style.display = 'flex';
+            selectedFoods = [];
+            updateSelectedItems();
+        }
+
+        function closeMealLogger() {
+            document.getElementById('mealModal').style.display = 'none';
+            selectedFoods = [];
+            updateSelectedItems();
+        }
+
+        function clearMeal() {
+            selectedFoods = [];
+            updateSelectedItems();
+        }
+
+        function addFoodItem(button) {
+            const foodItem = button.closest('.food-item');
+            const food = {
+                name: foodItem.querySelector('.food-name').textContent,
+                calories: parseInt(foodItem.dataset.calories),
+                protein: parseInt(foodItem.dataset.protein),
+                carbs: parseInt(foodItem.dataset.carbs),
+                fats: parseInt(foodItem.dataset.fats)
+            };
+            
+            selectedFoods.push(food);
+            updateSelectedItems();
+        }
+
+        function updateSelectedItems() {
+            const selectedItems = document.getElementById('selectedItems');
+            const selectedCount = document.getElementById('selectedCount');
+            const selectedList = document.getElementById('selectedList');
+            
+            if (selectedFoods.length === 0) {
+                selectedItems.style.display = 'none';
+                return;
+            }
+            
+            selectedItems.style.display = 'block';
+            selectedCount.textContent = selectedFoods.length;
+            
+            let listHTML = '';
+            let totalCalories = 0;
+            
+            selectedFoods.forEach(food => {
+                totalCalories += food.calories;
+                listHTML += `
+                    <div class="selected-food-item">
+                        <span>${food.name}</span>
+                        <span>${food.calories} kcal</span>
+                    </div>
+                `;
+            });
+            
+            selectedList.innerHTML = listHTML;
+        }
+
+        function logMeal() {
+            if (selectedFoods.length === 0) return;
+            
+            const totalCalories = selectedFoods.reduce((sum, food) => sum + food.calories, 0);
+            const totalProtein = selectedFoods.reduce((sum, food) => sum + food.protein, 0);
+            const totalCarbs = selectedFoods.reduce((sum, food) => sum + food.carbs, 0);
+            const totalFats = selectedFoods.reduce((sum, food) => sum + food.fats, 0);
+            
+            // Update meal card calories
+            const mealCaloriesId = currentMealType.replace('-', '') + 'Calories';
+            const mealCaloriesElement = document.getElementById(mealCaloriesId);
+            if (mealCaloriesElement) {
+                const currentCalories = parseInt(mealCaloriesElement.textContent) || 0;
+                mealCaloriesElement.textContent = (currentCalories + totalCalories) + ' Kcal';
+            }
+            
+            // Update daily totals
+            updateDailyTotals(totalCalories, totalProtein, totalCarbs, totalFats);
+            
+            closeMealLogger();
+        }
+
+        function updateDailyTotals(calories, protein, carbs, fats) {
+            // Update eaten calories
+            const caloriesEatenElement = document.getElementById('caloriesEaten');
+            const currentEaten = parseInt(caloriesEatenElement.textContent) || 0;
+            caloriesEatenElement.textContent = currentEaten + calories;
+            
+            // Update macros
+            updateMacro('carbs', carbs, 275);
+            updateMacro('protein', protein, 165);
+            updateMacro('fats', fats, 61);
+            
+            // Update calorie circle
+            updateCalorieCircle(currentEaten + calories);
+        }
+
+        function updateMacro(macroType, consumed, target) {
+            const valueElement = document.getElementById(macroType + 'Value');
+            const percentElement = document.getElementById(macroType + 'Percent');
+            const barElement = document.getElementById(macroType + 'Bar');
+            
+            const current = parseInt(valueElement.textContent) || 0;
+            const newTotal = current + consumed;
+            const percentage = Math.min(Math.round((newTotal / target) * 100), 100);
+            
+            valueElement.textContent = newTotal;
+            percentElement.textContent = percentage + '%';
+            barElement.style.width = percentage + '%';
+        }
+
+        function updateCalorieCircle(eaten) {
+            const target = 2200;
+            const remaining = Math.max(target - eaten, 0);
+            const percentage = Math.min((eaten / target) * 100, 100);
+            
+            document.getElementById('caloriesLeft').textContent = remaining;
+            
+            const circle = document.getElementById('calorieProgress');
+            const circumference = 2 * Math.PI * 90;
+            const offset = circumference - (percentage / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+        }
+
+        function changeMonth(direction) {
+            selectedDate.setDate(selectedDate.getDate() + (direction * 7));
+            generateWeekDates();
+        }
+
+        function goToToday() {
+            selectedDate = new Date();
+            currentViewDate = new Date();
+            generateWeekDates();
+        }
+    </script>
+
+    <style>
+        .food-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .food-item:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-1px);
+        }
+
+        .food-info {
+            flex: 1;
+        }
+
+        .food-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .food-stats {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .btn-add-food {
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add-food:hover {
+            background: var(--accent-blue-light);
+            transform: scale(1.1);
+        }
+
+        .selected-food-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .selected-food-item span:first-child {
+            color: var(--text-primary);
+        }
+
+        .selected-food-item span:last-child {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .category-btn {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        .food-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+
+        .selected-items {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .selected-items h3 {
+            margin: 0 0 1rem 0;
+            color: var(--text-primary);
+        }
+
+        .btn-log-meal {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-light) 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 1rem;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-log-meal:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(74, 158, 255, 0.3);
+        }
+    </style>
+</body>
+</html>

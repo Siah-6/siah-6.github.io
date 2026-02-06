@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0A1628">
+    <title>Workout Plan - NutriCoach AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/mobile-redesign.css">
+    <link rel="stylesheet" href="../assets/css/dark-theme.css">
+    <link rel="stylesheet" href="../assets/css/header-dark.css">
+    <link rel="stylesheet" href="../assets/css/bottom-nav-dark.css">
+    <link rel="stylesheet" href="../assets/css/workout-dark.css">
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="dashboard.html" class="navbar-brand">
+                    <img src="../assets/images/NutriLogo.png" alt="NutriCoach" class="navbar-logo">
+                    <span>NutriCoach AI</span>
+                </a>
+                <button class="navbar-toggle" aria-label="Toggle menu">☰</button>
+                <ul class="navbar-menu">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="workout-plan-improved.html">Workouts</a></li>
+                    <li><a href="meal-tracker.html">Meals</a></li>
+                    <li><a href="progress.html">Progress</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="../index.html">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <nav class="mobile-bottom-nav">
+        <a href="dashboard.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a href="workout-plan-improved.html" class="nav-item active">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6.5 6.5h11v11h-11z"></path>
+                <path d="M3 3v18h18"></path>
+            </svg>
+            <span>Workout</span>
+        </a>
+        <a href="chat.html" class="nav-item nav-item-center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>AI Chat</span>
+        </a>
+        <a href="meal-tracker.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                <path d="M7 2v20"></path>
+                <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+            </svg>
+            <span>Meals</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <div class="workout-container">
+        <div class="workout-header">
+            <h1>💪 Workout Plan</h1>
+            <p>Choose your workout type or target specific muscle groups</p>
+        </div>
+
+        <div class="quick-actions">
+            <button class="action-card" onclick="window.location.href='workout-ai.html'">
+                <span class="icon">🎯</span>
+                <div class="title">AI Suggested</div>
+                <div class="subtitle">Based on your goals</div>
+            </button>
+        </div>
+
+        <div class="section-header">
+            <h2>Target Specific Muscle</h2>
+            <p>Choose which area to focus on</p>
+        </div>
+
+        <div class="muscle-groups">
+            <button class="muscle-btn" onclick="window.location.href='workout-muscle.html?muscle=chest'">
+                <span class="icon">💪</span>
+                <div class="label">Chest</div>
+            </button>
+            <button class="muscle-btn" onclick="window.location.href='workout-muscle.html?muscle=back'">
+                <span class="icon">🏋️</span>
+                <div class="label">Back</div>
+            </button>
+            <button class="muscle-btn" onclick="window.location.href='workout-muscle.html?muscle=legs'">
+                <span class="icon">🦵</span>
+                <div class="label">Legs</div>
+            </button>
+            <button class="muscle-btn" onclick="window.location.href='workout-muscle.html?muscle=shoulders'">
+                <span class="icon">💪</span>
+                <div class="label">Shoulders</div>
+            </button>
+            <button class="muscle-btn" onclick="window.location.href='workout-muscle.html?muscle=arms'">
+                <span class="icon">💪</span>
+                <div class="label">Arms</div>
+            </button>
+            <button class="muscle-btn" onclick="window.location.href='workout-muscle.html?muscle=abs'">
+                <span class="icon">🔥</span>
+                <div class="label">Abs</div>
+            </button>
+        </div>
+    </div>
+
+    <footer class="desktop-footer p-4" style="background-color: var(--text-dark); color: white; text-align: center; margin-top: 4rem;">
+        <div class="container">
+            <p>&copy; 2026 NutriCoach AI. All rights reserved.</p>
+            <p>
+                <a href="faq.html" style="color: white; margin: 0 1rem;">FAQ</a>
+                <a href="support.html" style="color: white; margin: 0 1rem;">Support</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navToggle = document.querySelector('.navbar-toggle');
+            const navMenu = document.querySelector('.navbar-menu');
+
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0A1628">
+    <title>Profile - NutriCoach AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/mobile-redesign.css">
+    <link rel="stylesheet" href="../assets/css/dark-theme.css">
+    <link rel="stylesheet" href="../assets/css/header-dark.css">
+    <link rel="stylesheet" href="../assets/css/bottom-nav-dark.css">
+    <link rel="stylesheet" href="../assets/css/profile-dark.css">
+    <link rel="stylesheet" href="../assets/css/splash.css">
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="dashboard.html" class="navbar-brand">
+                    <img src="../assets/images/NutriLogo.png" alt="NutriCoach" class="navbar-logo">
+                    <span>NutriCoach AI</span>
+                </a>
+                <ul class="navbar-menu">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="workout-plan-improved.html">Workouts</a></li>
+                    <li><a href="meal-tracker.html">Meals</a></li>
+                    <li><a href="progress.html">Progress</a></li>
+                    <li><a href="profile.html" class="active">Profile</a></li>
+                    <li><a href="#" onclick="logout(); return false;">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>👤 Your Profile</h1>
+            <p>Manage your account and fitness information</p>
+        </div>
+
+        <!-- Account Information -->
+        <div class="profile-card">
+            <h3>Account Information</h3>
+            <form id="accountForm">
+                <div class="form-group">
+                    <label class="form-label">NAME</label>
+                    <input type="text" name="name" id="userName" class="form-control" value="Loading..." required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">EMAIL</label>
+                    <input type="email" name="email" id="userEmail" class="form-control" value="Loading..." required>
+                </div>
+                <div class="btn-group">
+                    <button type="submit" class="btn-update">Update Account</button>
+                </div>
+            </form>
+            
+            <div class="logout-section">
+                <button onclick="logout()" class="logout-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Change Password -->
+        <div class="profile-card">
+            <h3>Change Password</h3>
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label class="form-label">CURRENT PASSWORD</label>
+                    <input type="password" name="current_password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">NEW PASSWORD</label>
+                    <input type="password" name="new_password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Confirm New Password</label>
+                    <input type="password" name="confirm_password" class="form-control" required>
+                </div>
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">Change Password</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Fitness Profile -->
+        <div class="profile-card">
+            <h3>Fitness Profile</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>Gender</strong>
+                    <span id="profileGender">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Age</strong>
+                    <span id="profileAge">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Height</strong>
+                    <span id="profileHeight">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Weight</strong>
+                    <span id="profileWeight">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <strong>BMI</strong>
+                    <span id="profileBMI">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Fitness Goal</strong>
+                    <span id="profileGoal">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Fitness Level</strong>
+                    <span id="profileLevel">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Activity Level</strong>
+                    <span id="profileActivity">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Workout Frequency</strong>
+                    <span id="profileFrequency">Loading...</span>
+                </div>
+            </div>
+            <button onclick="updateFitnessProfile()" class="btn-update" style="margin-top: 1.5rem; display: block; text-align: center; text-decoration: none;">Update Fitness Profile</button>
+        </div>
+    </div>
+
+    <nav class="mobile-bottom-nav">
+        <a href="dashboard.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a href="workout-plan-improved.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6.5 6.5h11v11h-11z"></path>
+                <path d="M3 3v18h18"></path>
+            </svg>
+            <span>Workout</span>
+        </a>
+        <a href="chat.html" class="nav-item nav-item-center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>AI Chat</span>
+        </a>
+        <a href="meal-tracker.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                <path d="M7 2v20"></path>
+                <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0V7"></path>
+            </svg>
+            <span>Meals</span>
+        </a>
+        <a href="profile.html" class="nav-item active">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navToggle = document.querySelector('.navbar-toggle');
+            const navMenu = document.querySelector('.navbar-menu');
+
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+            }
+
+            // Load user data dynamically
+            loadUserData();
+
+            // Account form handler
+            const accountForm = document.getElementById('accountForm');
+            if (accountForm) {
+                accountForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const name = this.querySelector('input[name="name"]').value;
+                    const email = this.querySelector('input[name="email"]').value;
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    
+                    // Simple validation
+                    if (!name || name.length < 2) {
+                        alert('Please enter a valid name (at least 2 characters)');
+                        return;
+                    }
+                    
+                    if (!email || !email.includes('@')) {
+                        alert('Please enter a valid email address');
+                        return;
+                    }
+                    
+                    // Update localStorage
+                    const savedUser = localStorage.getItem('nutricoach_user');
+                    if (savedUser) {
+                        const user = JSON.parse(savedUser);
+                        user.name = name;
+                        user.email = email;
+                        localStorage.setItem('nutricoach_user', JSON.stringify(user));
+                    }
+                    
+                    // Simulate update
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Updating...';
+                    
+                    setTimeout(() => {
+                        alert('Profile updated successfully!');
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Update Account';
+                    }, 1500);
+                });
+            }
+
+            // Password form handler
+            const passwordForm = document.getElementById('passwordForm');
+            if (passwordForm) {
+                passwordForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const currentPassword = this.querySelector('input[name="current_password"]').value;
+                    const newPassword = this.querySelector('input[name="new_password"]').value;
+                    const confirmPassword = this.querySelector('input[name="confirm_password"]').value;
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    
+                    // Validation
+                    if (!currentPassword) {
+                        alert('Please enter your current password');
+                        return;
+                    }
+                    
+                    if (!newPassword || newPassword.length < 8) {
+                        alert('New password must be at least 8 characters');
+                        return;
+                    }
+                    
+                    if (newPassword !== confirmPassword) {
+                        alert('Passwords do not match');
+                        return;
+                    }
+                    
+                    // Simulate update
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Changing...';
+                    
+                    setTimeout(() => {
+                        alert('Password changed successfully!');
+                        this.reset();
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Change Password';
+                    }, 1500);
+                });
+            }
+        });
+
+        function loadUserData() {
+            // Get user data from localStorage
+            const savedUser = localStorage.getItem('nutricoach_user');
+            const savedProfile = localStorage.getItem('nutricoach_profile');
+            
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                document.getElementById('userName').value = user.name || '';
+                document.getElementById('userEmail').value = user.email || '';
+            }
+            
+            if (savedProfile) {
+                const profile = JSON.parse(savedProfile);
+                
+                // Format and display profile data
+                document.getElementById('profileGender').textContent = profile.gender ? profile.gender.charAt(0).toUpperCase() + profile.gender.slice(1) : 'Not set';
+                document.getElementById('profileAge').textContent = profile.age ? `${profile.age} years` : 'Not set';
+                document.getElementById('profileHeight').textContent = profile.height ? `${profile.height} ${profile.height_unit || 'cm'}` : 'Not set';
+                document.getElementById('profileWeight').textContent = profile.weight ? `${profile.weight} ${profile.weight_unit || 'kg'}` : 'Not set';
+                document.getElementById('profileBMI').textContent = profile.bmi || 'Not set';
+                
+                // Format fitness goal
+                const goalMap = {
+                    'build_muscle': 'Build Muscle',
+                    'lose_weight': 'Lose Weight',
+                    'look_better': 'Look Better',
+                    'stay_in_shape': 'Stay in Shape'
+                };
+                document.getElementById('profileGoal').textContent = goalMap[profile.fitness_goal] || 'Not set';
+                
+                // Format fitness level
+                const levelMap = {
+                    'beginner': 'Beginner',
+                    'intermediate': 'Intermediate',
+                    'advanced': 'Advanced'
+                };
+                document.getElementById('profileLevel').textContent = levelMap[profile.fitness_level] || 'Not set';
+                
+                // Format activity level
+                const activityMap = {
+                    'sedentary': 'Sedentary',
+                    'lightly_active': 'Lightly Active',
+                    'moderately_active': 'Moderately Active',
+                    'very_active': 'Very Active'
+                };
+                document.getElementById('profileActivity').textContent = activityMap[profile.activity_level] || 'Not set';
+                
+                // Format workout frequency
+                document.getElementById('profileFrequency').textContent = profile.workout_frequency ? `${profile.workout_frequency} days/week` : 'Not set';
+            }
+        }
+
+        function updateFitnessProfile() {
+            // Create a simple form to update fitness profile
+            const form = document.createElement('div');
+            form.innerHTML = `
+                <div style="background: rgba(26, 35, 50, 0.9); padding: 2rem; border-radius: 16px; margin: 1.5rem auto; max-width: 500px; border: 1px solid rgba(74, 158, 255, 0.2);">
+                    <h3 style="color: white; margin-bottom: 1.5rem; text-align: center;">Update Fitness Profile</h3>
+                    
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="color: #C5D2E0; display: block; margin-bottom: 0.5rem; font-weight: 500;">Gender</label>
+                        <select id="editGender" class="form-control" style="width: 100%; padding: 12px; background: #0A1628; border: 1px solid rgba(74, 158, 255, 0.2); border-radius: 8px; color: white;">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="color: #C5D2E0; display: block; margin-bottom: 0.5rem; font-weight: 500;">Age</label>
+                        <input type="number" id="editAge" class="form-control" style="width: 100%; padding: 12px; background: #0A1628; border: 1px solid rgba(74, 158, 255, 0.2); border-radius: 8px; color: white;" min="1" max="100">
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="color: #C5D2E0; display: block; margin-bottom: 0.5rem; font-weight: 500;">Height (cm)</label>
+                        <input type="number" id="editHeight" class="form-control" style="width: 100%; padding: 12px; background: #0A1628; border: 1px solid rgba(74, 158, 255, 0.2); border-radius: 8px; color: white;" step="0.1" min="100" max="250">
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="color: #C5D2E0; display: block; margin-bottom: 0.5rem; font-weight: 500;">Weight (kg)</label>
+                        <input type="number" id="editWeight" class="form-control" style="width: 100%; padding: 12px; background: #0A1628; border: 1px solid rgba(74, 158, 255, 0.2); border-radius: 8px; color: white;" step="0.1" min="30" max="200">
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="color: #C5D2E0; display: block; margin-bottom: 0.5rem; font-weight: 500;">Fitness Goal</label>
+                        <select id="editGoal" class="form-control" style="width: 100%; padding: 12px; background: #0A1628; border: 1px solid rgba(74, 158, 255, 0.2); border-radius: 8px; color: white;">
+                            <option value="build_muscle">Build Muscle</option>
+                            <option value="lose_weight">Lose Weight</option>
+                            <option value="look_better">Look Better</option>
+                            <option value="stay_in_shape">Stay in Shape</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="color: #C5D2E0; display: block; margin-bottom: 0.5rem; font-weight: 500;">Fitness Level</label>
+                        <select id="editLevel" class="form-control" style="width: 100%; padding: 12px; background: #0A1628; border: 1px solid rgba(74, 158, 255, 0.2); border-radius: 8px; color: white;">
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="color: #C5D2E0; display: block; margin-bottom: 0.5rem; font-weight: 500;">Activity Level</label>
+                        <select id="editActivity" class="form-control" style="width: 100%; padding: 12px; background: #0A1628; border: 1px solid rgba(74, 158, 255, 0.2); border-radius: 8px; color: white;">
+                            <option value="sedentary">Sedentary</option>
+                            <option value="lightly_active">Lightly Active</option>
+                            <option value="moderately_active">Moderately Active</option>
+                            <option value="very_active">Very Active</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="color: #C5D2E0; display: block; margin-bottom: 0.5rem; font-weight: 500;">Workout Frequency (days/week)</label>
+                        <input type="number" id="editFrequency" class="form-control" style="width: 100%; padding: 12px; background: #0A1628; border: 1px solid rgba(74, 158, 255, 0.2); border-radius: 8px; color: white;" min="1" max="7">
+                    </div>
+                    
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                        <button onclick="saveFitnessProfile()" style="flex: 1; padding: 12px 24px; background: linear-gradient(135deg, #4A9EFF 0%, #3A8EEF 100%); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Save Changes</button>
+                        <button onclick="cancelEdit()" style="flex: 1; padding: 12px 24px; background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; font-weight: 600; cursor: pointer;">Cancel</button>
+                    </div>
+                </div>
+            `;
+            
+            // Create modal overlay
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            `;
+            
+            modal.appendChild(form);
+            document.body.appendChild(modal);
+            
+            // Load current values
+            const savedProfile = localStorage.getItem('nutricoach_profile');
+            if (savedProfile) {
+                const profile = JSON.parse(savedProfile);
+                document.getElementById('editGender').value = profile.gender || 'male';
+                document.getElementById('editAge').value = profile.age || '';
+                document.getElementById('editHeight').value = profile.height || '';
+                document.getElementById('editWeight').value = profile.weight || '';
+                document.getElementById('editGoal').value = profile.fitness_goal || 'stay_in_shape';
+                document.getElementById('editLevel').value = profile.fitness_level || 'beginner';
+                document.getElementById('editActivity').value = profile.activity_level || 'sedentary';
+                document.getElementById('editFrequency').value = profile.workout_frequency || '3';
+            }
+            
+            // Close modal on outside click
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+        }
+
+        function saveFitnessProfile() {
+            const profile = {
+                gender: document.getElementById('editGender').value,
+                age: parseInt(document.getElementById('editAge').value),
+                height: parseFloat(document.getElementById('editHeight').value),
+                height_unit: 'cm',
+                weight: parseFloat(document.getElementById('editWeight').value),
+                weight_unit: 'kg',
+                fitness_goal: document.getElementById('editGoal').value,
+                fitness_level: document.getElementById('editLevel').value,
+                activity_level: document.getElementById('editActivity').value,
+                workout_frequency: parseInt(document.getElementById('editFrequency').value),
+                onboarding_completed: true,
+                bmi: null, // Will be recalculated
+                daily_calories: null, // Will be recalculated
+                protein_grams: null, // Will be recalculated
+                carbs_grams: null, // Will be recalculated
+                fats_grams: null // Will be recalculated
+            };
+            
+            // Calculate metrics using OnboardingManager functions
+            const tempManager = {
+                formData: profile
+            };
+            
+            profile.bmi = OnboardingManager.calculateBMI.call(tempManager);
+            profile.daily_calories = OnboardingManager.calculateCalories.call(tempManager);
+            profile.protein_grams = OnboardingManager.calculateProtein.call(tempManager);
+            profile.carbs_grams = OnboardingManager.calculateCarbs.call(tempManager);
+            profile.fats_grams = OnboardingManager.calculateFats.call(tempManager);
+            
+            // Save to localStorage
+            localStorage.setItem('nutricoach_profile', JSON.stringify(profile));
+            
+            // Update AppState
+            AppState.userProfile = profile;
+            
+            // Close modal
+            const modal = document.querySelector('div[style*="position: fixed"]');
+            if (modal) {
+                document.body.removeChild(modal);
+            }
+            
+            // Refresh display
+            loadUserData();
+            
+            alert('Fitness profile updated successfully!');
+        }
+
+        function cancelEdit() {
+            const modal = document.querySelector('div[style*="position: fixed"]');
+            if (modal) {
+                document.body.removeChild(modal);
+            }
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('nutricoach_user');
+                localStorage.removeItem('nutricoach_profile');
+                window.location.href = '../index.html';
+            }
+        }
+    </script>
+
+    <style>
+        .profile-header {
+            text-align: left !important;
+        }
+        
+        .profile-header h1 {
+            text-align: left !important;
+        }
+        
+        .profile-header p {
+            text-align: left !important;
+        }
+        
+        .logout-section {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(238, 90, 111, 0.3);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(238, 90, 111, 0.4);
+        }
+
+        .logout-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(238, 90, 111, 0.3);
+        }
+
+        .logout-btn svg {
+            margin-right: 8px;
+        }
+    </style>
+</body>
+</html>

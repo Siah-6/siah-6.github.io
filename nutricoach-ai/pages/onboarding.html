@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0A1628">
+    <title>Complete Your Profile - NutriCoach AI</title>
+    
+    <style>
+        /**
+         * Modern Dark Onboarding Styles
+         */
+
+        body {
+            background: #0A1628;
+            color: #FFFFFF;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .onboarding-container {
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            padding-bottom: 6rem;
+        }
+
+        /* Header with back button and progress */
+        .onboarding-header {
+            margin-bottom: 2rem;
+        }
+
+        .back-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #4a9eff;
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
+
+        .onboarding-header h1,
+        .onboarding-header p,
+        .progress-text {
+            display: none;
+        }
+
+        /* Step container */
+        .onboarding-step {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+        }
+
+        .onboarding-step.active {
+            display: flex;
+        }
+
+        .onboarding-step h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 0 0 2rem 0;
+            text-align: center;
+        }
+
+        /* Option cards */
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .option-card {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .option-card input[type="radio"],
+        .option-card input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .option-content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 70px;
+        }
+
+        .option-card:hover .option-content {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .option-card input:checked ~ .option-content {
+            background: rgba(74, 158, 255, 0.15);
+            border-color: #4a9eff;
+        }
+
+        .option-icon {
+            font-size: 1.5rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .option-card input:checked ~ .option-content .option-icon {
+            opacity: 1;
+        }
+
+        .option-label {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            color: white;
+            display: block;
+        }
+
+        .option-desc {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.5);
+            display: block;
+            margin-top: 0.375rem;
+        }
+
+        .option-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        /* Gender icons (SVG) */
+        .gender-icon,
+        .level-icon {
+            width: 24px;
+            height: 24px;
+            stroke: rgba(255, 255, 255, 0.5);
+            transition: stroke 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .option-card input:checked ~ .option-content .gender-icon,
+        .option-card input:checked ~ .option-content .level-icon {
+            stroke: #4a9eff;
+        }
+
+        /* Continue button */
+        .button-group {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: #0A1628;
+            z-index: 100;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            padding: 1rem;
+            border-radius: 16px;
+            font-size: 1.0625rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.9);
+            color: #0A1628;
+        }
+
+        .btn-primary:hover {
+            background: white;
+        }
+
+        .btn-primary:disabled {
+            background: rgba(255, 255, 255, 0.3);
+            color: rgba(10, 22, 40, 0.5);
+            cursor: not-allowed;
+        }
+
+        .btn-lg {
+            width: 100%;
+        }
+
+        /* Form inputs */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            font-size: 1rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #4a9eff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-control option {
+            background: #0A1628;
+            color: white;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Range slider */
+        .range-slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4a9eff;
+            cursor: pointer;
+        }
+
+        .range-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4a9eff;
+            cursor: pointer;
+            border: none;
+        }
+
+        .range-value {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-top: 1rem;
+        }
+
+        /* Days grid */
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+
+        .day-card {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .day-card input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .day-card span {
+            display: block;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .day-card:hover span {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .day-card input:checked ~ span {
+            background: rgba(74, 158, 255, 0.15);
+            border-color: #4a9eff;
+            color: #4a9eff;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .onboarding-container {
+                padding: 1rem;
+            }
+            
+            .onboarding-step h2 {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="onboarding-container">
+        <div class="onboarding-header">
+            <button type="button" class="back-button" id="backBtn" style="display: none;" onclick="prevStep()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <h1>Welcome, John!</h1>
+            <p>Let's personalize your fitness journey</p>
+            <p class="progress-text"><span id="currentStep">1</span> of <span id="totalSteps">6</span></p>
+        </div>
+
+        <form id="onboardingForm">
+            <!-- Step 1: Gender -->
+            <div class="onboarding-step active" data-step="1">
+                <h2>Choose your gender</h2>
+                <div class="option-group">
+                    <label class="option-card">
+                        <input type="radio" name="gender" value="male" required>
+                        <div class="option-content">
+                            <span class="option-label">Male</span>
+                            <svg class="gender-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="10" cy="10" r="6"/>
+                                <path d="M16 4l4 4M20 4l-4 4M20 8V4h-4"/>
+                            </svg>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="gender" value="female" required>
+                        <div class="option-content">
+                            <span class="option-label">Female</span>
+                            <svg class="gender-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="8" r="6"/>
+                                <path d="M12 14v6M9 19h6"/>
+                            </svg>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="gender" value="other" required>
+                        <div class="option-content">
+                            <span class="option-label">Other</span>
+                            <svg class="gender-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="4"/>
+                                <path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>
+                            </svg>
+                        </div>
+                    </label>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary btn-lg" onclick="nextStep()">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Fitness Goal -->
+            <div class="onboarding-step" data-step="2">
+                <h2>Choose your goal</h2>
+                <div class="option-group">
+                    <label class="option-card">
+                        <input type="radio" name="fitness_goal" value="build_muscle" required>
+                        <div class="option-content">
+                            <span class="option-label">Build Muscle</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="fitness_goal" value="lose_weight" required>
+                        <div class="option-content">
+                            <span class="option-label">Lose Weight</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="fitness_goal" value="look_better" required>
+                        <div class="option-content">
+                            <span class="option-label">Look Better</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="fitness_goal" value="stay_in_shape" required>
+                        <div class="option-content">
+                            <span class="option-label">Stay in Shape</span>
+                        </div>
+                    </label>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary btn-lg" onclick="nextStep()">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Fitness Level -->
+            <div class="onboarding-step" data-step="3">
+                <h2>Choose your fitness level</h2>
+                <div class="option-group">
+                    <label class="option-card">
+                        <input type="radio" name="fitness_level" value="beginner" required>
+                        <div class="option-content">
+                            <div class="option-text">
+                                <span class="option-label">Beginner</span>
+                                <span class="option-desc">I'm new or have only tried it for a bit</span>
+                            </div>
+                            <svg class="level-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="fitness_level" value="intermediate" required>
+                        <div class="option-content">
+                            <div class="option-text">
+                                <span class="option-label">Intermediate</span>
+                                <span class="option-desc">I've lifted weights before</span>
+                            </div>
+                            <svg class="level-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 12h20M12 2l10 10-10 10L2 12l10-10z"/>
+                            </svg>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="fitness_level" value="advanced" required>
+                        <div class="option-content">
+                            <div class="option-text">
+                                <span class="option-label">Advanced</span>
+                                <span class="option-desc">I've been lifting weights for a while</span>
+                            </div>
+                            <svg class="level-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                    </label>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary btn-lg" onclick="nextStep()">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Activity Level -->
+            <div class="onboarding-step" data-step="4">
+                <h2>What's your activity level?</h2>
+                <div class="option-group">
+                    <label class="option-card">
+                        <input type="radio" name="activity_level" value="sedentary" required>
+                        <div class="option-content">
+                            <div class="option-text">
+                                <span class="option-label">Sedentary</span>
+                                <span class="option-desc">Little to no exercise</span>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="activity_level" value="lightly_active" required>
+                        <div class="option-content">
+                            <div class="option-text">
+                                <span class="option-label">Lightly Active</span>
+                                <span class="option-desc">Exercise 1-3 days/week</span>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="activity_level" value="moderately_active" required>
+                        <div class="option-content">
+                            <div class="option-text">
+                                <span class="option-label">Moderately Active</span>
+                                <span class="option-desc">Exercise 3-5 days/week</span>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="activity_level" value="very_active" required>
+                        <div class="option-content">
+                            <div class="option-text">
+                                <span class="option-label">Very Active</span>
+                                <span class="option-desc">Exercise 6-7 days/week</span>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary btn-lg" onclick="nextStep()">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Age -->
+            <div class="onboarding-step" data-step="5">
+                <h2>How old are you?</h2>
+                <div class="form-group">
+                    <select name="age" class="form-control" required>
+                        <option value="">Select your age</option>
+                        <option value="13">13 years</option>
+                        <option value="14">14 years</option>
+                        <option value="15">15 years</option>
+                        <option value="16">16 years</option>
+                        <option value="17">17 years</option>
+                        <option value="18">18 years</option>
+                        <option value="19">19 years</option>
+                        <option value="20">20 years</option>
+                        <option value="21">21 years</option>
+                        <option value="22">22 years</option>
+                        <option value="23">23 years</option>
+                        <option value="24">24 years</option>
+                        <option value="25">25 years</option>
+                        <option value="26">26 years</option>
+                        <option value="27">27 years</option>
+                        <option value="28">28 years</option>
+                        <option value="29">29 years</option>
+                        <option value="30">30 years</option>
+                        <option value="31">31 years</option>
+                        <option value="32">32 years</option>
+                        <option value="33">33 years</option>
+                        <option value="34">34 years</option>
+                        <option value="35">35 years</option>
+                        <option value="36">36 years</option>
+                        <option value="37">37 years</option>
+                        <option value="38">38 years</option>
+                        <option value="39">39 years</option>
+                        <option value="40">40 years</option>
+                        <option value="41">41 years</option>
+                        <option value="42">42 years</option>
+                        <option value="43">43 years</option>
+                        <option value="44">44 years</option>
+                        <option value="45">45 years</option>
+                        <option value="46">46 years</option>
+                        <option value="47">47 years</option>
+                        <option value="48">48 years</option>
+                        <option value="49">49 years</option>
+                        <option value="50">50 years</option>
+                        <option value="51">51 years</option>
+                        <option value="52">52 years</option>
+                        <option value="53">53 years</option>
+                        <option value="54">54 years</option>
+                        <option value="55">55 years</option>
+                        <option value="56">56 years</option>
+                        <option value="57">57 years</option>
+                        <option value="58">58 years</option>
+                        <option value="59">59 years</option>
+                        <option value="60">60 years</option>
+                        <option value="61">61 years</option>
+                        <option value="62">62 years</option>
+                        <option value="63">63 years</option>
+                        <option value="64">64 years</option>
+                        <option value="65">65 years</option>
+                        <option value="66">66 years</option>
+                        <option value="67">67 years</option>
+                        <option value="68">68 years</option>
+                        <option value="69">69 years</option>
+                        <option value="70">70 years</option>
+                        <option value="71">71 years</option>
+                        <option value="72">72 years</option>
+                        <option value="73">73 years</option>
+                        <option value="74">74 years</option>
+                        <option value="75">75 years</option>
+                        <option value="76">76 years</option>
+                        <option value="77">77 years</option>
+                        <option value="78">78 years</option>
+                        <option value="79">79 years</option>
+                        <option value="80">80 years</option>
+                        <option value="81">81 years</option>
+                        <option value="82">82 years</option>
+                        <option value="83">83 years</option>
+                        <option value="84">84 years</option>
+                        <option value="85">85 years</option>
+                        <option value="86">86 years</option>
+                        <option value="87">87 years</option>
+                        <option value="88">88 years</option>
+                        <option value="89">89 years</option>
+                        <option value="90">90 years</option>
+                        <option value="91">91 years</option>
+                        <option value="92">92 years</option>
+                        <option value="93">93 years</option>
+                        <option value="94">94 years</option>
+                        <option value="95">95 years</option>
+                        <option value="96">96 years</option>
+                        <option value="97">97 years</option>
+                        <option value="98">98 years</option>
+                        <option value="99">99 years</option>
+                        <option value="100">100 years</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary btn-lg" onclick="nextStep()">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 6: Height & Weight -->
+            <div class="onboarding-step" data-step="6">
+                <h2>Tell us your measurements</h2>
+                <div class="form-group">
+                    <label class="form-label">Height</label>
+                    <div class="input-group">
+                        <input type="number" name="height" class="form-control" step="0.1" required>
+                        <select name="height_unit" class="form-control" style="max-width: 100px;">
+                            <option value="cm">cm</option>
+                            <option value="ft">ft</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Weight</label>
+                    <div class="input-group">
+                        <input type="number" name="weight" class="form-control" step="0.1" required>
+                        <select name="weight_unit" class="form-control" style="max-width: 100px;">
+                            <option value="kg">kg</option>
+                            <option value="lbs">lbs</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary btn-lg">Complete Setup</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="../assets/js/app.js"></script>
+    <script>
+        /**
+         * Onboarding JavaScript - Integrated with app.js
+         */
+
+        // Update progress bar and back button
+        function updateProgress() {
+            const progress = (OnboardingManager.currentStep / OnboardingManager.totalSteps) * 100;
+            const progressBar = document.getElementById('progressBar');
+            const currentStepEl = document.getElementById('currentStep');
+            const backBtn = document.getElementById('backBtn');
+            
+            if (progressBar) progressBar.style.width = progress + '%';
+            if (currentStepEl) currentStepEl.textContent = OnboardingManager.currentStep;
+            
+            // Show/hide back button
+            if (backBtn) {
+                backBtn.style.display = OnboardingManager.currentStep > 1 ? 'flex' : 'none';
+            }
+        }
+
+        // Next step function - globally accessible
+        window.nextStep = function() {
+            OnboardingManager.nextStep();
+            updateProgress();
+        };
+
+        // Previous step function
+        window.prevStep = function() {
+            OnboardingManager.prevStep();
+            updateProgress();
+        };
+
+        // Go to dashboard
+        window.goToDashboard = function() {
+            window.location.href = 'dashboard.html';
+        };
+
+        // Form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing onboarding');
+            
+            const form = document.getElementById('onboardingForm');
+            
+            if (form) {
+                console.log('Onboarding form found');
+                
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    console.log('Form submitted');
+                    
+                    // Collect form data
+                    const formData = new FormData(form);
+                    const data = {};
+                    
+                    // Get all form data
+                    for (let [key, value] of formData.entries()) {
+                        data[key] = value;
+                    }
+                    
+                    console.log('Form data collected:', data);
+                    
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Processing...';
+                    
+                    // Use OnboardingManager to complete onboarding
+                    setTimeout(function() {
+                        // Set the form data in OnboardingManager
+                        OnboardingManager.formData = data;
+                        
+                        // Complete onboarding
+                        OnboardingManager.completeOnboarding();
+                        
+                        // Show summary
+                        showSummary(data);
+                    }, 1500);
+                });
+            }
+            
+            // Initialize progress
+            updateProgress();
+            console.log('Onboarding initialized successfully');
+        });
+
+        // Show summary
+        function showSummary(data) {
+            // Calculate mock BMI and other metrics for demo
+            const heightInMeters = data.height_unit === 'cm' ? data.height / 100 : data.height * 0.3048;
+            const weightInKg = data.weight_unit === 'kg' ? data.weight : data.weight * 0.453592;
+            const bmi = (weightInKg / (heightInMeters * heightInMeters)).toFixed(1);
+            const bmr = Math.round(1500 + (data.age * 5) + (data.gender === 'male' ? 100 : -100));
+            const dailyCalories = Math.round(bmr * (data.activity_level === 'sedentary' ? 1.2 : 
+                                                   data.activity_level === 'lightly_active' ? 1.375 :
+                                                   data.activity_level === 'moderately_active' ? 1.55 : 1.725));
+            
+            const summaryHTML = `
+                <div style="text-align: center; padding: 2rem; max-width: 480px; margin: 0 auto;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
+                    <h2 style="color: #4a9eff; margin-bottom: 1rem; font-size: 1.5rem; font-weight: 700;">Your Fitness Profile is Ready!</h2>
+                    <div style="background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 16px; margin-bottom: 2rem;">
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; text-align: left;">
+                            <div style="color: white;"><strong style="color: rgba(255, 255, 255, 0.6);">BMI:</strong> ${bmi}</div>
+                            <div style="color: white;"><strong style="color: rgba(255, 255, 255, 0.6);">BMR:</strong> ${bmr} cal</div>
+                            <div style="color: white;"><strong style="color: rgba(255, 255, 255, 0.6);">Daily Calories:</strong> ${dailyCalories} cal</div>
+                            <div style="color: white;"><strong style="color: rgba(255, 255, 255, 0.6);">Protein:</strong> ${Math.round(dailyCalories * 0.3 / 4)}g</div>
+                            <div style="color: white;"><strong style="color: rgba(255, 255, 255, 0.6);">Carbs:</strong> ${Math.round(dailyCalories * 0.4 / 4)}g</div>
+                            <div style="color: white;"><strong style="color: rgba(255, 255, 255, 0.6);">Fats:</strong> ${Math.round(dailyCalories * 0.3 / 9)}g</div>
+                        </div>
+                    </div>
+                    <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 2rem; font-size: 0.9375rem;">
+                        We've created a personalized fitness plan just for you!
+                    </p>
+                    <button onclick="goToDashboard()" style="width: 100%; padding: 1rem; border-radius: 16px; font-size: 1.0625rem; font-weight: 700; background: rgba(255, 255, 255, 0.9); color: #0A1628; border: none; cursor: pointer;">
+                        Go to Dashboard
+                    </button>
+                </div>
+            `;
+            
+            const container = document.querySelector('.onboarding-container');
+            if (container) {
+                container.innerHTML = summaryHTML;
+            }
+        }
+
+        console.log('onboarding script loaded successfully');
+        console.log('nextStep function:', typeof window.nextStep);
+        console.log('prevStep function:', typeof window.prevStep);
+    </script>
+</body>
+</html>

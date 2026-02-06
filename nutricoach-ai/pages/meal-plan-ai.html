@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0A1628">
+    <title>AI Meal Plan - NutriCoach AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/mobile-redesign.css">
+    <link rel="stylesheet" href="../assets/css/dark-theme.css">
+    <link rel="stylesheet" href="../assets/css/header-dark.css">
+    <link rel="stylesheet" href="../assets/css/bottom-nav-dark.css">
+    <link rel="stylesheet" href="../assets/css/meal-plan-dark.css">
+    <style>
+        /* Completion Screen Styling */
+        .completion-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #0A1628 0%, #1a2332 100%);
+        }
+        
+        .completion-content {
+            text-align: center;
+            max-width: 500px;
+            background: rgba(26, 35, 50, 0.8);
+            padding: 3rem 2rem;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+        
+        .completion-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            animation: bounce 1s ease infinite;
+        }
+        
+        .completion-content h2 {
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .completion-content p {
+            color: #a0aec0;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .completion-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(74, 158, 255, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(74, 158, 255, 0.2);
+        }
+        
+        .stat-icon {
+            font-size: 2rem;
+        }
+        
+        .stat-label {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .btn-back {
+            background: linear-gradient(135deg, #4A9EFF 0%, #357abd 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 158, 255, 0.4);
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="dashboard.html" class="navbar-brand">
+                    <img src="../assets/images/NutriLogo.png" alt="NutriCoach" class="navbar-logo">
+                    <span>NutriCoach AI</span>
+                </a>
+                <button class="navbar-toggle" aria-label="Toggle menu">☰</button>
+                <ul class="navbar-menu">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="workout-plan-improved.html">Workouts</a></li>
+                    <li><a href="meal-tracker.html">Meals</a></li>
+                    <li><a href="progress.html">Progress</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="../index.html">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="meal-plan-container">
+        <!-- Header with Back Button -->
+        <div class="meal-plan-header">
+            <button class="back-btn" onclick="window.history.back()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <div class="header-title">
+                <h1>🍽️ AI Meal Plan</h1>
+                <p>Personalized for your goals</p>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-state" id="loadingState">
+            <div class="spinner"></div>
+            <p>Generating your personalized meal plan...</p>
+        </div>
+
+        <!-- Meal Plan Content -->
+        <div class="meal-plan-content" id="mealPlanContent" style="display: none;">
+            <!-- Daily Nutrition Summary -->
+            <div class="nutrition-summary">
+                <h3>📊 Today's Nutrition</h3>
+                <div class="nutrition-stats">
+                    <div class="stat-card">
+                        <span class="stat-icon">🔥</span>
+                        <div class="stat-info">
+                            <span class="stat-value" id="totalCalories">0</span>
+                            <span class="stat-label">/ 2000 cal</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">💪</span>
+                        <div class="stat-info">
+                            <span class="stat-value" id="totalProtein">0g</span>
+                            <span class="stat-label">Protein</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">🍞</span>
+                        <div class="stat-info">
+                            <span class="stat-value" id="totalCarbs">0g</span>
+                            <span class="stat-label">Carbs</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">🥑</span>
+                        <div class="stat-info">
+                            <span class="stat-value" id="totalFats">0g</span>
+                            <span class="stat-label">Fats</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+                </div>
+                <p class="progress-text" id="progressText">0% of daily goal</p>
+            </div>
+
+            <!-- Meals List -->
+            <div class="meals-list" id="mealsList"></div>
+
+            <!-- Complete All Button -->
+            <div class="complete-section" id="completeSection" style="display: none;">
+                <button class="btn-complete-plan" onclick="completeMealPlan()">
+                    ✅ Complete Meal Plan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="mobile-bottom-nav">
+        <a href="dashboard.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a href="workout-plan-improved.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6.5 6.5h11v11h-11z"></path>
+                <path d="M3 3v18h18"></path>
+            </svg>
+            <span>Workout</span>
+        </a>
+        <a href="chat.html" class="nav-item nav-item-center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>AI Chat</span>
+        </a>
+        <a href="meal-tracker.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                <path d="M7 2v20"></path>
+                <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0V7"></path>
+            </svg>
+            <span>Meals</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <script>
+        let currentMeals = [];
+        let completedMeals = new Set();
+        const calorieGoal = 2000;
+
+        // Static meal data for demo
+        const staticMealPlan = [
+            {
+                type: 'Breakfast',
+                name: 'Protein Power Bowl',
+                ingredients: 'Greek yogurt, mixed berries, granola, honey, chia seeds',
+                calories: 420,
+                protein: 28,
+                carbs: 52,
+                fats: 12
+            },
+            {
+                type: 'Lunch',
+                name: 'Grilled Chicken Salad',
+                ingredients: 'Grilled chicken breast, mixed greens, quinoa, avocado, olive oil, lemon',
+                calories: 580,
+                protein: 45,
+                carbs: 38,
+                fats: 22
+            },
+            {
+                type: 'Dinner',
+                name: 'Salmon with Sweet Potato',
+                ingredients: 'Atlantic salmon, sweet potato, broccoli, garlic, herbs',
+                calories: 650,
+                protein: 48,
+                carbs: 42,
+                fats: 28
+            },
+            {
+                type: 'Snack',
+                name: 'Protein Smoothie',
+                ingredients: 'Whey protein, banana, almond milk, peanut butter, ice',
+                calories: 280,
+                protein: 25,
+                carbs: 24,
+                fats: 8
+            }
+        ];
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const navToggle = document.querySelector('.navbar-toggle');
+            const navMenu = document.querySelector('.navbar-menu');
+
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
+            }
+
+            // Simulate loading and then show meal plan
+            setTimeout(() => {
+                currentMeals = staticMealPlan;
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('mealPlanContent').style.display = 'block';
+                displayMeals();
+            }, 2000);
+        });
+
+        function displayMeals() {
+            const mealsList = document.getElementById('mealsList');
+            mealsList.innerHTML = '';
+            
+            const mealIcons = {
+                'Breakfast': '🍳',
+                'Lunch': '🥗',
+                'Dinner': '🍽️',
+                'Snack': '🍎'
+            };
+            
+            currentMeals.forEach((meal, index) => {
+                const isCompleted = completedMeals.has(index);
+                const mealCard = document.createElement('div');
+                mealCard.className = `meal-card ${isCompleted ? 'completed' : ''}`;
+                mealCard.innerHTML = `
+                    <div class="meal-header">
+                        <div class="meal-type">
+                            <span class="meal-icon">${mealIcons[meal.type] || '🍴'}</span>
+                            <div>
+                                <h4>${meal.type}</h4>
+                                <p class="meal-name">${meal.name}</p>
+                            </div>
+                        </div>
+                        <button class="check-btn ${isCompleted ? 'checked' : ''}" onclick="toggleMeal(${index})">
+                            ${isCompleted ? '✓' : ''}
+                        </button>
+                    </div>
+                    <div class="meal-details">
+                        <p class="ingredients">${meal.ingredients}</p>
+                        <div class="meal-macros">
+                            <span>🔥 ${meal.calories} cal</span>
+                            <span>💪 ${meal.protein}g</span>
+                            <span>🍞 ${meal.carbs}g</span>
+                            <span>🥑 ${meal.fats}g</span>
+                        </div>
+                    </div>
+                `;
+                mealsList.appendChild(mealCard);
+            });
+            
+            updateNutritionSummary();
+            
+            if (completedMeals.size === currentMeals.length && currentMeals.length > 0) {
+                document.getElementById('completeSection').style.display = 'block';
+            } else {
+                document.getElementById('completeSection').style.display = 'none';
+            }
+        }
+
+        function toggleMeal(index) {
+            if (completedMeals.has(index)) {
+                completedMeals.delete(index);
+            } else {
+                completedMeals.add(index);
+            }
+            
+            displayMeals();
+        }
+
+        function updateNutritionSummary() {
+            let totalCal = 0, totalPro = 0, totalCarb = 0, totalFat = 0;
+            
+            completedMeals.forEach(index => {
+                const meal = currentMeals[index];
+                if (meal) {
+                    totalCal += parseInt(meal.calories) || 0;
+                    totalPro += parseInt(meal.protein) || 0;
+                    totalCarb += parseInt(meal.carbs) || 0;
+                    totalFat += parseInt(meal.fats) || 0;
+                }
+            });
+            
+            document.getElementById('totalCalories').textContent = totalCal;
+            document.getElementById('totalProtein').textContent = totalPro + 'g';
+            document.getElementById('totalCarbs').textContent = totalCarb + 'g';
+            document.getElementById('totalFats').textContent = totalFat + 'g';
+            
+            const progress = calorieGoal > 0 ? Math.min((totalCal / calorieGoal) * 100, 100) : 0;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = Math.round(progress) + '% of daily goal';
+        }
+
+        function completeMealPlan() {
+            // Show success message for demo
+            const message = '🎉 Meal Plan Completed! Great job! (+50 XP)';
+            showNotification(message, 'success');
+            
+            // Wait a moment before showing completion screen
+            setTimeout(() => {
+                document.getElementById('mealPlanContent').style.display = 'none';
+                document.getElementById('completionScreen').style.display = 'flex';
+            }, 2000);
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            const bgColor = type === 'success' ? '#4CAF50' : '#f44336';
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${bgColor};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                z-index: 10001;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                font-weight: 500;
+                max-width: 90%;
+                text-align: center;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transition = 'opacity 0.3s ease';
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+    </script>
+
+    <!-- Completion Screen (hidden by default) -->
+    <div class="completion-screen" id="completionScreen" style="display: none;">
+        <div class="completion-content">
+            <div class="completion-icon">🎉</div>
+            <h2>Meal Plan Already Completed!</h2>
+            <p>You've already completed today's meal plan!</p>
+            <div class="completion-stats">
+                <div class="stat-item">
+                    <span class="stat-icon">✅</span>
+                    <span class="stat-label">All Meals Eaten</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">🔥</span>
+                    <span class="stat-label">Come back tomorrow!</span>
+                </div>
+            </div>
+            <button class="btn-back" onclick="window.history.back()">← Back to Dashboard</button>
+        </div>
+    </div>
+</body>
+</html>

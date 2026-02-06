@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0A1628">
+    <title>Chest Workout - NutriCoach AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dark-theme.css">
+    <link rel="stylesheet" href="../assets/css/workout-session-dark.css">
+</head>
+<body class="dark-theme">
+    <div class="workout-session-container">
+        <div class="workout-session-header">
+            <button class="back-btn" onclick="window.location.href='workout-plan-improved.html'">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <div class="header-title">
+                <h1>💪 Chest Workout</h1>
+                <p>Exercise demonstrations included</p>
+            </div>
+        </div>
+
+        <div class="workout-content">
+            <div class="workout-info">
+                <div class="info-badge" id="workoutBadge">Ready to Start</div>
+                <h2>Chest Training</h2>
+                <div class="workout-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">💪</span>
+                        <span class="stat-value">6</span>
+                        <span class="stat-label">Exercises</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">⭐</span>
+                        <span class="stat-value">170</span>
+                        <span class="stat-label">XP Reward</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="start-workout-section" id="startSection">
+                <button class="btn-start-workout" id="startWorkoutBtn">🚀 Start Workout</button>
+            </div>
+
+            <div class="exercise-list" id="exerciseList">
+                <div class="exercise-card-with-demo" id="exercise-0">
+                    <div class="exercise-demo">
+                        <img src="../assets/videos/exercises/chest/bench-press.gif" alt="Bench Press" class="exercise-gif" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="exercise-placeholder" style="display: none;">
+                            <div class="placeholder-icon">🏋️</div>
+                            <div class="placeholder-name">Bench Press</div>
+                            <div class="placeholder-label">Follow the tips below</div>
+                        </div>
+                    </div>
+                    <div class="exercise-content">
+                        <div class="exercise-header">
+                            <div class="exercise-number">1</div>
+                            <div class="exercise-info">
+                                <h3>Bench Press</h3>
+                                <p>4 sets × 8-10 reps</p>
+                                <div class="exercise-tips">
+                                    <p>💡 Lower bar to chest, push up explosively</p>
+                                </div>
+                            </div>
+                            <button class="btn-check" onclick="toggleExercise(0)">✓</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card-with-demo" id="exercise-1">
+                    <div class="exercise-demo">
+                        <img src="../assets/videos/exercises/chest/incline-press.gif" alt="Incline Press" class="exercise-gif" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="exercise-placeholder" style="display: none;">
+                            <div class="placeholder-icon">🏋️</div>
+                            <div class="placeholder-name">Incline Press</div>
+                            <div class="placeholder-label">Follow the tips below</div>
+                        </div>
+                    </div>
+                    <div class="exercise-content">
+                        <div class="exercise-header">
+                            <div class="exercise-number">2</div>
+                            <div class="exercise-info">
+                                <h3>Incline Press</h3>
+                                <p>3 sets × 10-12 reps</p>
+                                <div class="exercise-tips">
+                                    <p>💡 Target upper chest, 30-45 degree angle</p>
+                                </div>
+                            </div>
+                            <button class="btn-check" onclick="toggleExercise(1)">✓</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card-with-demo" id="exercise-2">
+                    <div class="exercise-demo">
+                        <img src="../assets/videos/exercises/chest/incline-dumbbell-press.gif" alt="Incline Dumbbell Press" class="exercise-gif" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="exercise-placeholder" style="display: none;">
+                            <div class="placeholder-icon">🏋️</div>
+                            <div class="placeholder-name">Incline Dumbbell Press</div>
+                            <div class="placeholder-label">Follow the tips below</div>
+                        </div>
+                    </div>
+                    <div class="exercise-content">
+                        <div class="exercise-header">
+                            <div class="exercise-number">3</div>
+                            <div class="exercise-info">
+                                <h3>Incline Dumbbell Press</h3>
+                                <p>3 sets × 10-12 reps</p>
+                                <div class="exercise-tips">
+                                    <p>💡 Press upward at a 30–45° angle</p>
+                                </div>
+                            </div>
+                            <button class="btn-check" onclick="toggleExercise(2)">✓</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card-with-demo" id="exercise-3">
+                    <div class="exercise-demo">
+                        <img src="../assets/videos/exercises/chest/chest-press-machine.gif" alt="Machine Chest Press" class="exercise-gif" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="exercise-placeholder" style="display: none;">
+                            <div class="placeholder-icon">🏋️</div>
+                            <div class="placeholder-name">Machine Chest Press</div>
+                            <div class="placeholder-label">Follow the tips below</div>
+                        </div>
+                    </div>
+                    <div class="exercise-content">
+                        <div class="exercise-header">
+                            <div class="exercise-number">4</div>
+                            <div class="exercise-info">
+                                <h3>Machine Chest Press</h3>
+                                <p>3 sets × 10-12 reps</p>
+                                <div class="exercise-tips">
+                                    <p>💡 Adjust seat height to chest level</p>
+                                </div>
+                            </div>
+                            <button class="btn-check" onclick="toggleExercise(3)">✓</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card-with-demo" id="exercise-4">
+                    <div class="exercise-demo">
+                        <img src="../assets/videos/exercises/chest/pec-deck-fly.gif" alt="Pec Deck Fly" class="exercise-gif" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="exercise-placeholder" style="display: none;">
+                            <div class="placeholder-icon">🏋️</div>
+                            <div class="placeholder-name">Pec Deck Fly</div>
+                            <div class="placeholder-label">Follow the tips below</div>
+                        </div>
+                    </div>
+                    <div class="exercise-content">
+                        <div class="exercise-header">
+                            <div class="exercise-number">5</div>
+                            <div class="exercise-info">
+                                <h3>Pec Deck Fly</h3>
+                                <p>3 sets × 12-15 reps</p>
+                                <div class="exercise-tips">
+                                    <p>💡 Keep elbows slightly bent, squeeze in the middle</p>
+                                </div>
+                            </div>
+                            <button class="btn-check" onclick="toggleExercise(4)">✓</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-card-with-demo" id="exercise-5">
+                    <div class="exercise-demo">
+                        <img src="../assets/videos/exercises/chest/cable-fly.gif" alt="Chest Fly (Cable)" class="exercise-gif" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="exercise-placeholder" style="display: none;">
+                            <div class="placeholder-icon">🏋️</div>
+                            <div class="placeholder-name">Chest Fly (Cable)</div>
+                            <div class="placeholder-label">Follow the tips below</div>
+                        </div>
+                    </div>
+                    <div class="exercise-content">
+                        <div class="exercise-header">
+                            <div class="exercise-number">6</div>
+                            <div class="exercise-info">
+                                <h3>Chest Fly (Cable)</h3>
+                                <p>3 sets × 12-15 reps</p>
+                                <div class="exercise-tips">
+                                    <p>💡 Slight bend in elbows, squeeze chest</p>
+                                </div>
+                            </div>
+                            <button class="btn-check" onclick="toggleExercise(5)">✓</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="complete-section" id="completeSection" style="display: none;">
+                <button class="btn-complete-workout" id="completeWorkoutBtn">✅ Complete Workout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const startSection = document.getElementById('startSection');
+            const startButton = document.getElementById('startWorkoutBtn');
+            const completeButton = document.getElementById('completeWorkoutBtn');
+            const workoutBadge = document.getElementById('workoutBadge');
+            const checkButtons = Array.from(document.querySelectorAll('.btn-check'));
+
+            checkButtons.forEach(button => {
+                button.disabled = true;
+            });
+
+            startButton.addEventListener('click', () => {
+                startSection.style.display = 'none';
+                workoutBadge.textContent = 'In Progress';
+                workoutBadge.style.background = '#FF9800';
+                checkButtons.forEach(button => {
+                    button.disabled = false;
+                });
+            });
+
+            completeButton.addEventListener('click', () => {
+                showCompletionModal();
+            });
+        });
+
+        function toggleExercise(index) {
+            const button = document.querySelector(`#exercise-${index} .btn-check`);
+            const card = document.querySelector(`#exercise-${index}`);
+
+            if (button.disabled) return;
+
+            button.classList.toggle('checked');
+            card.classList.toggle('completed');
+
+            checkWorkoutCompletion();
+        }
+
+        function checkWorkoutCompletion() {
+            const total = document.querySelectorAll('.btn-check').length;
+            const completed = document.querySelectorAll('.btn-check.checked').length;
+            const completeSection = document.getElementById('completeSection');
+
+            completeSection.style.display = completed === total ? 'block' : 'none';
+        }
+
+        function showCompletionModal() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                animation: fadeIn 0.3s ease;
+            `;
+            
+            modal.innerHTML = `
+                <div style="
+                    background: linear-gradient(135deg, #1a2332 0%, #0a1628 100%);
+                    border-radius: 20px;
+                    padding: 2rem;
+                    text-align: center;
+                    max-width: 400px;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    animation: slideUp 0.3s ease;
+                ">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+                    <h2 style="color: #fff; font-size: 1.5rem; margin-bottom: 0.5rem;">Workout Complete!</h2>
+                    <p style="color: #a0aec0; margin-bottom: 1.5rem;">You earned 170 XP!</p>
+                    <button onclick="window.location.href='workout-plan-improved.html'" style="
+                        background: linear-gradient(135deg, #4a9eff 0%, #357abd 100%);
+                        color: white;
+                        border: none;
+                        padding: 0.75rem 2rem;
+                        border-radius: 10px;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                    ">Continue</button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+    </script>
+
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</body>
+</html>
