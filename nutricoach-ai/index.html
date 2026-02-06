@@ -521,6 +521,12 @@
             color: #ff6b6b;
         }
 
+        .alert-info {
+            background: rgba(74, 158, 255, 0.1);
+            border: 1px solid rgba(74, 158, 255, 0.3);
+            color: var(--accent-blue);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero-title {
@@ -680,6 +686,9 @@
                 <h3>Login to Your Account</h3>
                 <button class="modal-close" onclick="closeLoginModal()">&times;</button>
             </div>
+            <div class="demo-note alert alert-info mb-3">
+                <small><i class="fas fa-info-circle"></i> Demo Mode: Any credentials will work for login!</small>
+            </div>
             <div id="loginError" class="alert alert-error" style="display: none;"></div>
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
@@ -707,6 +716,9 @@
             <div class="modal-header">
                 <h3>Create Your Account</h3>
                 <button class="modal-close" onclick="closeSignupModal()">&times;</button>
+            </div>
+            <div class="demo-note alert alert-info mb-3">
+                <small><i class="fas fa-info-circle"></i> Demo Mode: Any credentials will work for registration!</small>
             </div>
             <div id="signupError" class="alert alert-error" style="display: none;"></div>
             <form id="signupForm" onsubmit="handleSignup(event)">
