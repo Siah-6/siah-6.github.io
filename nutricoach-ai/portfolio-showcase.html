@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriCoach AI - Portfolio Showcase</title>
+    <style>
+        /* Portfolio Showcase Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Portfolio Header */
+        .portfolio-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+            max-width: 800px;
+        }
+
+        .portfolio-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .portfolio-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Phone Frame Container */
+        .phone-showcase {
+            position: relative;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* Phone Frame */
+        .phone-frame {
+            width: 390px;
+            height: 844px;
+            background: #1a1a1a;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 
+                0 0 0 12px #2a2a2a,
+                0 0 0 14px #1a1a1a,
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 80px rgba(102, 126, 234, 0.3);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .phone-frame:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Phone Screen */
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Phone Notch */
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 28px;
+            background: #1a1a1a;
+            border-radius: 0 0 20px 20px;
+            z-index: 10;
+        }
+
+        /* Mobile App Container */
+        .mobile-app {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .mobile-app iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 32px;
+        }
+
+        /* Phone Controls */
+        .phone-controls {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Info Panel */
+        .info-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 400px;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .info-panel h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .info-panel p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .portfolio-header h1 {
+                font-size: 2rem;
+            }
+            
+            .portfolio-header p {
+                font-size: 1rem;
+            }
+            
+            .phone-frame {
+                width: 320px;
+                height: 690px;
+                padding: 10px;
+            }
+            
+            .phone-screen {
+                border-radius: 24px;
+            }
+            
+            .phone-notch {
+                width: 120px;
+                height: 24px;
+                border-radius: 0 0 16px 16px;
+            }
+            
+            .mobile-app iframe {
+                border-radius: 24px;
+            }
+            
+            .tech-stack {
+                gap: 10px;
+            }
+            
+            .tech-badge {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .phone-frame {
+                width: 280px;
+                height: 600px;
+                padding: 8px;
+            }
+            
+            .phone-screen {
+                border-radius: 20px;
+            }
+            
+            .mobile-app iframe {
+                border-radius: 20px;
+            }
+            
+            .phone-notch {
+                width: 100px;
+                height: 20px;
+                border-radius: 0 0 14px 14px;
+            }
+            
+            .control-btn {
+                padding: 10px 18px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: #0A1628;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            border: 2px solid #4A9EFF;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Portfolio Header -->
+    <div class="portfolio-header">
+        <h1>NutriCoach AI</h1>
+        <p>AI-Powered Fitness Coaching Mobile Application</p>
+        <div class="tech-stack">
+            <span class="tech-badge">HTML5</span>
+            <span class="tech-badge">CSS3</span>
+            <span class="tech-badge">JavaScript</span>
+            <span class="tech-badge">PWA</span>
+            <span class="tech-badge">Google Gemini API</span>
+        </div>
+    </div>
+
+    <!-- Phone Showcase -->
+    <div class="phone-showcase">
+        <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+                <div class="mobile-app">
+                    <div class="loading" id="loadingText">Loading App...</div>
+                    <iframe 
+                        id="appFrame"
+                        src="index.html" 
+                        onload="hideLoading()"
+                        title="NutriCoach AI Mobile App"
+                        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-top-navigation-by-user-activation">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phone Controls -->
+        <div class="phone-controls">
+            <button class="control-btn" onclick="reloadApp()">
+                🔄 Reload
+            </button>
+            <button class="control-btn" onclick="toggleFullscreen()">
+                🔍 Fullscreen
+            </button>
+            <a href="index.html" target="_blank" class="control-btn">
+                🔗 Open Direct
+            </a>
+        </div>
+    </div>
+
+    <!-- Info Panel -->
+    <div class="info-panel">
+        <h3>📱 Pure CSS Mobile Presentation</h3>
+        <p>This showcase displays the mobile app in a fixed viewport (375×812) without using any wrappers. The app maintains its original logic, routing, and asset loading while being visually constrained to mobile dimensions.</p>
+    </div>
+
+    <script>
+        // Hide loading when iframe loads
+        function hideLoading() {
+            const loadingText = document.getElementById('loadingText');
+            const appFrame = document.getElementById('appFrame');
+            
+            if (loadingText) {
+                loadingText.style.display = 'none';
+            }
+            
+            if (appFrame) {
+                appFrame.style.display = 'block';
+            }
+        }
+
+        // Reload the app
+        function reloadApp() {
+            const appFrame = document.getElementById('appFrame');
+            const loadingText = document.getElementById('loadingText');
+            
+            if (appFrame) {
+                loadingText.style.display = 'flex';
+                appFrame.style.display = 'none';
+                appFrame.src = appFrame.src; // Force reload
+            }
+        }
+
+        // Toggle fullscreen for the phone frame
+        function toggleFullscreen() {
+            const phoneFrame = document.querySelector('.phone-frame');
+            
+            if (!document.fullscreenElement) {
+                phoneFrame.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Handle iframe load errors
+        document.getElementById('appFrame').addEventListener('error', function() {
+            const loadingText = document.getElementById('loadingText');
+            if (loadingText) {
+                loadingText.textContent = 'Error loading app. Please check the file path.';
+                loadingText.style.color = '#ff6b6b';
+            }
+        });
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'r' || e.key === 'R') {
+                reloadApp();
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('NutriCoach AI Portfolio Showcase loaded');
+            console.log('Keyboard shortcuts: R - Reload, F - Fullscreen');
+        });
+    </script>
+</body>
+</html>
