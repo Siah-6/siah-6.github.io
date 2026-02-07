@@ -219,7 +219,17 @@
                     <div class="hero-project">
                         <div class="hero-project-content">
                             <div class="hero-image">
-                                <img src="images/nutri1.jpg" alt="NutriCoach AI">
+                                <div class="slideshow-container" id="nutri-slideshow">
+                                    <div class="slide">
+                                        <img src="images/nutri1.jpg" alt="NutriCoach AI - Screen 1">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/nutri2.jpg" alt="NutriCoach AI - Screen 2">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/nutri3.jpg" alt="NutriCoach AI - Screen 3">
+                                    </div>
+                                </div>
                             </div>
                             <div class="hero-info">
                                 <h3>NutriCoach AI</h3>
@@ -247,7 +257,17 @@
                         <!-- ServeIT -->
                         <div class="project-card" data-category="featured fullstack">
                             <div class="project-image">
-                                <img src="images/serve1.jpg" alt="ServeIT E-Commerce Platform">
+                                <div class="slideshow-container" id="serveit-slideshow">
+                                    <div class="slide">
+                                        <img src="images/serve1.jpg" alt="ServeIT E-Commerce Platform - Screen 1">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/serve2.jpg" alt="ServeIT E-Commerce Platform - Screen 2">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/serve3.jpg" alt="ServeIT E-Commerce Platform - Screen 3">
+                                    </div>
+                                </div>
                             </div>
                             <div class="project-content">
                                 <h3>ServeIT</h3>
@@ -271,7 +291,17 @@
                         <!-- POS System -->
                         <div class="project-card" data-category="featured fullstack">
                             <div class="project-image">
-                                <img src="images/pos1.jpg" alt="Point of Sale System">
+                                <div class="slideshow-container" id="pos-slideshow">
+                                    <div class="slide">
+                                        <img src="images/pos1.jpg" alt="Point of Sale System - Screen 1">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/pos2.jpg" alt="Point of Sale System - Screen 2">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/pos3.jpg" alt="Point of Sale System - Screen 3">
+                                    </div>
+                                </div>
                             </div>
                             <div class="project-content">
                                 <h3>POS System</h3>
@@ -295,7 +325,14 @@
                         <!-- MESY Event Manager -->
                         <div class="project-card" data-category="featured fullstack">
                             <div class="project-image">
-                                <img src="images/mesy1.jpg" alt="MESY Event Manager">
+                                <div class="slideshow-container" id="mesy-slideshow">
+                                    <div class="slide">
+                                        <img src="images/mesy1.jpg" alt="MESY Event Manager - Screen 1">
+                                    </div>
+                                    <div class="slide">
+                                        <img src="images/mesy2.jpg" alt="MESY Event Manager - Screen 2">
+                                    </div>
+                                </div>
                             </div>
                             <div class="project-content">
                                 <h3>MESY</h3>
@@ -735,21 +772,20 @@
             const slideshow = slideshows[slideshowName];
             if (!slideshow || !slideshow.container) return;
 
-            const slides = slideshow.container.querySelectorAll('.slideshow .slide');
-            const dots = slideshow.container.querySelectorAll('.slideshow-dots .dot');
+            const slides = slideshow.container.querySelectorAll('.slide');
             
             if (slides.length === 0) return;
             
             if (n > slides.length) { slideshow.index = 1 }
             if (n < 1) { slideshow.index = slides.length }
             
-            // Hide all slides
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
+            // Remove active class from all slides
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
             
-            // Show current slide
+            // Add active class to current slide
             slides[slideshow.index - 1].classList.add('active');
-            dots[slideshow.index - 1].classList.add('active');
         }
 
         function currentSlide(n, slideshowName) {
@@ -842,16 +878,41 @@
             height: 200px;
             overflow: hidden;
             border-radius: var(--radius-lg);
+            position: relative;
         }
 
-        .hero-image img {
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: var(--transition);
         }
 
-        .hero-project:hover .hero-image img {
+        .slideshow-dots {
+            display: none;
+        }
+
+        .hero-project:hover .slide img {
             transform: scale(1.05);
         }
 
@@ -904,16 +965,41 @@
         .project-image {
             height: 160px;
             overflow: hidden;
+            position: relative;
         }
 
-        .project-image img {
+        .project-image .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .project-image .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .project-image .slide.active {
+            opacity: 1;
+        }
+
+        .project-image .slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: var(--transition);
         }
 
-        .project-card:hover .project-image img {
+        .project-image .slideshow-dots {
+            display: none;
+        }
+
+        .project-card:hover .project-image .slide img {
             transform: scale(1.05);
         }
 
