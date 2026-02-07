@@ -217,6 +217,7 @@
                 <div class="section-content">
                     <!-- Hero Project - NutriCoach AI -->
                     <div class="hero-project">
+                        <div class="featured-label">Featured Project</div>
                         <div class="hero-project-content">
                             <div class="hero-image">
                                 <div class="slideshow-container" id="nutri-slideshow">
@@ -235,7 +236,8 @@
                                 <h3>NutriCoach AI</h3>
                                 <p class="hero-description">AI-powered fitness coaching platform with personalized workout and nutrition plans</p>
                                 <div class="project-tech">
-                                    <span class="tech-tag">HTML5/CSS3</span>
+                                    <span class="tech-tag">PHP</span>
+                                    <span class="tech-tag">MySQL</span>
                                     <span class="tech-tag">JavaScript</span>
                                     <span class="tech-tag">AI Integration</span>
                                     <span class="tech-tag">Mobile-First</span>
@@ -273,7 +275,8 @@
                                 <h3>ServeIT</h3>
                                 <p class="project-description">Full-featured e-commerce marketplace with shopping cart and admin dashboard</p>
                                 <div class="project-tech">
-                                    <span class="tech-tag">HTML5/CSS3</span>
+                                    <span class="tech-tag">PHP</span>
+                                    <span class="tech-tag">MySQL</span>
                                     <span class="tech-tag">JavaScript</span>
                                     <span class="tech-tag">Bootstrap 5</span>
                                 </div>
@@ -858,8 +861,35 @@
             backdrop-filter: blur(15px);
             margin-bottom: 2rem;
             transition: var(--transition);
+            position: relative;
         }
 
+        .featured-label {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, rgba(74, 158, 255, 0.3), rgba(102, 126, 234, 0.3));
+            color: #FFFFFF;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 12px rgba(74, 158, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .featured-label::before {
+            content: '⭐';
+            margin-right: 6px;
+            font-size: 0.9rem;
+            color: #FFD700;
+        }
+
+        
         .hero-project:hover {
             transform: translateY(-8px);
             box-shadow: var(--shadow-lg);
