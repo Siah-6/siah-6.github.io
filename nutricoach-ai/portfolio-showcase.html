@@ -14,22 +14,104 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #0F172A;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            overflow-x: hidden;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) {
+            width: 4px;
+            height: 4px;
+            background: #4A9EFF;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 15s;
+        }
+
+        .particle:nth-child(2) {
+            width: 6px;
+            height: 6px;
+            background: #667EEA;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+            animation-duration: 18s;
+        }
+
+        .particle:nth-child(3) {
+            width: 3px;
+            height: 3px;
+            background: #10B981;
+            top: 40%;
+            left: 60%;
+            animation-delay: 4s;
+            animation-duration: 12s;
+        }
+
+        .particle:nth-child(4) {
+            width: 5px;
+            height: 5px;
+            background: #4A9EFF;
+            top: 80%;
+            left: 20%;
+            animation-delay: 6s;
+            animation-duration: 20s;
+        }
+
+        .particle:nth-child(5) {
+            width: 4px;
+            height: 4px;
+            background: #667EEA;
+            top: 10%;
+            left: 70%;
+            animation-delay: 8s;
+            animation-duration: 16s;
+        }
+
+        .particle:nth-child(6) {
+            width: 3px;
+            height: 3px;
+            background: #10B981;
+            top: 70%;
+            left: 40%;
+            animation-delay: 10s;
+            animation-duration: 14s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px);
+            }
+            25% {
+                transform: translateY(-30px) translateX(20px);
+            }
+            50% {
+                transform: translateY(20px) translateX(-30px);
+            }
+            75% {
+                transform: translateY(-20px) translateX(30px);
+            }
         }
 
         /* Portfolio Header */
         .portfolio-header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
-            max-width: 800px;
+            display: none;
         }
 
         .portfolio-header h1 {
@@ -55,12 +137,15 @@
         }
 
         .tech-badge {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.9rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 
+                0 2px 8px rgba(0, 0, 0, 0.2),
+                inset 0 1px 2px rgba(255, 255, 255, 0.1);
         }
 
         /* Phone Frame Container */
@@ -70,27 +155,61 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
+            justify-content: center;
+            height: 100vh;
         }
 
         /* Phone Frame */
         .phone-frame {
             width: 390px;
             height: 844px;
-            background: #1a1a1a;
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
             border-radius: 40px;
             padding: 12px;
             box-shadow: 
                 0 0 0 12px #2a2a2a,
                 0 0 0 14px #1a1a1a,
-                0 20px 40px rgba(0, 0, 0, 0.4),
-                0 0 80px rgba(102, 126, 234, 0.3);
+                0 20px 40px rgba(0, 0, 0, 0.6),
+                0 0 80px rgba(74, 158, 255, 0.2),
+                0 0 120px rgba(102, 126, 234, 0.1),
+                inset 0 2px 4px rgba(255, 255, 255, 0.1);
             position: relative;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                rgba(74, 158, 255, 0.3) 0%, 
+                rgba(102, 126, 234, 0.2) 25%, 
+                rgba(16, 185, 129, 0.1) 50%, 
+                rgba(102, 126, 234, 0.2) 75%, 
+                rgba(74, 158, 255, 0.3) 100%);
+            border-radius: 40px;
+            z-index: -1;
+            opacity: 0.6;
+            animation: borderGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.8; }
         }
 
         .phone-frame:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 0 0 12px #2a2a2a,
+                0 0 0 14px #1a1a1a,
+                0 30px 60px rgba(0, 0, 0, 0.7),
+                0 0 100px rgba(74, 158, 255, 0.3),
+                0 0 150px rgba(102, 126, 234, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.15);
         }
 
         /* Phone Screen */
@@ -111,9 +230,12 @@
             transform: translateX(-50%);
             width: 150px;
             height: 28px;
-            background: #1a1a1a;
+            background: linear-gradient(180deg, #2d2d2d, #1a1a1a);
             border-radius: 0 0 20px 20px;
             z-index: 10;
+            box-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.1);
         }
 
         /* Mobile App Container */
@@ -133,16 +255,13 @@
 
         /* Phone Controls */
         .phone-controls {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
+            display: none;
         }
 
         .control-btn {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
             padding: 12px 24px;
             border-radius: 25px;
@@ -153,23 +272,22 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.2),
+                inset 0 1px 2px rgba(255, 255, 255, 0.1);
         }
 
         .control-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 24px rgba(0, 0, 0, 0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.15);
         }
 
         /* Info Panel */
         .info-panel {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 20px;
-            max-width: 400px;
-            color: white;
-            margin-top: 20px;
+            display: none;
         }
 
         .info-panel h3 {
@@ -185,14 +303,6 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .portfolio-header h1 {
-                font-size: 2rem;
-            }
-            
-            .portfolio-header p {
-                font-size: 1rem;
-            }
-            
             .phone-frame {
                 width: 320px;
                 height: 690px;
@@ -212,20 +322,11 @@
             .mobile-app iframe {
                 border-radius: 24px;
             }
-            
-            .tech-stack {
-                gap: 10px;
-            }
-            
-            .tech-badge {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
         }
 
         @media (max-width: 480px) {
             body {
-                padding: 15px;
+                padding: 10px;
             }
             
             .phone-frame {
@@ -246,11 +347,6 @@
                 width: 100px;
                 height: 20px;
                 border-radius: 0 0 14px 14px;
-            }
-            
-            .control-btn {
-                padding: 10px 18px;
-                font-size: 0.8rem;
             }
         }
 
@@ -283,18 +379,13 @@
     </style>
 </head>
 <body>
-    <!-- Portfolio Header -->
-    <div class="portfolio-header">
-        <h1>NutriCoach AI</h1>
-        <p>AI-Powered Fitness Coaching Mobile Application</p>
-        <div class="tech-stack">
-            <span class="tech-badge">HTML5</span>
-            <span class="tech-badge">CSS3</span>
-            <span class="tech-badge">JavaScript</span>
-            <span class="tech-badge">PWA</span>
-            <span class="tech-badge">Google Gemini API</span>
-        </div>
-    </div>
+    <!-- Floating Particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
 
     <!-- Phone Showcase -->
     <div class="phone-showcase">
@@ -313,25 +404,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Phone Controls -->
-        <div class="phone-controls">
-            <button class="control-btn" onclick="reloadApp()">
-                🔄 Reload
-            </button>
-            <button class="control-btn" onclick="toggleFullscreen()">
-                🔍 Fullscreen
-            </button>
-            <a href="index.html" target="_blank" class="control-btn">
-                🔗 Open Direct
-            </a>
-        </div>
-    </div>
-
-    <!-- Info Panel -->
-    <div class="info-panel">
-        <h3>📱 Pure CSS Mobile Presentation</h3>
-        <p>This showcase displays the mobile app in a fixed viewport (375×812) without using any wrappers. The app maintains its original logic, routing, and asset loading while being visually constrained to mobile dimensions.</p>
     </div>
 
     <script>
